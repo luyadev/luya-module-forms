@@ -1,26 +1,26 @@
 {
-	"name" : "VENDOR/NAME",
-	"description" : "",
-	"type" : "luya-extension",
+	"name" : "luya/luya-module-forms",
+	"description" : "A form builder module for LUYA CMS.",
+	"type" : "luya-module",
 	"keywords" : ["luya"],
 	"license": "MIT",
 	"authors" : [
 		{
-			"name": "",
-			"email": ""
+			"name": "Basil Suter",
+			"email": "git@nadar.io"
 		}
 	],
 	"require-dev" : {
-	    "luyadev/luya-testsuite" : "~1.0.0"
+	    "luyadev/luya-testsuite" : "^1.0"
 	},
 	"autoload" : {
 		"psr-4" : {
-			"VENDOR\\NAME\\" : "src/"
+			"luya\\forms\\" : "src/"
 		}
 	},
 	"autoload-dev" : {
        "psr-4" : {
-           "VENDOR\\NAME\\tests\\" : "tests/"
+           "luya\\forms\\tests\\" : "tests/"
        }
     }
 }
