@@ -10,6 +10,9 @@
 			"email": "git@nadar.io"
 		}
 	],
+	"require": {
+		"luyadev/luya-module-admin" : "^3.0"
+	},
 	"require-dev" : {
 	    "luyadev/luya-testsuite" : "^1.0"
 	},
@@ -22,5 +25,17 @@
        "psr-4" : {
            "luya\\forms\\tests\\" : "tests/"
        }
-    }
+	},
+	
+    "config": {
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
