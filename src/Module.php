@@ -2,7 +2,7 @@
 
 namespace luya\forms;
 
-class Module extends \luya\admin\Module
+class Module extends \luya\admin\base\Module
 {
-    
+
 }

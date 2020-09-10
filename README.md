@@ -21,7 +21,7 @@ Add the module to the config
 
 ```
 'modules' => [
-  'formsadmin' => 'luya\forms\Module'
+  'forms' => 'luya\forms\Module'
 ]
 ```
 
