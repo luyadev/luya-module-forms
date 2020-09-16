@@ -2,6 +2,7 @@
 
 namespace luya\forms\blocks;
 
+use luya\cms\base\BlockInterface;
 use Yii;
 use luya\cms\base\PhpBlock;
 use luya\cms\frontend\blockgroups\ProjectGroup;
@@ -35,14 +36,6 @@ class FormBlock extends PhpBlock
     public function setup()
     {
         Yii::$app->forms->startForm(Yii::$app->forms->activeFormClass::begin());
-
-
-        $formData = Yii::$app->forms->getFormData();
-        
-        if (!empty($formData)) {
-            Yii::$app->forms->model->attributes = $formData;
-            Yii::$app->forms->model->validate();
-        }
     }
 
     /**
@@ -108,11 +101,18 @@ class FormBlock extends PhpBlock
         ];
     }
 
-    public function getModels()
+    public function isSubmit()
     {
         $isSubmit = Yii::$app->request->get('submit', false);
+
+        return $isSubmit && $isSubmit == $this->getVarValue('formId');
+    }
+
+    public function getModels()
+    {
+        $isSubmit = $this->isSubmit();
         $data = Yii::$app->forms->getFormData();
-        if ($isSubmit && $isSubmit == $this->getVarValue('formId') && !empty($data)) {
+        if ($isSubmit &&  !empty($data)) {
             Yii::$app->forms->model->attributes = $data;
             if (Yii::$app->forms->model->validate()) {
 
@@ -140,5 +140,16 @@ class FormBlock extends PhpBlock
     public function admin()
     {
         return;
+    }
+
+    public function placeholderRenderIteration(BlockInterface $block)
+    {
+        if ($this->isSubmit()) {
+            if (Yii::$app->forms->model->load(Yii::$app->request->post()) && Yii::$app->forms->model->validate()) {
+                Yii::$app->forms->setFormData(Yii::$app->forms->model->attributes);
+            }
+        }
+
+        return $block->renderFrontend();
     }
 }

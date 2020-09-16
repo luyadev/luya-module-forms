@@ -46,8 +46,9 @@ class SummaryBlock extends PhpBlock
     public function frontend()
     {
         $html = null;
-        foreach(Yii::$app->forms->model->attributes as $k => $v) {
-            $html .= StringHelper::template($this->template, ['label' => $k, 'value' => $v]);
+        $model = Yii::$app->forms->model;
+        foreach($model->attributes as $k => $v) {
+            $html .= StringHelper::template($this->template, ['label' => $model->getAttributeLabel($k), 'value' => $v]);
         }
 
         return $html;

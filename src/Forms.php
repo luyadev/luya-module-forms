@@ -18,7 +18,7 @@ class Forms extends Component
 
     public $model;
 
-    public $sessionDataName = '__formData';
+    public $sessionFormDataName = '__formData';
 
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
@@ -47,12 +47,21 @@ class Forms extends Component
 
     public function setFormData(array $data)
     {
-        Yii::$app->session->set($this->sessionDataName, $data);
+        Yii::$app->session->set($this->sessionFormDataName, $data);
+
+        // @TODO require or not? remove loadModel or handling all data trough load model
+        $this->loadModel($data);
     }
 
     public function getFormData()
     {
-        return ArrayHelper::typeCast(Yii::$app->session->get($this->sessionDataName, []));
+        return ArrayHelper::typeCast(Yii::$app->session->get($this->sessionFormDataName, []));
+    }
+
+    public function setFormAttributeInfo($attribute, $label, $hint)
+    {
+        $this->model->attributeLabels[$attribute] = $label;
+        $this->model->attributeHints[$attribute] = $hint;
     }
 
     public function formDataAttribute($attributeName)
@@ -71,13 +80,15 @@ class Forms extends Component
         $model->url = Yii::$app->request->url;
         
         if ($model->save()) {
-            foreach ($this->getFormData() as $label => $value) {
+            foreach ($this->getFormData() as $attribute => $value) {
                 $submissionValue = new SubmissionValue();
                 $submissionValue->submission_id = $model->id;
-                $submissionValue->attribute = $label;
-                $submissionValue->label = $label;
+                $submissionValue->attribute = $attribute;
+                $submissionValue->label = $this->model->getAttributeLabel($attribute);
+                $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
                 $submissionValue->value = $value;
                 $submissionValue->save();
+                
             }
         }
 
@@ -97,18 +108,24 @@ class Forms extends Component
         }
     }
 
+    public function loadModel($formData)
+    {
+        $this->model->attributes = $formData;
+        $this->model->validate();
+    }
+
     public function removeFormData()
     {
-        Yii::$app->session->remove($this->sessionDataName);
+        Yii::$app->session->remove($this->sessionFormDataName);
     }
 
     public function startForm(ActiveForm $form)
     {
         $this->form = $form;
-        $this->model = new DynamicModel();
+        $this->model = new FormsModel();
     }
 
-    public function autoConfigureAttribute($attributeName, $rule, $isRequired)
+    public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null)
     {
         $this->addAttribute($attributeName, $rule);
 
@@ -121,6 +138,8 @@ class Forms extends Component
         if (!empty($value)) {
             $this->attributeValue($attributeName, $value);
         }
+
+        $this->setFormAttributeInfo($attributeName, $label, $hint);
     }
 
     public function addAttribute($attributeName, $rule = 'safe')

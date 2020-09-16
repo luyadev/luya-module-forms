@@ -59,7 +59,7 @@ class SubmissionValue extends NgRestModel
             [['submission_id'], 'integer'],
             [['attribute', 'label'], 'required'],
             [['value'], 'string'],
-            [['attribute', 'label', 'hint'], 'string', 'max' => 255],
+            [['attribute', 'label', 'hint'], 'string', 'max' => 255, 'skipOnEmpty' => true, 'strict' => false],
         ];
     }
 
