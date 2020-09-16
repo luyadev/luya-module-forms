@@ -112,7 +112,7 @@ class FormBlock extends PhpBlock
     {
         $isSubmit = Yii::$app->request->get('submit', false);
         $data = Yii::$app->forms->getFormData();
-        if ($isSubmit && !empty($data)) {
+        if ($isSubmit && $isSubmit == $this->getVarValue('formId') && !empty($data)) {
             Yii::$app->forms->model->attributes = $data;
             if (Yii::$app->forms->model->validate()) {
 

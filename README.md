@@ -21,7 +21,9 @@ Add the module to the config
 
 ```
 'modules' => [
-  'forms' => 'luya\forms\Module'
+  'forms' => [
+    'class' => 'luya\forms\Module',
+  ]
 ]
 ```
 
