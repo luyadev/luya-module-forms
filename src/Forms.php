@@ -17,6 +17,4 @@ class Forms extends Component
         $this->form = $form;
         $this->model = new DynamicModel();
     }
-
-
 }

@@ -5,6 +5,7 @@ namespace luya\forms\blocks;
 use Yii;
 use luya\cms\base\PhpBlock;
 use luya\cms\frontend\blockgroups\ProjectGroup;
+use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
 
 /**
@@ -21,18 +22,12 @@ class TextBlock extends PhpBlock
      */
     public $module = 'forms';
 
-    public function init()
-    {
-        parent::init();
-
-    }
-
     /**
      * @inheritDoc
      */
     public function blockGroup()
     {
-        return ProjectGroup::class;
+        return FormGroup::class;
     }
 
     /**
@@ -48,7 +43,7 @@ class TextBlock extends PhpBlock
      */
     public function icon()
     {
-        return 'wysiwyg'; // see the list of icons on: https://design.google.com/icons/
+        return 'message'; // see the list of icons on: https://design.google.com/icons/
     }
     
     /**

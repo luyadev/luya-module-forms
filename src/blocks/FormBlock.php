@@ -6,6 +6,7 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\cms\frontend\blockgroups\ProjectGroup;
 use luya\cms\helpers\BlockHelper;
+use luya\forms\blockgroups\FormGroup;
 use luya\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
@@ -29,10 +30,8 @@ class FormBlock extends PhpBlock
 
     public $review = false;
 
-    public function init()
+    public function setup()
     {
-        parent::init();
-
         Yii::$app->forms->startForm(ActiveForm::begin());
 
 
@@ -49,7 +48,7 @@ class FormBlock extends PhpBlock
      */
     public function blockGroup()
     {
-        return ProjectGroup::class;
+        return FormGroup::class;
     }
 
     /**
