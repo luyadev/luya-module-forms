@@ -6,7 +6,9 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\cms\frontend\blockgroups\ProjectGroup;
 use luya\cms\helpers\BlockHelper;
+use luya\cms\injectors\ActiveQuerySelectInjector;
 use luya\forms\blockgroups\FormGroup;
+use luya\forms\models\Form;
 use luya\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
@@ -32,13 +34,13 @@ class FormBlock extends PhpBlock
 
     public function setup()
     {
-        Yii::$app->forms->startForm(ActiveForm::begin());
+        Yii::$app->forms->startForm(Yii::$app->forms->activeFormClass::begin());
 
 
-        $formData = Yii::$app->session->get('formData', []);
+        $formData = Yii::$app->forms->getFormData();
         
         if (!empty($formData)) {
-            Yii::$app->forms->model->attributes = ArrayHelper::typeCast($formData);
+            Yii::$app->forms->model->attributes = $formData;
             Yii::$app->forms->model->validate();
         }
     }
@@ -64,7 +66,19 @@ class FormBlock extends PhpBlock
      */
     public function icon()
     {
-        return 'extension'; // see the list of icons on: https://design.google.com/icons/
+        return 'dynamic_form'; // see the list of icons on: https://design.google.com/icons/
+    }
+
+    public function injectors()
+    {
+        return [
+            'formId' => new ActiveQuerySelectInjector([
+                'query' => Form::find(),
+                'label' => 'title',
+                'type' => self::INJECTOR_VAR,
+                'varLabel' => 'Form',
+            ])
+        ];
     }
  
     /**
@@ -73,11 +87,15 @@ class FormBlock extends PhpBlock
     public function config()
     {
         return [
-            'vars' => [
-                 ['var' => 'formId', 'label' => 'Form', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([1 => 'Label for 1'])],
+            'cfgs' => [
+                ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Vorschau Label'],
+                ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Formular'],
+                ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Zurück Button Vorschau Label'],
             ],
             'placeholders' => [
-                 ['var' => 'content', 'label' => 'Inhalt'],
+                 ['var' => 'content', 'label' => 'Form'],
+                 ['var' => 'success', 'label' => 'Success'],
+                 ['var' => 'preview', 'label' => 'Preview'],
             ],
         ];
     }
@@ -93,14 +111,14 @@ class FormBlock extends PhpBlock
     public function getModels()
     {
         $isSubmit = Yii::$app->request->get('submit', false);
-        $data = Yii::$app->session->get('formData');
+        $data = Yii::$app->forms->getFormData();
         if ($isSubmit && !empty($data)) {
             Yii::$app->forms->model->attributes = $data;
             if (Yii::$app->forms->model->validate()) {
-                // store values as submission
 
-                Yii::$app->session->remove('formData');
-
+                Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')));
+                Yii::$app->forms->removeFormData();
+                // set flash, redirect and end app
                 Yii::$app->session->setFlash('formDataSuccess');
                 Yii::$app->response->refresh();
                 
@@ -108,7 +126,7 @@ class FormBlock extends PhpBlock
             }
         }
         if (Yii::$app->forms->model->load(Yii::$app->request->post()) && Yii::$app->forms->model->validate()) {
-            Yii::$app->session->set('formData', Yii::$app->forms->model->attributes);
+            Yii::$app->forms->setFormData(Yii::$app->forms->model->attributes);
             $this->review = true;
         }
     }
@@ -121,6 +139,6 @@ class FormBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<h1>FORM</h1><p>{{vars.formId}}</p>';
+        return;
     }
 }

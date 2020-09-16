@@ -4,7 +4,6 @@ namespace luya\forms\blocks;
 
 use Yii;
 use luya\cms\base\PhpBlock;
-use luya\cms\frontend\blockgroups\ProjectGroup;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
 
@@ -16,11 +15,6 @@ use luya\forms\FieldBlockTrait;
 class TextBlock extends PhpBlock
 {
     use FieldBlockTrait;
-    
-    /**
-     * @var string The module where this block belongs to in order to find the view files.
-     */
-    public $module = 'forms';
 
     /**
      * @inheritDoc
@@ -43,7 +37,7 @@ class TextBlock extends PhpBlock
      */
     public function icon()
     {
-        return 'message'; // see the list of icons on: https://design.google.com/icons/
+        return 'message';
     }
     
     /**
@@ -55,6 +49,16 @@ class TextBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<p>{{vars.label}}</p>';
+        return '<p>Text {{vars.label}}</p>';
+    }
+
+    public function frontend()
+    {
+        Yii::$app->forms->autoConfigureAttribute($this->getVarValue('attribute'), $this->getVarValue('rule', 'safe'), $this->getVarValue('isRequired'));
+
+        return Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue('attribute'))
+            ->textInput()
+            ->label($this->getVarValue('label'))
+            ->hint($this->getVarValue('hint'));
     }
 }

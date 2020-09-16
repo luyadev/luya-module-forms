@@ -14,7 +14,8 @@ class m200910_114548_basetables extends Migration
     {
         $this->createTable('{{%forms_form}}', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(),
+            'title' => $this->text()->notNull(),
+            'recipients' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'created_by' => $this->integer(),
@@ -25,6 +26,9 @@ class m200910_114548_basetables extends Migration
             'id' => $this->primaryKey(),
             'form_id' => $this->integer()->notNull(),
             'useragent' => $this->string(),
+            'language' => $this->string(),
+            'url' => $this->string(),
+            'is_done' => $this->boolean()->defaultValue(false),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ]);

@@ -11,22 +11,20 @@
  */
 
 use luya\helpers\Html;
+use luya\helpers\StringHelper;
 
 ?>
 
 <?php if (Yii::$app->session->getFlash('formDataSuccess')): ?>
-    <div class="alert alert-success">Super, success!</div>
+    <?= $this->placeholderValue('success'); ?>
 <?php else: ?>
     <div style="border:1px solid red; padding:10px; margin:10px">
         <?php if ($this->extraValue('review')): ?>
-            <p class="lead">Confirm</p>
-            <?php foreach(Yii::$app->forms->model->attributes as $k => $v): ?>
-                <p><?= $k; ?>: <?= $v; ?></p>
-            <?php endforeach; ?>
-            <?= Html::a('Edit Data', '?reload'); ?> | <?= Html::a('Submit', '?submit=1'); ?>
+            <?= $this->placeholderValue('preview'); ?>
+            <?= Html::a($this->cfgValue('previewBackButtonLabel', 'Zurück'), '?reload', Yii::$app->forms->backButtonOptions); ?> | <?= Html::a($this->cfgValue('previewSubmitButtonLabel', 'Senden'), '?submit=1', Yii::$app->forms->submitButtonsOptions); ?>
         <?php else: ?>
             <?= $this->placeholderValue('content'); ?>
-            <?= Html::submitButton('Senden'); ?>
+            <?= Html::submitButton('Senden', Yii::$app->forms->submitButtonsOptions); ?>
         <?php endif; ?>
     </div>
 <?php endif; ?>
