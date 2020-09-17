@@ -14,7 +14,11 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property integer $id
  * @property text $title
+ * @property text $subject
+ * @property text $copy_to_attribute
  * @property text $recipients
+ * @property text $email_intro
+ * @property text $email_outro
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $created_by
@@ -25,7 +29,7 @@ class Form extends NgRestModel
     /**
      * @inheritdoc
      */
-    public $i18n = ['title'];
+    public $i18n = ['title', 'subject', 'email_intro', 'email_outro'];
 
     /**
      * @inheritdoc
@@ -59,6 +63,10 @@ class Form extends NgRestModel
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
+            'subject' => 'Subject',
+            'copy_to_attribute' => 'Copy an Attribute',
+            'email_intro' => 'E-Mail intro',
+            'email_outro' => 'E-Mail Outro',
             'recipients' => Yii::t('app', 'Recipients'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -74,7 +82,7 @@ class Form extends NgRestModel
     {
         return [
             [['title'], 'required'],
-            [['title', 'recipients'], 'string'],
+            [['title', 'recipients', 'subject', 'copy_to_attribute', 'email_intro', 'email_outro'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
         ];
     }
@@ -86,7 +94,11 @@ class Form extends NgRestModel
     {
         return [
             'title' => 'text',
+            'subject' => 'text',
             'recipients' => 'textArray',
+            'copy_to_attribute' => 'text',
+            'email_intro' => 'textarea',
+            'email_outro' => 'textarea',
             'created_at' => 'number',
             'updated_at' => 'number',
             'created_by' => 'number',
@@ -101,8 +113,17 @@ class Form extends NgRestModel
     {
         return [
             ['list', ['title', 'recipients']],
-            [['create', 'update'], ['title', 'recipients']],
+            [['create', 'update'], ['title', 'recipients', 'subject', 'copy_to_attribute', 'email_intro', 'email_outro']],
             ['delete', false],
+        ];
+    }
+
+    public function attributeHints()
+    {
+        return [
+            'subject' => 'Betreffe des E-Mails. Wenn nichts angegeben wird, wird der Titel des Forms verwendet',
+            'copy_to_attribute' => 'Wenn definiert und das Attribute im Formular vorhanden ist, wird der Wert des angegeben Felds auch zu der Empfänger Liste hinzugefügt.',
+            'email_intro' => 'Wenn definiert wird diese verwendet für Email das intro, alle verfügbaren variabeln können mittels {{attribute}} verwendet werden.',
         ];
     }
 }

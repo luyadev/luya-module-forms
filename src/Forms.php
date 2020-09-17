@@ -8,6 +8,7 @@ use luya\forms\models\Form;
 use luya\forms\models\Submission;
 use luya\forms\models\SubmissionValue;
 use luya\helpers\ArrayHelper;
+use luya\helpers\StringHelper;
 use Yii;
 use yii\base\Component;
 use yii\widgets\ActiveForm;
@@ -35,7 +36,11 @@ class Forms extends Component
      *    // an example to use mailjet instead
      *    Yii::$app->mailer->compose()
      *        ->setTemplate(484590)
-     *        ->setVariables(['html' => $email->getSummaryHtml()])
+     *        ->setVariables([
+     *          'html' => $email->getSummaryHtml(),
+     *          'intro' => $email->getIntro(),
+     *          'outro' => $email->getOutro(),
+     *        ])
      *        ->setTo($email->getRecipients())
      *        ->send();
      * }
@@ -44,6 +49,8 @@ class Forms extends Component
      * If not defined, the Forms component will use the {{luya\components\Mail}} to compose and send a message with a standard template.
      */
     public $emailMessage;
+
+    public $defaultEmailTemplate = '<p>{{intro}}</p>{{summary}}<p>{{outro}}</p>';
 
     public function setFormData(array $data)
     {
@@ -98,7 +105,13 @@ class Forms extends Component
             call_user_func($this->emailMessage, $submissionEmail, $this);
         } else {
             $mail = Yii::$app->mail
-                ->compose($submissionEmail->getSubject(), $submissionEmail->getSummaryHtml())
+                ->compose($submissionEmail->getSubject(), 
+                    StringHelper::template($this->defaultEmailTemplate, [
+                        'intro' => $submissionEmail->getIntro(),
+                        'outro' => $submissionEmail->getOutro(),
+                        'summary' => $submissionEmail->getSummaryHtml()
+                    ])
+                )
                 ->addresses($submissionEmail->getRecipients())
                 ->send();
 

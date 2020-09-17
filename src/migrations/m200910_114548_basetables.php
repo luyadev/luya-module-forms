@@ -15,6 +15,10 @@ class m200910_114548_basetables extends Migration
         $this->createTable('{{%forms_form}}', [
             'id' => $this->primaryKey(),
             'title' => $this->text()->notNull(),
+            'subject' => $this->text(),
+            'email_intro' => $this->text(),
+            'email_outro' => $this->text(),
+            'copy_to_attribute' => $this->string(),
             'recipients' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),

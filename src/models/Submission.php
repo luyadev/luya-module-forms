@@ -4,6 +4,7 @@ namespace luya\forms\models;
 
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\forms\Forms;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -19,6 +20,9 @@ use yii\behaviors\TimestampBehavior;
  * @property int $is_done
  * @property integer $created_at
  * @property integer $updated_at
+ * 
+ * @property Form $form
+ * @property SubmissionValue[] $values
  */
 class Submission extends NgRestModel
 {
@@ -62,6 +66,9 @@ class Submission extends NgRestModel
         ];
     }
 
+    /**
+     * @return Form
+     */
     public function getForm()
     {
         return $this->hasOne(Form::class, ['id' => 'form_id']);
@@ -107,6 +114,9 @@ class Submission extends NgRestModel
         ];
     }
 
+    /**
+     * @return SubmissionValue[]
+     */
     public function getValues()
     {
         return $this->hasMany(SubmissionValue::class, ['submission_id' => 'id']);
