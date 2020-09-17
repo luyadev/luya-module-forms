@@ -35,6 +35,17 @@ class SubmissionValue extends NgRestModel
         return 'api-forms-submissionvalue';
     }
 
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_BEFORE_VALIDATE, function() {
+            if (is_array($this->value)) {
+                $this->value = implode(", ", $this->value);
+            }
+        });
+    }
+
     /**
      * @inheritdoc
      */
