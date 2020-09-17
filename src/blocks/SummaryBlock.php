@@ -11,6 +11,7 @@ class SummaryBlock extends PhpBlock
 {
     public $template = '<p>{{label}}: {{value}}</p>';
 
+    public $isContainer = false;
 
     public function blockGroup()
     {
@@ -35,7 +36,7 @@ class SummaryBlock extends PhpBlock
 
     public function admin()
     {
-        return 'The Summary of the Data';
+        return '<div class="alert alert-info border-0 text-center">Summary / Preview</div>';
     }
 
     public function name()

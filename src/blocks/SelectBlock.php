@@ -4,6 +4,7 @@ namespace luya\forms\blocks;
 
 use Yii;
 use luya\cms\base\PhpBlock;
+use luya\cms\helpers\BlockHelper;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
 use luya\helpers\ArrayHelper;
@@ -13,7 +14,7 @@ use luya\helpers\ArrayHelper;
  *
  * File has been created with `block/create` command. 
  */
-class TextBlock extends PhpBlock
+class SelectBlock extends PhpBlock
 {
     use FieldBlockTrait { config as parentConfig; }
 
@@ -30,7 +31,7 @@ class TextBlock extends PhpBlock
      */
     public function name()
     {
-        return 'Text';
+        return 'Select';
     }
     
     /**
@@ -38,16 +39,29 @@ class TextBlock extends PhpBlock
      */
     public function icon()
     {
-        return 'message';
+        return 'radio_button_checked';
     }
 
     public function config()
     {
-        return ArrayHelper::merge($this->parentConfig(), [
+        return ArrayHelper::merge([
             'vars' => [
-                ['var' => 'isTextarea', 'label' => 'Mehrzeilige Eingabe', 'type' => self::TYPE_CHECKBOX]
-            ]
-        ]);
+                [
+                    'var' => 'type',
+                    'label' => 'Type',
+                    'type' => self::TYPE_RADIO,
+                    'options' => BlockHelper::radioArrayOption([
+                        1 => 'Dropdown Select',
+                        2 => 'Radio List',
+                    ])
+                ],
+                [
+                    'var' => 'values',
+                    'label' => 'Values',
+                    'type' => self::TYPE_LIST_ARRAY
+                ]
+            ],
+        ], $this->parentConfig());
     }
     
     /**
@@ -59,7 +73,7 @@ class TextBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">Text</span></div>';
+        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">Select</span></div>';
     }
 
     public function frontend()
@@ -74,6 +88,8 @@ class TextBlock extends PhpBlock
 
         $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
 
-        return $this->getVarValue('isTextarea') ? $activeField->textArea() : $activeField->textInput();
+        $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
+
+        return $this->getVarValue('type') == 1 ? $activeField->dropDownList($values, ['prompt' => '-']) : $activeField->radioList($values);
     }
 }
