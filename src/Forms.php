@@ -121,8 +121,14 @@ class Forms extends Component
         }
     }
 
+    private $_isLoaded = false;
+
     public function loadModel()
     {
+        if ($this->_isLoaded) {
+            return true;
+        }
+        
         if (!Yii::$app->request->isPost) {
             return false;
         }
@@ -130,6 +136,7 @@ class Forms extends Component
         $this->model->load(Yii::$app->request->post());
         if ($this->model->validate()) {
             $this->setFormData($this->model->attributes);
+            $this->_isLoaded = true;
             return true;
         }
 
