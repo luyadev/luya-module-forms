@@ -6,6 +6,7 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
+use luya\helpers\ArrayHelper;
 
 /**
  * Text Block.
@@ -14,7 +15,7 @@ use luya\forms\FieldBlockTrait;
  */
 class TextBlock extends PhpBlock
 {
-    use FieldBlockTrait;
+    use FieldBlockTrait { config as parentConfig; }
 
     /**
      * @inheritDoc
@@ -39,6 +40,15 @@ class TextBlock extends PhpBlock
     {
         return 'message';
     }
+
+    public function config()
+    {
+        return ArrayHelper::merge($this->parentConfig(), [
+            'vars' => [
+                ['var' => 'isTextarea', 'label' => 'Mehrzeilige Eingabe', 'type' => self::TYPE_CHECKBOX]
+            ]
+        ]);
+    }
     
     /**
      * {@inheritDoc} 
@@ -62,7 +72,8 @@ class TextBlock extends PhpBlock
             $this->getVarValue($this->varHint)
         );
 
-        return Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute))
-            ->textInput();
+        $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
+
+        return $this->getVarValue('isTextarea') ? $activeField->textArea() : $activeField->textInput();
     }
 }
