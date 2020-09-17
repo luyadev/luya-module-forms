@@ -1,5 +1,5 @@
 {
-	"name" : "luya/luya-module-forms",
+	"name" : "luyadev/luya-module-forms",
 	"description" : "A form builder module for LUYA CMS.",
 	"type" : "luya-module",
 	"keywords" : ["luya"],
