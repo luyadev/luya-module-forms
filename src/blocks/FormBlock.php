@@ -112,7 +112,7 @@ class FormBlock extends PhpBlock
     {
         $isSubmit = $this->isSubmit();
         $data = Yii::$app->forms->getFormData();
-        if ($isSubmit &&  !empty($data)) {
+        if ($isSubmit && !empty($data)) {
             Yii::$app->forms->model->attributes = $data;
             if (Yii::$app->forms->model->validate()) {
 
@@ -125,8 +125,8 @@ class FormBlock extends PhpBlock
                 return Yii::$app->end();
             }
         }
-        if (Yii::$app->forms->model->load(Yii::$app->request->post()) && Yii::$app->forms->model->validate()) {
-            Yii::$app->forms->setFormData(Yii::$app->forms->model->attributes);
+
+        if (Yii::$app->forms->loadModel()) {
             $this->review = true;
         }
     }
@@ -140,16 +140,5 @@ class FormBlock extends PhpBlock
     public function admin()
     {
         return;
-    }
-
-    public function placeholderRenderIteration(BlockInterface $block)
-    {
-        if ($this->isSubmit()) {
-            if (Yii::$app->forms->model->load(Yii::$app->request->post()) && Yii::$app->forms->model->validate()) {
-                Yii::$app->forms->setFormData(Yii::$app->forms->model->attributes);
-            }
-        }
-
-        return $block->renderFrontend();
     }
 }

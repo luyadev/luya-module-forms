@@ -45,6 +45,7 @@ class SummaryBlock extends PhpBlock
 
     public function frontend()
     {
+        Yii::$app->forms->loadModel();
         $html = null;
         $model = Yii::$app->forms->model;
         foreach($model->attributes as $k => $v) {

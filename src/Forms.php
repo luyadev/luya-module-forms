@@ -17,6 +17,9 @@ class Forms extends Component
 {
     public $form;
 
+    /**
+     * @var FormsModel
+     */
     public $model;
 
     public $sessionFormDataName = '__formData';
@@ -52,12 +55,9 @@ class Forms extends Component
 
     public $defaultEmailTemplate = '<p>{{intro}}</p>{{summary}}<p>{{outro}}</p>';
 
-    public function setFormData(array $data)
+    protected function setFormData(array $data)
     {
         Yii::$app->session->set($this->sessionFormDataName, $data);
-
-        // @TODO require or not? remove loadModel or handling all data trough load model
-        $this->loadModel($data);
     }
 
     public function getFormData()
@@ -121,10 +121,19 @@ class Forms extends Component
         }
     }
 
-    public function loadModel($formData)
+    public function loadModel()
     {
-        $this->model->attributes = $formData;
-        $this->model->validate();
+        if (!Yii::$app->request->isPost) {
+            return false;
+        }
+
+        $this->model->load(Yii::$app->request->post());
+        if ($this->model->validate()) {
+            $this->setFormData($this->model->attributes);
+            return true;
+        }
+
+        return false;
     }
 
     public function removeFormData()
