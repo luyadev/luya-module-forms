@@ -38,3 +38,39 @@ Run the import command afterwards:
 ```sh
 ./luya import
 ```
+
+## Create Custom Form Field Blocks
+
+The default blocks may not suit your use case, therefore its very easy to create your own from input block:
+
+```php
+class MyDropDownBlock extends PhpBlock
+{
+    use FieldBlockTrait;
+    
+    public function name()
+    {
+        return 'Dropdown';
+    }
+
+    public function admin()
+    {
+        return '<p>My Dropdown {{vars.label}}</p>';
+    }
+
+    public function frontend()
+    {
+        Yii::$app->forms->autoConfigureAttribute(
+            $this->getVarValue($this->varAttribute),
+            $this->getVarValue($this->varRule, $this->defaultRule), 
+            $this->getVarValue($this->varIsRequired),
+            $this->getVarValue($this->varLabel),
+            $this->getVarValue($this->varHint)
+        );
+
+        // Use all possible options with ActiveField or use the HtmlHelper
+        return Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute))
+            ->dropDownList([1 => 'Foo', 2 => 'Bar']);
+    }
+}
+```

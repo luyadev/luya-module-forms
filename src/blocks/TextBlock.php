@@ -55,14 +55,14 @@ class TextBlock extends PhpBlock
     public function frontend()
     {
         Yii::$app->forms->autoConfigureAttribute(
-            $this->getVarValue('attribute'),
-            $this->getVarValue('rule', 'safe'), 
-            $this->getVarValue('isRequired'),
-            $this->getVarValue('label'),
-            $this->getVarValue('hint')
+            $this->getVarValue($this->varAttribute),
+            $this->getVarValue($this->varRule, $this->defaultRule), 
+            $this->getVarValue($this->varIsRequired),
+            $this->getVarValue($this->varLabel),
+            $this->getVarValue($this->varHint)
         );
 
-        return Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue('attribute'))
+        return Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute))
             ->textInput();
     }
 }

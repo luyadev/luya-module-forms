@@ -6,6 +6,18 @@ use luya\cms\helpers\BlockHelper;
 
 trait FieldBlockTrait
 {
+    public $defaultRule = 'safe';
+
+    public $varAttribute = 'attribute';
+
+    public $varLabel = 'label';
+
+    public $varHint = 'hint';
+
+    public $varRule = 'rule';
+
+    public $varIsRequired = 'isRequired';
+
     /**
      * @inheritDoc
      */
@@ -13,17 +25,17 @@ trait FieldBlockTrait
     {
         return [
             'vars' => [
-                 ['var' => 'attribute', 'label' => 'Attribute', 'type' => self::TYPE_TEXT],
-                 ['var' => 'label', 'label' => 'Label', 'type' => self::TYPE_TEXT],
-                 ['var' => 'hint', 'label' => 'Hint', 'type' => self::TYPE_TEXTAREA],
-                 ['var' => 'rule', 'label' => 'Validation Regel', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
+                 ['var' => $this->varAttribute, 'label' => 'Attribute', 'type' => self::TYPE_TEXT],
+                 ['var' => $this->varLabel, 'label' => 'Label', 'type' => self::TYPE_TEXT],
+                 ['var' => $this->varHint, 'label' => 'Hint', 'type' => self::TYPE_TEXTAREA],
+                 ['var' => $this->varRule, 'label' => 'Validation Regel', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
                      'safe' => 'Alles (Safe)',
                      'string' => 'String',
                      'number' => 'Number',
                      'integer' => 'Integer',
                      'email' => 'Email',
                  ])],
-                 ['var' => 'isRequired', 'label' => 'Required', 'type' => self::TYPE_CHECKBOX],
+                 ['var' => $this->varIsRequired, 'label' => 'Required', 'type' => self::TYPE_CHECKBOX],
             ],
         ];
     }
