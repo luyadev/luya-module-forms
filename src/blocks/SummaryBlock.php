@@ -58,7 +58,7 @@ class SummaryBlock extends PhpBlock
         $html = null;
         $model = Yii::$app->forms->model;
         foreach($model->attributes as $k => $v) {
-            $value = is_array($v) ? implode(", ", $v) : $v;
+            $value = is_array($v) ? implode(", ", $v) : Yii::$app->formatter->autoFormat($v);
             $html .= StringHelper::template($this->template, ['label' => $model->getAttributeLabel($k), 'value' => $value]);
         }
 

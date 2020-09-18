@@ -11,13 +11,19 @@
  */
 
 use luya\helpers\Html;
+use luya\helpers\StringHelper;
+
 ?>
 <?php if (Yii::$app->session->getFlash('formDataSuccess')): ?>
     <?= $this->placeholderValue('success'); ?>
 <?php else: ?>
     <?php if ($this->extraValue('review')): ?>
         <?= $this->placeholderValue('preview'); ?>
-        <?= Html::a($this->cfgValue('previewBackButtonLabel', 'Zurück'), '?reload=' . $this->varValue('formId'), Yii::$app->forms->backButtonOptions); ?> | <?= Html::a($this->cfgValue('previewSubmitButtonLabel', 'Senden'), '?submit='.$this->varValue('formId'), Yii::$app->forms->submitButtonsOptions); ?>
+        <?= StringHelper::template($this->varValue('previewButtonsTemplate', $this->context->previewButtonsTemplate), [
+            'back' => Html::a($this->cfgValue('previewBackButtonLabel', 'Zurück'), '?reload=' . $this->varValue('formId'), Yii::$app->forms->backButtonOptions),
+            'submit' => Html::a($this->cfgValue('previewSubmitButtonLabel', 'Senden'), '?submit='.$this->varValue('formId'), Yii::$app->forms->submitButtonsOptions),
+        ]); ?>
+
     <?php else: ?>
         <?= $this->placeholderValue('content'); ?>
         <?= Html::submitButton('Senden', Yii::$app->forms->submitButtonsOptions); ?>

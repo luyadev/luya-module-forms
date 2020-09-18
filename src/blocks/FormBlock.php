@@ -33,6 +33,8 @@ class FormBlock extends PhpBlock
 
     public $review = false;
 
+    public $previewButtonsTemplate = '{{back}} | {{submit}}';
+
     public function setup()
     {
         Yii::$app->forms->startForm(Yii::$app->forms->activeFormClass::begin());
@@ -84,6 +86,7 @@ class FormBlock extends PhpBlock
                 ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Vorschau Label'],
                 ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Formular'],
                 ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Zurück Button Vorschau Label'],
+                ['var' => 'previewButtonsTemplate', 'type' => self::TYPE_TEXTAREA, 'label' => 'Template für den Weiter und Zurück Button beim Preview Step', 'placeholder' => $this->previewButtonsTemplate],
             ],
             'placeholders' => [
                  ['var' => 'content', 'label' => 'Form'],

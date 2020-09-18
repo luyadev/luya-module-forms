@@ -54,6 +54,13 @@ class CheckboxesBlock extends PhpBlock
             ],
         ], $this->parentConfig());
     }
+
+    public function getFieldHelp()
+    {
+        return [
+            'values' => 'Wenn nur ein Wert gesetzt wird, wird eine "einfache" checkbox erstellt.',
+        ];
+    }
     
     /**
      * {@inheritDoc} 
@@ -81,6 +88,6 @@ class CheckboxesBlock extends PhpBlock
 
         $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
 
-        return $activeField->checkboxList($values);
+        return count($values) > 1 ? $activeField->checkboxList($values) : $activeField->checkbox();
     }
 }
