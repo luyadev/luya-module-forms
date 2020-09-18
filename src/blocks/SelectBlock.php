@@ -39,7 +39,7 @@ class SelectBlock extends PhpBlock
      */
     public function icon()
     {
-        return 'radio_button_checked';
+        return 'arrow_drop_down_circle';
     }
 
     public function config()

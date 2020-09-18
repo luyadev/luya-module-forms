@@ -44,6 +44,14 @@ class SummaryBlock extends PhpBlock
         return 'Summary';
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function icon()
+    {
+        return 'description';
+    }
+
     public function frontend()
     {
         Yii::$app->forms->loadModel();
