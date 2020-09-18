@@ -87,8 +87,8 @@ class FormBlock extends PhpBlock
             ],
             'placeholders' => [
                  ['var' => 'content', 'label' => 'Form'],
-                 ['var' => 'success', 'label' => 'Success'],
                  ['var' => 'preview', 'label' => 'Preview'],
+                 ['var' => 'success', 'label' => 'Success'],
             ],
         ];
     }
