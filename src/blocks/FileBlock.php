@@ -71,7 +71,8 @@ class FileBlock extends PhpBlock
             StorageUploadValidator::class, 
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
-            $this->getVarValue($this->varHint)
+            $this->getVarValue($this->varHint),
+            $this->getVarValue($this->varFormatAs)
         );
 
         $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
