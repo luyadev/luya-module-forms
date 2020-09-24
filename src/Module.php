@@ -13,11 +13,11 @@ class Module extends \luya\admin\base\Module
     public function getMenu()
     {
         return (new \luya\admin\components\AdminMenuBuilder($this))
-            ->node('Form', 'extension')
+            ->node('Form', 'dynamic_form')
                 ->group('Group')
-                    ->itemApi('Form', 'forms/form/index', 'label', 'api-forms-form')
-                    ->itemApi('Submission', 'forms/submission/index', 'label', 'api-forms-submission')
-                    ->itemApi('SubmissionValue', 'forms/submission-value/index', 'label', 'api-forms-submissionvalue');
+                    ->itemApi('Form', 'forms/form/index', 'dynamic_form', 'api-forms-form')
+                    ->itemApi('Submission', 'forms/submission/index', 'send', 'api-forms-submission')
+                    ->itemApi('Values', 'forms/submission-value/index', 'label', 'api-forms-submissionvalue', ['hiddenInMenu' => true]);
     }
 
     public function registerComponents()
