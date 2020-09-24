@@ -88,6 +88,14 @@ class CheckboxesBlock extends PhpBlock
 
         $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
 
-        return count($values) > 1 ? $activeField->checkboxList($values) : $activeField->checkbox();
+        $options = [];
+
+        // if required, when not checked the submited value should be empty otherwise the required validator will not
+        // catch the value `0` as required.
+        if ($this->varIsRequired) {
+            $options['uncheck'] = null;
+        }
+
+        return count($values) > 1 ? $activeField->checkboxList($values) : $activeField->checkbox($options);
     }
 }

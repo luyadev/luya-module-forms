@@ -95,7 +95,6 @@ class Forms extends Component
                 $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
                 $submissionValue->value = $value;
                 $submissionValue->save();
-                
             }
         }
 
