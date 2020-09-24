@@ -43,6 +43,8 @@ class SubmissionValue extends NgRestModel
             if (is_array($this->value)) {
                 $this->value = implode(", ", $this->value);
             }
+
+            $this->value = strip_tags($this->value);
         });
     }
 
