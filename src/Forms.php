@@ -65,10 +65,13 @@ class Forms extends Component
         return ArrayHelper::typeCast(Yii::$app->session->get($this->sessionFormDataName, []));
     }
 
-    public function setFormAttributeInfo($attribute, $label, $hint)
+    public function setFormAttributeInfo($attribute, $label, $hint, $formatAs)
     {
         $this->model->attributeLabels[$attribute] = $label;
         $this->model->attributeHints[$attribute] = $hint;
+        if ($formatAs && !empty($formatAs)) {
+            $this->model->formatters[$attribute] = $formatAs;
+        }
     }
 
     public function formDataAttribute($attributeName)
@@ -93,7 +96,7 @@ class Forms extends Component
                 $submissionValue->attribute = $attribute;
                 $submissionValue->label = $this->model->getAttributeLabel($attribute);
                 $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
-                $submissionValue->value = $value;
+                $submissionValue->value = $this->model->formatAttributeValue($attribute, $value);
                 $submissionValue->save();
             }
         }
@@ -153,7 +156,7 @@ class Forms extends Component
         $this->model = new FormsModel();
     }
 
-    public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null)
+    public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null, $formatAs = null)
     {
         $this->addAttribute($attributeName, $rule);
 
@@ -164,10 +167,10 @@ class Forms extends Component
         $value = $this->formDataAttribute($attributeName);
 
         if (!empty($value)) {
-            $this->attributeValue($attributeName, $value);
+            $this->setAttributeValue($attributeName, $value);
         }
 
-        $this->setFormAttributeInfo($attributeName, $label, $hint);
+        $this->setFormAttributeInfo($attributeName, $label, $hint, $formatAs);
     }
 
     public function addAttribute($attributeName, $rule = 'safe')
@@ -176,12 +179,12 @@ class Forms extends Component
         $this->addRule($attributeName, $rule);
     }
 
-    public function addRule($attributeName, $rule)
+    private function addRule($attributeName, $rule)
     {
         $this->model->addRule([$attributeName], $rule);
     }
 
-    public function attributeValue($attribute, $value)
+    private function setAttributeValue($attribute, $value)
     {
         $this->model->{$attribute} = $value;
     }
