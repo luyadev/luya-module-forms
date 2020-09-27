@@ -2,8 +2,10 @@
 
 namespace luya\forms\models;
 
+use luya\admin\aws\DetailViewActiveWindow;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\admin\ngrest\plugins\SelectRelationActiveQuery;
 use luya\forms\Forms;
 use yii\behaviors\TimestampBehavior;
 
@@ -67,14 +69,6 @@ class Submission extends NgRestModel
     }
 
     /**
-     * @return Form
-     */
-    public function getForm()
-    {
-        return $this->hasOne(Form::class, ['id' => 'form_id']);
-    }
-
-    /**
      * @inheritdoc
      */
     public function rules()
@@ -92,13 +86,18 @@ class Submission extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'form_id' => 'number',
+            'form_id' => [
+                'class' => SelectRelationActiveQuery::class,
+                'query' => $this->getForm(),
+                'relation' => 'form',
+                'labelField' => 'title',
+            ],
             'useragent' => 'text',
             'language' => 'text',
             'url' => 'text',
             'is_done' => 'toggleStatus',
-            'created_at' => 'number',
-            'updated_at' => 'number',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 
@@ -108,7 +107,7 @@ class Submission extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['form_id', 'useragent', 'language', 'url', 'is_done', 'created_at']],
+            ['list', ['form_id', 'language', 'is_done', 'created_at']],
             [['create', 'update'], ['form_id', 'useragent', 'language', 'url']],
             ['delete', false],
         ];
@@ -120,5 +119,40 @@ class Submission extends NgRestModel
     public function getValues()
     {
         return $this->hasMany(SubmissionValue::class, ['submission_id' => 'id']);
+    }
+
+    /**
+     * @return Form
+     */
+    public function getForm()
+    {
+        return $this->hasOne(Form::class, ['id' => 'form_id']);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ngRestActiveWindows()
+    {
+        return [
+            [
+                'class' => DetailViewActiveWindow::class,
+            ]
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ngRestRelations()
+    {
+        return [
+            [
+                'label' => 'Values',
+                'targetModel' => SubmissionValue::class,
+                'dataProvider' => $this->getValues(),
+                'tabLabelAttribute' => 'created_at',
+            ],
+        ];
     }
 }

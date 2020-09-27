@@ -96,7 +96,7 @@ class SubmissionValue extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['submission_id', 'attribute', 'label', 'hint', 'value']],
+            ['list', ['label', 'value']],
             [['create', 'update'], ['submission_id', 'attribute', 'label', 'hint', 'value']],
             ['delete', false],
         ];

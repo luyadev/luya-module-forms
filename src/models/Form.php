@@ -126,4 +126,29 @@ class Form extends NgRestModel
             'email_intro' => 'Wenn definiert wird diese verwendet für Email das intro, alle verfügbaren variabeln können mittels {{attribute}} verwendet werden.',
         ];
     }
+
+    /**
+     * Submissions
+     *
+     * @return Submission[]
+     */
+    public function getSubmissions()
+    {
+        return $this->hasMany(Submission::class, ['form_id' => 'id']);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ngRestRelations()
+    {
+        return [
+            [
+                'label' => 'Submissions',
+                'targetModel' => Submission::class,
+                'dataProvider' => $this->getSubmissions(),
+                'tabLabelAttribute' => 'title',
+            ],
+        ];
+    }
 }
