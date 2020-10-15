@@ -35,7 +35,7 @@ trait FieldBlockTrait
                     'string' => 'String',
                     'number' => 'Number',
                     'email' => 'Email',
-                    'boolena' => 'Boolean',
+                    'boolean' => 'Boolean',
                  ])],
                 ['var' => $this->varIsRequired, 'label' => 'Required', 'type' => self::TYPE_CHECKBOX],
                 ['var' => $this->varFormatAs, 'label' => 'Formatierung', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
