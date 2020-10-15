@@ -31,6 +31,6 @@ class FormsModel extends DynamicModel
 
     public function isAttributeHidden($attributeName)
     {
-        return in_array($this->hiddenAttributes, $attributeName);
+        return in_array($attributeName, $this->hiddenAttributes);
     }
 }
