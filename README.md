@@ -41,7 +41,7 @@ Run the import command afterwards:
 
 ## Create Custom Form Field Blocks
 
-The default blocks may not suit your use case, therefore its very easy to create your own from input block:
+The default blocks may not suit your needs, therefore its possible to create your own from input block:
 
 ```php
 class MyDropDownBlock extends PhpBlock
