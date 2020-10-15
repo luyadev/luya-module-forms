@@ -11,7 +11,7 @@ use luya\helpers\ArrayHelper;
 /**
  * Text Block.
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  */
 class TextBlock extends PhpBlock
 {
@@ -30,7 +30,7 @@ class TextBlock extends PhpBlock
      */
     public function name()
     {
-        return 'Text';
+        return Yii::t('forms', 'Text');
     }
     
     /**
@@ -45,13 +45,13 @@ class TextBlock extends PhpBlock
     {
         return ArrayHelper::merge($this->parentConfig(), [
             'vars' => [
-                ['var' => 'isTextarea', 'label' => 'Mehrzeilige Eingabe', 'type' => self::TYPE_CHECKBOX]
+                ['var' => 'isTextarea', 'label' => Yii::t('forms', 'Multiline Input'), 'type' => self::TYPE_CHECKBOX]
             ]
         ]);
     }
     
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      *
      * @param {{vars.field}}
      * @param {{vars.hint}}
@@ -66,7 +66,7 @@ class TextBlock extends PhpBlock
     {
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
-            $this->getVarValue($this->varRule, $this->defaultRule), 
+            $this->getVarValue($this->varRule, $this->defaultRule),
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
             $this->getVarValue($this->varHint),

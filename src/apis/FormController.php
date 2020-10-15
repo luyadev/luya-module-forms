@@ -4,8 +4,8 @@ namespace luya\forms\apis;
 
 /**
  * Form Controller.
- * 
- * File has been created with `crud/create` command. 
+ *
+ * File has been created with `crud/create` command.
  */
 class FormController extends \luya\admin\ngrest\base\Api
 {

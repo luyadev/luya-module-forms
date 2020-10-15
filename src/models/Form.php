@@ -9,8 +9,8 @@ use yii\behaviors\TimestampBehavior;
 
 /**
  * Form.
- * 
- * File has been created with `crud/create` command. 
+ *
+ * File has been created with `crud/create` command.
  *
  * @property integer $id
  * @property text $title
@@ -61,17 +61,16 @@ class Form extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'subject' => 'Subject',
-            'copy_to_attribute' => 'Copy an Attribute',
-            'email_intro' => 'E-Mail intro',
-            'email_outro' => 'E-Mail Outro',
-            'recipients' => Yii::t('app', 'Recipients'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Updated By'),
+            'id' => Yii::t('forms', 'ID'),
+            'title' => Yii::t('forms', 'Title'),
+            'subject' => Yii::t('forms', 'Subject'),
+            'copy_to_attribute' => Yii::t('forms', 'Copy an Attribute'),
+            'email_intro' => Yii::t('forms', 'E-Mail intro'),
+            'recipients' => Yii::t('forms', 'Recipients'),
+            'created_at' => Yii::t('forms', 'Created At'),
+            'updated_at' => Yii::t('forms', 'Updated At'),
+            'created_by' => Yii::t('forms', 'Created By'),
+            'updated_by' => Yii::t('forms', 'Updated By'),
         ];
     }
 
@@ -121,9 +120,9 @@ class Form extends NgRestModel
     public function attributeHints()
     {
         return [
-            'subject' => 'Betreffe des E-Mails. Wenn nichts angegeben wird, wird der Titel des Forms verwendet',
-            'copy_to_attribute' => 'Wenn definiert und das Attribute im Formular vorhanden ist, wird der Wert des angegeben Felds auch zu der Empfänger Liste hinzugefügt.',
-            'email_intro' => 'Wenn definiert wird diese verwendet für Email das intro, alle verfügbaren variabeln können mittels {{attribute}} verwendet werden.',
+            'subject' => Yii::t('forms', 'form_model_subject_hint'),
+            'copy_to_attribute' => Yii::t('forms', 'form_model_copy_to_attribute_hint'),
+            'email_intro' => Yii::t('forms', 'form_model_email_intro_hint'),
         ];
     }
 

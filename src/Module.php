@@ -28,4 +28,11 @@ class Module extends \luya\admin\base\Module
             ]
         ];
     }
+
+    public static function onLoad()
+    {
+        self::registerTranslation('forms', static::staticBasePath() . '/messages', [
+            'forms' => 'forms.php',
+        ]);
+    }
 }

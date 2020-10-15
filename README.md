@@ -74,3 +74,11 @@ class MyDropDownBlock extends PhpBlock
     }
 }
 ```
+
+## Development
+
+Refresh message files:
+
+```php
+./vendor/bin/luya message msgconfig.php 
+```

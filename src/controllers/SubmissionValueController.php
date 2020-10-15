@@ -4,8 +4,8 @@ namespace luya\forms\controllers;
 
 /**
  * Submission Value Controller.
- * 
- * File has been created with `crud/create` command. 
+ *
+ * File has been created with `crud/create` command.
  */
 class SubmissionValueController extends \luya\admin\ngrest\base\Controller
 {

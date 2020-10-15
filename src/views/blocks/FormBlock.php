@@ -1,8 +1,8 @@
 <?php
 /**
- * View file for block: FormBlock 
+ * View file for block: FormBlock
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  *
  * @param $this->placeholderValue('content');
  * @param $this->varValue('formId');

@@ -6,13 +6,12 @@ use luya\admin\aws\DetailViewActiveWindow;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
 use luya\admin\ngrest\plugins\SelectRelationActiveQuery;
-use luya\forms\Forms;
 use yii\behaviors\TimestampBehavior;
 
 /**
  * Submission.
- * 
- * File has been created with `crud/create` command. 
+ *
+ * File has been created with `crud/create` command.
  *
  * @property integer $id
  * @property integer $form_id
@@ -22,7 +21,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $is_done
  * @property integer $created_at
  * @property integer $updated_at
- * 
+ *
  * @property Form $form
  * @property SubmissionValue[] $values
  */
@@ -57,14 +56,14 @@ class Submission extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'form_id' => Yii::t('app', 'Form ID'),
-            'useragent' => Yii::t('app', 'Useragent'),
-            'language' => Yii::t('app', 'Language'),
-            'url' => Yii::t('app', 'Url'),
-            'is_done' => Yii::t('app', 'Is Done'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('forms', 'ID'),
+            'form_id' => Yii::t('forms', 'Form ID'),
+            'useragent' => Yii::t('forms', 'Useragent'),
+            'language' => Yii::t('forms', 'Language'),
+            'url' => Yii::t('forms', 'Url'),
+            'is_done' => Yii::t('forms', 'Is Done'),
+            'created_at' => Yii::t('forms', 'Created At'),
+            'updated_at' => Yii::t('forms', 'Updated At'),
         ];
     }
 

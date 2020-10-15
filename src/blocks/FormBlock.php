@@ -2,21 +2,16 @@
 
 namespace luya\forms\blocks;
 
-use luya\cms\base\BlockInterface;
 use Yii;
 use luya\cms\base\PhpBlock;
-use luya\cms\frontend\blockgroups\ProjectGroup;
-use luya\cms\helpers\BlockHelper;
 use luya\cms\injectors\ActiveQuerySelectInjector;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\models\Form;
-use luya\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
 
 /**
  * Form Block.
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  */
 class FormBlock extends PhpBlock
 {
@@ -53,7 +48,7 @@ class FormBlock extends PhpBlock
      */
     public function name()
     {
-        return 'Form';
+        return Yii::t('forms', 'Form');
     }
     
     /**
@@ -83,15 +78,15 @@ class FormBlock extends PhpBlock
     {
         return [
             'cfgs' => [
-                ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Vorschau Label'],
-                ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Weiter Button Formular'],
-                ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => 'Zurück Button Vorschau Label'],
-                ['var' => 'previewButtonsTemplate', 'type' => self::TYPE_TEXTAREA, 'label' => 'Template für den Weiter und Zurück Button beim Preview Step', 'placeholder' => $this->previewButtonsTemplate],
+                ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_submitButtonLabel')],
+                ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewSubmitButtonLabel')],
+                ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewBackButtonLabel')],
+                ['var' => 'previewButtonsTemplate', 'type' => self::TYPE_TEXTAREA, 'label' => Yii::t('forms', 'form_label_previewButtonsTemplate'), 'placeholder' => $this->previewButtonsTemplate],
             ],
             'placeholders' => [
-                 ['var' => 'content', 'label' => 'Form'],
-                 ['var' => 'preview', 'label' => 'Preview'],
-                 ['var' => 'success', 'label' => 'Success'],
+                ['var' => 'content', 'label' => Yii::t('forms', 'Form')],
+                ['var' => 'preview', 'label' => Yii::t('forms', 'Preview')],
+                ['var' => 'success', 'label' => Yii::t('forms', 'Success')],
             ],
         ];
     }
@@ -119,7 +114,6 @@ class FormBlock extends PhpBlock
         if ($isSubmit && !empty($data)) {
             Yii::$app->forms->model->attributes = $data;
             if (Yii::$app->forms->model->validate()) {
-
                 Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')));
                 Yii::$app->forms->removeFormData();
                 // set flash, redirect and end app
@@ -136,7 +130,7 @@ class FormBlock extends PhpBlock
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      *
      * @param {{placeholders.content}}
      * @param {{vars.formId}}

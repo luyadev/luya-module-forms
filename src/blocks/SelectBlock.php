@@ -12,7 +12,7 @@ use luya\helpers\ArrayHelper;
 /**
  * Text Block.
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  */
 class SelectBlock extends PhpBlock
 {
@@ -31,7 +31,7 @@ class SelectBlock extends PhpBlock
      */
     public function name()
     {
-        return 'Select';
+        return Yii::t('forms', 'Select');
     }
     
     /**
@@ -48,16 +48,16 @@ class SelectBlock extends PhpBlock
             'vars' => [
                 [
                     'var' => 'type',
-                    'label' => 'Type',
+                    'label' => Yii::t('forms', 'Type'),
                     'type' => self::TYPE_RADIO,
                     'options' => BlockHelper::radioArrayOption([
-                        1 => 'Dropdown Select',
-                        2 => 'Radio List',
+                        1 => Yii::t('forms', 'Dropdown Select'),
+                        2 => Yii::t('forms', 'Radio List'),
                     ])
                 ],
                 [
                     'var' => 'values',
-                    'label' => 'Values',
+                    'label' => Yii::t('forms', 'Values'),
                     'type' => self::TYPE_LIST_ARRAY
                 ]
             ],
@@ -65,7 +65,7 @@ class SelectBlock extends PhpBlock
     }
     
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      *
      * @param {{vars.field}}
      * @param {{vars.hint}}
@@ -80,7 +80,7 @@ class SelectBlock extends PhpBlock
     {
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
-            $this->getVarValue($this->varRule, $this->defaultRule), 
+            $this->getVarValue($this->varRule, $this->defaultRule),
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
             $this->getVarValue($this->varHint),

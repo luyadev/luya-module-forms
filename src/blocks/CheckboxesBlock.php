@@ -4,7 +4,6 @@ namespace luya\forms\blocks;
 
 use Yii;
 use luya\cms\base\PhpBlock;
-use luya\cms\helpers\BlockHelper;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
 use luya\helpers\ArrayHelper;
@@ -12,7 +11,7 @@ use luya\helpers\ArrayHelper;
 /**
  * Text Block.
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  */
 class CheckboxesBlock extends PhpBlock
 {
@@ -31,7 +30,7 @@ class CheckboxesBlock extends PhpBlock
      */
     public function name()
     {
-        return 'Checkboxes';
+        return Yii::t('forms', 'Checkboxes');
     }
     
     /**
@@ -48,7 +47,7 @@ class CheckboxesBlock extends PhpBlock
             'vars' => [
                 [
                     'var' => 'values',
-                    'label' => 'Values',
+                    'label' => Yii::t('forms', 'Values'),
                     'type' => self::TYPE_LIST_ARRAY
                 ]
             ],
@@ -58,12 +57,12 @@ class CheckboxesBlock extends PhpBlock
     public function getFieldHelp()
     {
         return [
-            'values' => 'Wenn nur ein Wert gesetzt wird, wird eine "einfache" checkbox erstellt.',
+            'values' => Yii::t('forms', 'checkboxes_values_help'),
         ];
     }
     
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      *
      * @param {{vars.field}}
      * @param {{vars.hint}}
@@ -78,7 +77,7 @@ class CheckboxesBlock extends PhpBlock
     {
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
-            $this->getVarValue($this->varRule, $this->defaultRule), 
+            $this->getVarValue($this->varRule, $this->defaultRule),
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
             $this->getVarValue($this->varHint),

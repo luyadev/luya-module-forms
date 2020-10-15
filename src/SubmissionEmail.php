@@ -14,7 +14,7 @@ class SubmissionEmail
 
     public function __construct(Submission $submission)
     {
-        $this->submission = $submission;  
+        $this->submission = $submission;
     }
 
     public function getSubject()

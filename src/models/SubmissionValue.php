@@ -7,8 +7,8 @@ use luya\admin\ngrest\base\NgRestModel;
 
 /**
  * Submission Value.
- * 
- * File has been created with `crud/create` command. 
+ *
+ * File has been created with `crud/create` command.
  *
  * @property integer $id
  * @property integer $submission_id
@@ -39,7 +39,7 @@ class SubmissionValue extends NgRestModel
     {
         parent::init();
 
-        $this->on(self::EVENT_BEFORE_VALIDATE, function() {
+        $this->on(self::EVENT_BEFORE_VALIDATE, function () {
             if (is_array($this->value)) {
                 $this->value = implode(", ", $this->value);
             }
@@ -54,12 +54,12 @@ class SubmissionValue extends NgRestModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'submission_id' => Yii::t('app', 'Submission ID'),
-            'attribute' => Yii::t('app', 'Attribute'),
-            'label' => Yii::t('app', 'Label'),
-            'hint' => Yii::t('app', 'Hint'),
-            'value' => Yii::t('app', 'Value'),
+            'id' => Yii::t('forms', 'ID'),
+            'submission_id' => Yii::t('forms', 'Submission ID'),
+            'attribute' => Yii::t('forms', 'Attribute'),
+            'label' => Yii::t('forms', 'Label'),
+            'hint' => Yii::t('forms', 'Hint'),
+            'value' => Yii::t('forms', 'Value'),
         ];
     }
 

@@ -12,11 +12,10 @@ use luya\helpers\ArrayHelper;
 /**
  * Text Block.
  *
- * File has been created with `block/create` command. 
+ * File has been created with `block/create` command.
  */
 class FileBlock extends PhpBlock
 {
-
     use FieldBlockTrait { config as parentConfig; }
 
     /**
@@ -32,7 +31,7 @@ class FileBlock extends PhpBlock
      */
     public function name()
     {
-        return 'File';
+        return Yii::t('forms', 'File');
     }
     
     /**
@@ -42,18 +41,9 @@ class FileBlock extends PhpBlock
     {
         return 'attach_file';
     }
-
-    public function config()
-    {
-        return ArrayHelper::merge($this->parentConfig(), [
-            'vars' => [
-                ['var' => 'isTextarea', 'label' => 'Mehrzeilige Eingabe', 'type' => self::TYPE_CHECKBOX]
-            ]
-        ]);
-    }
     
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      *
      * @param {{vars.field}}
      * @param {{vars.hint}}
@@ -68,7 +58,7 @@ class FileBlock extends PhpBlock
     {
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
-            StorageUploadValidator::class, 
+            StorageUploadValidator::class,
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
             $this->getVarValue($this->varHint),

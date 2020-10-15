@@ -3,6 +3,7 @@
 namespace luya\forms;
 
 use luya\cms\helpers\BlockHelper;
+use Yii;
 
 trait FieldBlockTrait
 {
@@ -27,18 +28,18 @@ trait FieldBlockTrait
     {
         return [
             'vars' => [
-                ['var' => $this->varAttribute, 'label' => 'Attribute', 'type' => self::TYPE_TEXT],
-                ['var' => $this->varLabel, 'label' => 'Label', 'type' => self::TYPE_TEXT],
-                ['var' => $this->varHint, 'label' => 'Hint', 'type' => self::TYPE_TEXTAREA],
-                ['var' => $this->varRule, 'label' => 'Validation Regel', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
+                ['var' => $this->varAttribute, 'label' => Yii::t('forms', 'Attribute'), 'type' => self::TYPE_TEXT],
+                ['var' => $this->varLabel, 'label' => Yii::t('forms', 'Label'), 'type' => self::TYPE_TEXT],
+                ['var' => $this->varHint, 'label' => Yii::t('forms', 'Hint'), 'type' => self::TYPE_TEXTAREA],
+                ['var' => $this->varRule, 'label' => Yii::t('forms', 'Validation Rule'), 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
                     'safe' => 'Alles (Safe)',
                     'string' => 'String',
                     'number' => 'Number',
                     'email' => 'Email',
                     'boolean' => 'Boolean',
                  ])],
-                ['var' => $this->varIsRequired, 'label' => 'Required', 'type' => self::TYPE_CHECKBOX],
-                ['var' => $this->varFormatAs, 'label' => 'Formatierung', 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
+                ['var' => $this->varIsRequired, 'label' => Yii::t('forms', 'Required'), 'type' => self::TYPE_CHECKBOX],
+                ['var' => $this->varFormatAs, 'label' => Yii::t('forms', 'Formatting'), 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
                     null => 'Automatisch',
                     'boolean' => 'Boolean (Ja/Nein)',
                 ])]

@@ -47,8 +47,8 @@ class Forms extends Component
      *        ->setTo($email->getRecipients())
      *        ->send();
      * }
-     * ``` 
-     * 
+     * ```
+     *
      * If not defined, the Forms component will use the {{luya\components\Mail}} to compose and send a message with a standard template.
      */
     public $emailMessage;
@@ -107,7 +107,8 @@ class Forms extends Component
             call_user_func($this->emailMessage, $submissionEmail, $this);
         } else {
             $mail = Yii::$app->mail
-                ->compose($submissionEmail->getSubject(), 
+                ->compose(
+                    $submissionEmail->getSubject(),
                     StringHelper::template($this->defaultEmailTemplate, [
                         'intro' => $submissionEmail->getIntro(),
                         'outro' => $submissionEmail->getOutro(),
