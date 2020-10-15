@@ -91,6 +91,11 @@ class Forms extends Component
         
         if ($model->save()) {
             foreach ($this->getFormData() as $attribute => $value) {
+
+                if ($this->model->isAttributeHidden($attribute)) {
+                    continue;
+                }
+
                 $submissionValue = new SubmissionValue();
                 $submissionValue->submission_id = $model->id;
                 $submissionValue->attribute = $attribute;
