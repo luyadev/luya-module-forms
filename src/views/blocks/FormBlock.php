@@ -25,6 +25,9 @@ use luya\helpers\StringHelper;
         ]); ?>
 
     <?php else: ?>
+        <?php if ($this->extraValue('isSubmit') && Yii::$app->forms->model->hasErrors()): ?>
+            <?= Yii::$app->forms->form->errorSummary(Yii::$app->forms->model); ?>
+        <?php endif; ?>
         <?= $this->placeholderValue('content'); ?>
         <?= Html::submitButton('Senden', Yii::$app->forms->submitButtonsOptions); ?>
     <?php endif; ?>

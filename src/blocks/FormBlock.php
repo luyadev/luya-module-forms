@@ -101,6 +101,7 @@ class FormBlock extends PhpBlock
         return [
             'getModels' => $this->getModels(),
             'review' => $this->review,
+            'isSubmit' => $this->isSubmit(),
         ];
     }
 
