@@ -59,8 +59,8 @@ return [
     'form_label_previewBackButtonLabel' => 'Beschriftung Zurück-Button der Vorschau',
     'form_label_previewButtonsTemplate' => 'Vorlage für den Weiter- und Zurück-Button der Vorschau',
     'form_label_previewSubmitButtonLabel' => 'Beschriftung Weiter-Button der Vorschau',
-    'form_label_submitButtonLabel' => 'Beschriftung Weiter-Button des Formulars',
-    'form_model_copy_to_attribute_hint' => 'Wenn definiert und das Attribut im Formular vorhanden ist, wird der Wert des angegebenen Felds zu der Empfänger-Liste hinzugefügt.',
-    'form_model_email_intro_hint' => 'Wenn definiert, wird der Wert verwendet für die E-Mail-Einleitung. Alle definierten Variabeln können mittels {{attribute}} eingefügt werden.',
-    'form_model_subject_hint' => 'Betreff des E-Mails. Wenn nichts angegeben wird, wird der Titel des Formulars verwendet.',
+    'form_label_submitButtonLabel' => 'Beschriftung Übermitteln-Button des Formulars',
+    'form_model_copy_to_attribute_hint' => 'Wenn das Attribut definiert wurde und im Formular vorhanden ist, wird sein Wert zu der Empfänger-Liste hinzugefügt.',
+    'form_model_email_intro_hint' => 'Der Text dieses Felds wird als Einleitungstext der E-Mail verwendet. Alle definierten Variabeln können mittels {{attribute}} eingefügt werden.',
+    'form_model_subject_hint' => 'Betreff der E-Mail. Wenn nichts angegeben wird, wird der Titel des Formulars verwendet.',
 ];
