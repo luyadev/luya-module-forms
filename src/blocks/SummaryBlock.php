@@ -30,7 +30,7 @@ class SummaryBlock extends PhpBlock
     public function getFieldHelp()
     {
         return [
-            'template' => Yii::t('forms', 'Variables {{label}} and {{value}} are available'),
+            'template' => Yii::t('forms', 'The variables {{label}} and {{value}} are available.'),
         ];
     }
 
