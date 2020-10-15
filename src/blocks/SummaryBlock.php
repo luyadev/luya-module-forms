@@ -58,6 +58,11 @@ class SummaryBlock extends PhpBlock
         $html = null;
         $model = Yii::$app->forms->model;
         foreach ($model->attributes as $k => $v) {
+
+            if ($model->isAttributeHidden($k)) {
+                continue;
+            }
+
             $html .= StringHelper::template($this->template, [
                 'label' => $model->getAttributeLabel($k),
                 'value' => $model->formatAttributeValue($k, $v),

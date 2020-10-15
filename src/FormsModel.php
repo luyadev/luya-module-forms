@@ -21,4 +21,16 @@ class FormsModel extends DynamicModel
 
         return Yii::$app->formatter->autoFormat($value);
     }
+
+    public $hiddenAttributes = [];
+
+    public function invisibleAttribute($attributeName)
+    {
+        $this->hiddenAttributes[] = $attributeName;
+    }
+
+    public function isAttributeHidden($attributeName)
+    {
+        return in_array($this->hiddenAttributes, $attributeName);
+    }
 }
