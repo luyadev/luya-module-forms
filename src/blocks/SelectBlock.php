@@ -31,7 +31,7 @@ class SelectBlock extends PhpBlock
      */
     public function name()
     {
-        return Yii::t('forms', 'Select');
+        return Yii::t('forms', 'Dropdown Select');
     }
     
     /**
