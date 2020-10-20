@@ -91,8 +91,7 @@ class Forms extends Component
         
         if ($model->save()) {
             foreach ($this->getFormData() as $attribute => $value) {
-
-                if ($this->model->isAttributeHidden($attribute)) {
+                if ($this->model->isAttributeInvisible($attribute)) {
                     continue;
                 }
 
@@ -162,6 +161,17 @@ class Forms extends Component
         $this->model = new FormsModel();
     }
 
+    /**
+     * Auto configures a gien attribute into the model.
+     * 
+     * The following steps will be done when using auto configure attribute:
+     * 
+     * + The $attributeName will be added to the form model with the given $role
+     * + When required is enabled, the required rule will be set or not.
+     * + If there is already a value from session data, the value will be inject into the model, this is mainly used for preview.
+     * + label and hint informations will be assigned
+     * + if a specific format type is provided, the formatter will be taken to format the value when previewing or storing the value.
+     */
     public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null, $formatAs = null)
     {
         $this->addAttribute($attributeName, $rule);

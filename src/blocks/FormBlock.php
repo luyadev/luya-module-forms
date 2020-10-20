@@ -6,6 +6,7 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\cms\injectors\ActiveQuerySelectInjector;
 use luya\forms\blockgroups\FormGroup;
+use luya\forms\FormsModel;
 use luya\forms\models\Form;
 
 /**
@@ -95,7 +96,7 @@ class FormBlock extends PhpBlock
     {
         return [
             'getModels' => $this->getModels(),
-            'review' => $this->review,
+            'review' => $this->isReview(),
             'isSubmit' => $this->isSubmit(),
         ];
     }
@@ -107,13 +108,20 @@ class FormBlock extends PhpBlock
         return $isSubmit && $isSubmit == $this->getVarValue('formId');
     }
 
+    public function isReview()
+    {
+        return Yii::$app->forms->loadModel();
+    }
+
     public function getModels()
     {
-        $isSubmit = $this->isSubmit();
         $data = Yii::$app->forms->getFormData();
-        if ($isSubmit && !empty($data)) {
-            Yii::$app->forms->model->attributes = $data;
-            if (Yii::$app->forms->model->validate()) {
+        if ($this->isSubmit() && !empty($data)) {
+            /** @var FormsModel $model */
+            $model = Yii::$app->forms->model;
+            $model->attributes = $data;
+            // invisible attributes should not be validate in the second validation step.
+            if ($model->validate($model->getAttributesWithoutInvisible())) {
                 Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')));
                 Yii::$app->forms->removeFormData();
                 // set flash, redirect and end app
@@ -122,10 +130,6 @@ class FormBlock extends PhpBlock
                 
                 return Yii::$app->end();
             }
-        }
-
-        if (Yii::$app->forms->loadModel()) {
-            $this->review = true;
         }
     }
 

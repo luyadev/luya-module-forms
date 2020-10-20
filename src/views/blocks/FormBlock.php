@@ -23,7 +23,6 @@ use luya\helpers\StringHelper;
             'back' => Html::a($this->cfgValue('previewBackButtonLabel', 'Zurück'), '?reload=' . $this->varValue('formId'), Yii::$app->forms->backButtonOptions),
             'submit' => Html::a($this->cfgValue('previewSubmitButtonLabel', 'Senden'), '?submit='.$this->varValue('formId'), Yii::$app->forms->submitButtonsOptions),
         ]); ?>
-
     <?php else: ?>
         <?php if ($this->extraValue('isSubmit') && Yii::$app->forms->model->hasErrors()): ?>
             <?= Yii::$app->forms->form->errorSummary(Yii::$app->forms->model); ?>

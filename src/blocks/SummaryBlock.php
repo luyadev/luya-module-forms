@@ -58,8 +58,7 @@ class SummaryBlock extends PhpBlock
         $html = null;
         $model = Yii::$app->forms->model;
         foreach ($model->attributes as $k => $v) {
-
-            if ($model->isAttributeHidden($k)) {
+            if ($model->isAttributeInvisible($k)) {
                 continue;
             }
 
