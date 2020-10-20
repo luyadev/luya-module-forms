@@ -29,7 +29,7 @@ class FormBlock extends PhpBlock
 
     public $review = false;
 
-    public $previewButtonsTemplate = '{{back}} | {{submit}}';
+    public $previewButtonsTemplate = '<div>{{back}}<span> | </span>{{submit}}</div>';
 
     public function setup()
     {
