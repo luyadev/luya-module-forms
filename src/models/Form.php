@@ -3,6 +3,7 @@
 namespace luya\forms\models;
 
 use luya\admin\behaviors\BlameableBehavior;
+use luya\admin\buttons\DuplicateActiveButton;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
 use yii\behaviors\TimestampBehavior;
@@ -64,13 +65,22 @@ class Form extends NgRestModel
             'id' => Yii::t('forms', 'ID'),
             'title' => Yii::t('forms', 'Title'),
             'subject' => Yii::t('forms', 'Subject'),
-            'copy_to_attribute' => Yii::t('forms', 'Copy an Attribute'),
+            'copy_to_attribute' => Yii::t('forms', 'Copy to Attribute'),
             'email_intro' => Yii::t('forms', 'E-Mail intro'),
+            'email_outro' => Yii::t('forms', 'E-Mail outro'),
             'recipients' => Yii::t('forms', 'Recipients'),
             'created_at' => Yii::t('forms', 'Created At'),
             'updated_at' => Yii::t('forms', 'Updated At'),
             'created_by' => Yii::t('forms', 'Created By'),
             'updated_by' => Yii::t('forms', 'Updated By'),
+        ];
+    }
+
+    public function ngRestAttributeGroups()
+    {
+        return [
+            [['recipients', 'copy_to_attribute'], Yii::t('forms', 'E-Mail Recipients')],
+            [['subject', 'email_intro', 'email_outro'], Yii::t('forms', 'Customizing Text')],
         ];
     }
 
@@ -143,11 +153,20 @@ class Form extends NgRestModel
     {
         return [
             [
-                'label' => 'Submissions',
+                'label' => Yii::t('forms', 'Submissions'),
                 'targetModel' => Submission::class,
                 'dataProvider' => $this->getSubmissions(),
                 'tabLabelAttribute' => 'title',
             ],
+        ];
+    }
+
+    public function ngRestActiveButtons()
+    {
+        return [
+            [
+                'class' => DuplicateActiveButton::class,
+            ]
         ];
     }
 }

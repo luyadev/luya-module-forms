@@ -20,7 +20,7 @@ return [
     'sort' => false,
     'overwrite' => true,
     'removeUnused' => false,
-    'markUnused' => true,
+    'markUnused' => false,
     'except' => [
         '.svn',
         '.git',
