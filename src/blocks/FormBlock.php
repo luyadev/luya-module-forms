@@ -126,7 +126,7 @@ class FormBlock extends PhpBlock
                 Yii::$app->forms->removeFormData();
                 // set flash, redirect and end app
                 Yii::$app->session->setFlash('formDataSuccess');
-                Yii::$app->response->refresh();
+                Yii::$app->response->redirect(Yii::$app->menu->current->link);
                 
                 return Yii::$app->end();
             }
