@@ -106,10 +106,32 @@ class Submission extends NgRestModel
     public function ngRestScopes()
     {
         return [
-            ['list', ['form_id', 'language', 'is_done', 'created_at']],
+            ['list', ['form_id', 'created_at', 'is_done', ]],
             [['create', 'update'], ['form_id', 'useragent', 'language', 'url']],
             ['delete', false],
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ngRestGroupByField()
+    {
+        return 'form_id';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function ngRestFilters()
+    {
+        $filters = [];
+
+        foreach (Submission::find()->with(['form'])->distinct('form_id')->all() as $submission) {
+            $filters[$submission->form->title] = self::ngRestFind()->andWhere(['form_id' => $submission->form->id]);
+        }
+
+        return $filters;
     }
 
     /**
