@@ -16,6 +16,9 @@ use luya\admin\ngrest\base\NgRestModel;
  * @property string $label
  * @property string $hint
  * @property text $value
+ * @property text $format
+ * 
+ * @property string $formattedValue
  */
 class SubmissionValue extends NgRestModel
 {
@@ -60,6 +63,7 @@ class SubmissionValue extends NgRestModel
             'label' => Yii::t('forms', 'Label'),
             'hint' => Yii::t('forms', 'Hint'),
             'value' => Yii::t('forms', 'Value'),
+            'format' => Yii::t('forms', 'Format'),
         ];
     }
 
@@ -71,7 +75,7 @@ class SubmissionValue extends NgRestModel
         return [
             [['submission_id'], 'integer'],
             [['attribute', 'label'], 'required'],
-            [['value'], 'string'],
+            [['value', 'format'], 'string'],
             [['attribute', 'label', 'hint'], 'string', 'max' => 255, 'skipOnEmpty' => true, 'strict' => false],
         ];
     }
@@ -86,6 +90,7 @@ class SubmissionValue extends NgRestModel
             'attribute' => 'text',
             'label' => 'text',
             'hint' => 'text',
+            'format' => 'text',
             'value' => 'textarea',
         ];
     }
@@ -97,8 +102,18 @@ class SubmissionValue extends NgRestModel
     {
         return [
             ['list', ['label', 'value']],
-            [['create', 'update'], ['submission_id', 'attribute', 'label', 'hint', 'value']],
+            [['update'], ['value']],
             ['delete', false],
         ];
+    }
+
+    /**
+     * Format value
+     *
+     * @return string
+     */
+    public function getFormattedValue()
+    {
+        return $this->format ? Yii::$app->formatter->format($this->value, $this->format) : $this->value;
     }
 }

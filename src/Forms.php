@@ -100,7 +100,8 @@ class Forms extends Component
                 $submissionValue->attribute = $attribute;
                 $submissionValue->label = $this->model->getAttributeLabel($attribute);
                 $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
-                $submissionValue->value = $this->model->formatAttributeValue($attribute, $value);
+                $submissionValue->value = $value;
+                $submissionValue->format = isset($this->model->formatters[$attribute]) ? $this->model->formatters[$attribute] : null;
                 $submissionValue->save();
             }
         }

@@ -6,6 +6,7 @@ use luya\admin\behaviors\BlameableBehavior;
 use luya\admin\buttons\DuplicateActiveButton;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
+use luya\forms\aws\ExportActiveWindow;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -157,6 +158,15 @@ class Form extends NgRestModel
                 'targetModel' => Submission::class,
                 'dataProvider' => $this->getSubmissions(),
                 'tabLabelAttribute' => 'title',
+            ],
+        ];
+    }
+
+    public function ngRestActiveWindows()
+    {
+        return [
+            [
+                'class' => ExportActiveWindow::class,
             ],
         ];
     }

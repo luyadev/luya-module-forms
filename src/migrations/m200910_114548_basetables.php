@@ -44,6 +44,7 @@ class m200910_114548_basetables extends Migration
             'label' => $this->string()->notNull(),
             'hint' => $this->string(),
             'value' => $this->text(),
+            'format' => $this->string(),
         ]);
     }
 
