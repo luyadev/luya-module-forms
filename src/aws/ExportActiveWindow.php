@@ -6,6 +6,7 @@ use luya\admin\ngrest\aw\CallbackButtonFileDownloadWidget;
 use luya\admin\ngrest\base\ActiveWindow;
 use luya\forms\models\SubmissionValue;
 use luya\helpers\ExportHelper;
+use luya\helpers\Inflector;
 use Yii;
 
 class ExportActiveWindow extends ActiveWindow
@@ -19,7 +20,7 @@ class ExportActiveWindow extends ActiveWindow
 
     public function defaultLabel()
     {
-        return 'Export';
+        return Yii::t('forms', 'Export');
     }
 
     public function getTitle()
@@ -53,6 +54,6 @@ class ExportActiveWindow extends ActiveWindow
             $data[] = $item;
         }
 
-        return CallbackButtonFileDownloadWidget::sendOutput($this, 'Export.xlsx', ExportHelper::xlsx($data));
+        return CallbackButtonFileDownloadWidget::sendOutput($this, Inflector::slug('export-' . Yii::$app->formatter->asDatetime(time())).'.xlsx', ExportHelper::xlsx($data));
     }
 }

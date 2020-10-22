@@ -1,19 +1,16 @@
 <?php
-
-use luya\admin\ngrest\aw\ActiveWindowFormWidget;
 use luya\admin\ngrest\aw\CallbackButtonFileDownloadWidget;
 use WhichBrowser\Parser;
 
 ?>
-
 <?php if (empty($submissions)): ?>
     <p><i class="material-icons text-info">info</i> <?= Yii::t('forms', 'There are no submissions to export.'); ?></p>
 <?php else: ?>
     <?= CallbackButtonFileDownloadWidget::widget([
         'callback' => 'export',
-        'label' => 'Generate Export',
+        'label' => Yii::t('forms', 'Generate Export'),
     ]); ?>
-    <collapse-container class="mt-3" title="Show data">
+    <collapse-container class="mt-3" title="<?= Yii::t('forms', 'Preview data'); ?>">
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>

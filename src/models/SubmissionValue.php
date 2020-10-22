@@ -63,7 +63,7 @@ class SubmissionValue extends NgRestModel
             'label' => Yii::t('forms', 'Label'),
             'hint' => Yii::t('forms', 'Hint'),
             'value' => Yii::t('forms', 'Value'),
-            'format' => Yii::t('forms', 'Format'),
+            'format' => Yii::t('forms', 'Formatting'),
         ];
     }
 
