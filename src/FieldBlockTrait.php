@@ -28,11 +28,11 @@ trait FieldBlockTrait
     {
         return [
             'vars' => [
-                ['var' => $this->varAttribute, 'label' => Yii::t('forms', 'Attribute'), 'type' => self::TYPE_TEXT],
-                ['var' => $this->varLabel, 'label' => Yii::t('forms', 'Label'), 'type' => self::TYPE_TEXT],
+                ['var' => $this->varAttribute, 'label' => Yii::t('forms', 'Attribute'), 'required' => true, 'type' => self::TYPE_TEXT],
+                ['var' => $this->varLabel, 'label' => Yii::t('forms', 'Label'), 'required' => true, 'type' => self::TYPE_TEXT],
                 ['var' => $this->varHint, 'label' => Yii::t('forms', 'Hint'), 'type' => self::TYPE_TEXTAREA],
                 ['var' => $this->varIsRequired, 'label' => Yii::t('forms', 'Required'), 'type' => self::TYPE_CHECKBOX],
-                ['var' => $this->varRule, 'label' => Yii::t('forms', 'Validation Rule'), 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
+                ['var' => $this->varRule, 'label' => Yii::t('forms', 'Validation Rule'), 'required' => true, 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
                     'safe' => Yii::t('forms', 'Everything allowed'),
                     'string' => Yii::t('forms', 'String'),
                     'number' => Yii::t('forms', 'Number'),

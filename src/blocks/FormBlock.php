@@ -79,7 +79,8 @@ class FormBlock extends PhpBlock
     {
         return [
             'cfgs' => [
-                ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_submitButtonLabel')],
+                ['var' => 'xyz', 'type' => 'zaa-select-crud', 'label' => 'test', 'required' => true, 'options' => ['route' => 'forms/form/index', 'api' => 'admin/api-forms-form', 'fields' => ['title']]],
+                ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'required' => true, 'label' => Yii::t('forms', 'form_label_submitButtonLabel')],
                 ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewSubmitButtonLabel')],
                 ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewBackButtonLabel')],
                 ['var' => 'previewButtonsTemplate', 'type' => self::TYPE_TEXTAREA, 'label' => Yii::t('forms', 'form_label_previewButtonsTemplate'), 'placeholder' => $this->previewButtonsTemplate],
