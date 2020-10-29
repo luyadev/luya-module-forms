@@ -45,6 +45,8 @@ trait FieldBlockTrait
                     'date' => Yii::t('forms', 'Date'),
                     'datetime' => Yii::t('forms', 'Date & Time'),
                     'ntext' => Yii::t('forms', 'Multiline Text'),
+                    'url' => Yii::t('forms', 'URL/Link'),
+                    'image' => Yii::t('forms', 'Image'),
                 ])]
             ],
         ];
