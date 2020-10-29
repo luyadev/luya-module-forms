@@ -70,7 +70,7 @@ class CheckboxesBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">Checkboxes</span></div>';
+        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">'.Yii::t('forms', 'Checkboxes').'</span></div>';
     }
 
     public function frontend()

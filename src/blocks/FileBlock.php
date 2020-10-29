@@ -51,7 +51,7 @@ class FileBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">Text</span></div>';
+        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">'.Yii::t('forms', 'File').'</span></div>';
     }
 
     public function frontend()
