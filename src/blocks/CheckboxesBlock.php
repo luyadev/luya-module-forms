@@ -49,7 +49,7 @@ class CheckboxesBlock extends PhpBlock
                     'var' => 'values',
                     'label' => Yii::t('forms', 'Values'),
                     'type' => self::TYPE_LIST_ARRAY
-                ]
+                ],
             ],
         ], $this->parentConfig());
     }
