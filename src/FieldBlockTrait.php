@@ -44,6 +44,7 @@ trait FieldBlockTrait
                     'boolean' => Yii::t('forms', 'Boolean (Yes/No)'),
                     'date' => Yii::t('forms', 'Date'),
                     'datetime' => Yii::t('forms', 'Date & Time'),
+                    'ntext' => Yii::t('forms', 'Multiline Text'),
                 ])]
             ],
         ];

@@ -7,7 +7,6 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
-use luya\helpers\ArrayHelper;
 
 /**
  * Text Block.
