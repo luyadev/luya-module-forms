@@ -32,6 +32,8 @@ class BaseTestCase extends WebApplicationTestCase
                     'bundles' => [
                         'yii\web\JqueryAsset' => false,
                         'luya\bootstrap4\Bootstrap4Asset' => false,
+                        'yii\widgets\ActiveFormAsset' => false,
+                        'yii\web\YiiAsset' => false,
                     ],
                 ]
             ]
