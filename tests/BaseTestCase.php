@@ -1,9 +1,11 @@
 <?php
 namespace luya\forms\tests;
 
+use luya\forms\Forms;
 use luya\testsuite\cases\WebApplicationTestCase;
 use luya\testsuite\components\DummySession;
 use yii\web\AssetManager;
+use yii\widgets\ActiveForm;
 
 class BaseTestCase extends WebApplicationTestCase
 {
@@ -22,6 +24,12 @@ class BaseTestCase extends WebApplicationTestCase
                 'db' => [
                     'class' => 'yii\db\Connection',
                     'dsn' => 'sqlite::memory:',
+                ],
+                'forms' => [
+                    'class' => Forms::class,
+                    'activeFormClassOptions' => [
+                        'enableClientScript' => false,
+                    ]
                 ],
                 'session' => [
                     'class' => DummySession::class,

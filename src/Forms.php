@@ -26,6 +26,8 @@ class Forms extends Component
 
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
+    public $activeFormClassOptions = [];
+
     public $submitButtonsOptions = [];
 
     public $backButtonOptions = [];

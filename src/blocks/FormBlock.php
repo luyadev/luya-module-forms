@@ -33,7 +33,8 @@ class FormBlock extends PhpBlock
 
     public function setup()
     {
-        Yii::$app->forms->startForm(Yii::$app->forms->activeFormClass::begin());
+        $object = Yii::$app->forms->activeFormClass;
+        Yii::$app->forms->startForm($object::begin(Yii::$app->forms->activeFormClassOptions));
     }
 
     /**
