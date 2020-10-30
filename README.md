@@ -6,6 +6,8 @@
 
 [![LUYA](https://img.shields.io/badge/Powered%20by-LUYA-brightgreen.svg)](https://luya.io)
 ![Tests](https://github.com/luyadev/luya-module-forms/workflows/Tests/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/41f50ebcd7330406bcc4/maintainability)](https://codeclimate.com/github/luyadev/luya-module-forms/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/41f50ebcd7330406bcc4/test_coverage)](https://codeclimate.com/github/luyadev/luya-module-forms/test_coverage)
 
 Generate forms with LUYA CMS Blocks
 
