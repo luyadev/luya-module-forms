@@ -60,18 +60,6 @@ class FormBlock extends PhpBlock
     {
         return 'dynamic_form'; // see the list of icons on: https://design.google.com/icons/
     }
-
-    public function injectors()
-    {
-        return [
-            'formId' => new ActiveQuerySelectInjector([
-                'query' => Form::find(),
-                'label' => 'title',
-                'type' => self::INJECTOR_VAR,
-                'varLabel' => 'Form',
-            ])
-        ];
-    }
  
     /**
      * @inheritDoc
@@ -79,8 +67,16 @@ class FormBlock extends PhpBlock
     public function config()
     {
         return [
+            'vars' => [
+                [
+                    'var' => 'formId',
+                    'label' => 'Form',
+                    'type' => self::TYPE_SELECT_CRUD,
+                    'required' => true,
+                    'options' => ['route' => 'forms/form/index', 'api' => 'admin/api-forms-form', 'fields' => ['title']]
+                ]
+            ],
             'cfgs' => [
-                ['var' => 'xyz', 'type' => 'zaa-select-crud', 'label' => 'test', 'required' => true, 'options' => ['route' => 'forms/form/index', 'api' => 'admin/api-forms-form', 'fields' => ['title']]],
                 ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'required' => true, 'label' => Yii::t('forms', 'form_label_submitButtonLabel')],
                 ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewSubmitButtonLabel')],
                 ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewBackButtonLabel')],
