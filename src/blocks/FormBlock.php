@@ -4,10 +4,11 @@ namespace luya\forms\blocks;
 
 use Yii;
 use luya\cms\base\PhpBlock;
-use luya\cms\injectors\ActiveQuerySelectInjector;
+use luya\Exception;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FormsModel;
 use luya\forms\models\Form;
+use yii\base\InvalidConfigException;
 
 /**
  * Form Block.
@@ -31,8 +32,15 @@ class FormBlock extends PhpBlock
 
     public $previewButtonsTemplate = '<div>{{back}}<span> | </span>{{submit}}</div>';
 
+    /**
+     * {@inheritDoc}
+     */
     public function setup()
     {
+        if (empty($this->getVarValue('formId'))) {
+            throw new InvalidConfigException("The formId can not be empty, please select a form.");
+        }
+
         $object = Yii::$app->forms->activeFormClass;
         Yii::$app->forms->startForm($object::begin(Yii::$app->forms->activeFormClassOptions));
     }
@@ -120,7 +128,11 @@ class FormBlock extends PhpBlock
             $model->attributes = $data;
             // invisible attributes should not be validate in the second validation step.
             if ($model->validate($model->getAttributesWithoutInvisible())) {
-                Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')));
+                
+                if (!Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')))) {
+                    throw new Exception("Error while saving the form data, please try again later.");
+                }
+
                 Yii::$app->forms->removeFormData();
                 // set flash, redirect and end app
                 Yii::$app->session->setFlash('formDataSuccess');

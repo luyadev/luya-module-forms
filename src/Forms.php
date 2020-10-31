@@ -39,7 +39,7 @@ class Forms extends Component
      * ```php
      * 'emailMessage' => function(SubmissionEmail $email, Forms $forms) {
      *    // an example to use mailjet instead
-     *    Yii::$app->mailer->compose()
+     *    return Yii::$app->mailer->compose()
      *        ->setTemplate(484590)
      *        ->setVariables([
      *          'html' => $email->getSummaryHtml(),
@@ -52,6 +52,8 @@ class Forms extends Component
      * ```
      *
      * If not defined, the Forms component will use the {{luya\components\Mail}} to compose and send a message with a standard template.
+     * 
+     * The return value must indicate whether sending was successfull or not
      */
     public $emailMessage;
 
@@ -83,6 +85,12 @@ class Forms extends Component
         return isset($data[$attributeName]) ? $data[$attributeName] : null;
     }
 
+    /**
+     * Submit the form and store the data
+     *
+     * @param Form $form
+     * @return boolean Whether sending was succesful or not
+     */
     public function submit(Form $form)
     {
         $model = new Submission();
@@ -91,27 +99,30 @@ class Forms extends Component
         $model->language = Yii::$app->composition->getLangShortCode();
         $model->url = Yii::$app->request->url;
         
-        if ($model->save()) {
-            foreach ($this->getFormData() as $attribute => $value) {
-                if ($this->model->isAttributeInvisible($attribute)) {
-                    continue;
-                }
+        // error while saving
+        if (!$model->save()) {
+            return false;
+        }
 
-                $submissionValue = new SubmissionValue();
-                $submissionValue->submission_id = $model->id;
-                $submissionValue->attribute = $attribute;
-                $submissionValue->label = $this->model->getAttributeLabel($attribute);
-                $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
-                $submissionValue->value = $value;
-                $submissionValue->format = isset($this->model->formatters[$attribute]) ? $this->model->formatters[$attribute] : null;
-                $submissionValue->save();
+        foreach ($this->getFormData() as $attribute => $value) {
+            if ($this->model->isAttributeInvisible($attribute)) {
+                continue;
             }
+
+            $submissionValue = new SubmissionValue();
+            $submissionValue->submission_id = $model->id;
+            $submissionValue->attribute = $attribute;
+            $submissionValue->label = $this->model->getAttributeLabel($attribute);
+            $submissionValue->hint = isset($this->model->attributeHints[$attribute]) ? $this->model->attributeHints[$attribute] : null;
+            $submissionValue->value = $value;
+            $submissionValue->format = isset($this->model->formatters[$attribute]) ? $this->model->formatters[$attribute] : null;
+            $submissionValue->save();
         }
 
         $submissionEmail = new SubmissionEmail($model);
 
         if ($this->emailMessage) {
-            call_user_func($this->emailMessage, $submissionEmail, $this);
+            return call_user_func($this->emailMessage, $submissionEmail, $this);
         } else {
             $mail = Yii::$app->mail
                 ->compose(
@@ -129,6 +140,8 @@ class Forms extends Component
                 throw new Exception(Yii::$app->mail->error);
             }
         }
+
+        return true;
     }
 
     private $_isLoaded = false;
