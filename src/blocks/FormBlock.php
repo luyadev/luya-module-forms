@@ -37,10 +37,6 @@ class FormBlock extends PhpBlock
      */
     public function setup()
     {
-        if (empty($this->getVarValue('formId'))) {
-            throw new InvalidConfigException("The formId can not be empty, please select a form.");
-        }
-
         $object = Yii::$app->forms->activeFormClass;
         Yii::$app->forms->startForm($object::begin(Yii::$app->forms->activeFormClassOptions));
     }
