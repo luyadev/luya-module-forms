@@ -119,9 +119,64 @@ class Forms extends Component
         return $this->_model;
     }
 
+    /**
+     * Clean up the session and destroy model and form
+     */
+    public function cleanup()
+    {
+        Yii::$app->session->remove($this->sessionFormDataName);
+        $this->_model = null;
+        $this->_form = null;
+    }
+
+    private $_isLoaded = false;
+
+    /**
+     * Loads the data from the post request into the model, validates it and stores the data in the session.
+     *
+     * @return boolean Whether loading the model with data was successfull or not (if not a validation error may persists in the $model).
+     */
+    public function loadModel()
+    {
+        if ($this->_isLoaded) {
+            return true;
+        }
+        
+        if (!Yii::$app->request->isPost) {
+            return false;
+        }
+
+        $this->model->load(Yii::$app->request->post());
+        if ($this->model->validate()) {
+            Yii::$app->session->set($this->sessionFormDataName, $this->model->attributes);
+            $this->_isLoaded = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all form values which are stored trough {{loadModel()}}.
+     *
+     * @return array An array with attribute name and value
+     */
     public function getFormData()
     {
         return ArrayHelper::typeCast(Yii::$app->session->get($this->sessionFormDataName, []));
+    }
+
+    /**
+     * Return the value for a given attribute form the form data§
+     *
+     * @param string $attributeName
+     * @return mixed
+     */
+    public function getFormDataAttributeValue($attributeName)
+    {
+        $data = $this->getFormData();
+
+        return isset($data[$attributeName]) ? $data[$attributeName] : null;
     }
 
     /**
@@ -183,39 +238,7 @@ class Forms extends Component
         return true;
     }
 
-    private $_isLoaded = false;
-
-    public function loadModel()
-    {
-        if ($this->_isLoaded) {
-            return true;
-        }
-        
-        if (!Yii::$app->request->isPost) {
-            return false;
-        }
-
-        $this->model->load(Yii::$app->request->post());
-        if ($this->model->validate()) {
-            $this->setFormData($this->model->attributes);
-            $this->_isLoaded = true;
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function setFormData(array $data)
-    {
-        Yii::$app->session->set($this->sessionFormDataName, $data);
-    }
-
-    public function cleanup()
-    {
-        Yii::$app->session->remove($this->sessionFormDataName);
-        $this->_model = null;
-        $this->_form = null;
-    }
+    
 
     /**
      * Auto configures a gien attribute into the model.
@@ -274,7 +297,7 @@ class Forms extends Component
      * @param array $options
      * 
      */
-    private function setAttributeRule($attributeName, $rule, $options = [])
+    public function setAttributeRule($attributeName, $rule, $options = [])
     {
         $this->model->addRule([$attributeName], $rule, $options);
     }
@@ -285,7 +308,7 @@ class Forms extends Component
      * @param string $attribute
      * @param mixed $value
      */
-    private function setAttributeValue($attribute, $value)
+    public function setAttributeValue($attribute, $value)
     {
         $this->model->{$attribute} = $value;
     }
@@ -323,18 +346,5 @@ class Forms extends Component
         if ($formatAs && !empty($formatAs)) {
             $this->model->formatters[$attribute] = $formatAs;
         }
-    }
-
-    /**
-     * Return the value for a given attribute form the form data§
-     *
-     * @param string $attributeName
-     * @return mixed
-     */
-    public function getFormDataAttributeValue($attributeName)
-    {
-        $data = $this->getFormData();
-
-        return isset($data[$attributeName]) ? $data[$attributeName] : null;
     }
 }
