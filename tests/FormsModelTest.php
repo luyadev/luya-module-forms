@@ -2,14 +2,14 @@
 
 namespace luya\forms\tests;
 
-use luya\forms\FormsModel;
+use luya\forms\Model;
 use yii\base\DynamicModel;
 
-class FormsModelTest extends BaseTestCase
+class ModelTest extends BaseTestCase
 {
     public function testFormatAttributeValue()
     {
-        $model = new FormsModel([
+        $model = new Model([
             'foo' => 'bar',
             'baz' => 'test@luya.io'
         ]);
@@ -21,7 +21,7 @@ class FormsModelTest extends BaseTestCase
 
     public function testInvisibleSetterGetter()
     {
-        $model = new FormsModel([
+        $model = new Model([
             'foo' => '', 'baz' => '', 'foobar' => '',
         ]);
         $model->invisibleAttribute('foobar');
@@ -29,7 +29,5 @@ class FormsModelTest extends BaseTestCase
         $this->assertTrue($model->isAttributeInvisible('foobar'));
 
         $this->assertSame(['foo', 'baz'], $model->getAttributesWithoutInvisible());
-
-
     }
 }

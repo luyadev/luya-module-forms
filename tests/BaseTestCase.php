@@ -57,7 +57,6 @@ class BaseTestCase extends WebApplicationTestCase
     public function beforeSetup()
     {
         parent::beforeSetup();
-
         FileHelper::createDirectory(dirname(__FILE__ ) . '/assets', 0777);
     }
 }

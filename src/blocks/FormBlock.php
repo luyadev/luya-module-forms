@@ -6,9 +6,8 @@ use Yii;
 use luya\cms\base\PhpBlock;
 use luya\Exception;
 use luya\forms\blockgroups\FormGroup;
-use luya\forms\FormsModel;
+use luya\forms\Model;
 use luya\forms\models\Form;
-use yii\base\InvalidConfigException;
 
 /**
  * Form Block.
@@ -119,7 +118,7 @@ class FormBlock extends PhpBlock
     {
         $data = Yii::$app->forms->getFormData();
         if ($this->isSubmit() && !empty($data)) {
-            /** @var FormsModel $model */
+            /** @var Model $model */
             $model = Yii::$app->forms->model;
             $model->attributes = $data;
             // invisible attributes should not be validate in the second validation step.

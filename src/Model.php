@@ -11,7 +11,7 @@ use Yii;
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */
-class FormsModel extends DynamicModel
+class Model extends DynamicModel
 {
     /**
      * @var string The uniue form id

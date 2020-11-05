@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
  * Forms Component
  * 
  * @property ActiveForm $form
- * @property FormsModel $model
+ * @property Model $model
  * 
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
@@ -79,7 +79,7 @@ class Forms extends Component
     private $_form;
 
     /**
-     * @var FormsModel
+     * @var Model
      */
     private $_model;
 
@@ -96,7 +96,7 @@ class Forms extends Component
     public function startForm(ActiveForm $form)
     {
         $this->_form = $form;
-        $this->_model = new FormsModel();
+        $this->_model = new Model();
     }
 
     /**
@@ -112,7 +112,7 @@ class Forms extends Component
     /**
      * Model Getter
      *
-     * @return FormsModel
+     * @return Model
      */
     public function getModel()
     {
