@@ -2,7 +2,6 @@
 
 namespace luya\forms;
 
-use luya\base\DynamicModel;
 use luya\Exception;
 use luya\forms\models\Form;
 use luya\forms\models\Submission;
@@ -13,23 +12,40 @@ use Yii;
 use yii\base\Component;
 use yii\widgets\ActiveForm;
 
+/**
+ * Forms Component
+ * 
+ * @property ActiveForm $form
+ * @property FormsModel $model
+ * 
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class Forms extends Component
 {
-    public $form;
-
     /**
-     * @var FormsModel
+     * @var string The session variable name
      */
-    public $model;
-
     public $sessionFormDataName = '__formData';
 
+    /**
+     * @var string The Active Form class, for configurations options see {{$activeFormClassOptions}}.
+     */
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
+    /**
+     * @var array A configuration array which will be passed to ActiveForm::begin($options).
+     */
     public $activeFormClassOptions = [];
 
+    /**
+     * @var array An array of options which will be passed to {{ Html::submitButton(..., $options)}} submit buttons.
+     */
     public $submitButtonsOptions = [];
 
+    /**
+     * @var array An array of options which will be passed to {{ Html::submitButton(..., $options)}} back buttons.
+     */
     public $backButtonOptions = [];
 
     /**
@@ -57,32 +73,55 @@ class Forms extends Component
      */
     public $emailMessage;
 
+    /**
+     * @var ActiveForm
+     */
+    private $_form;
+
+    /**
+     * @var FormsModel
+     */
+    private $_model;
+
+    /**
+     * @var string The email email which will be taken to generate the default message.
+     */
     public $defaultEmailTemplate = '<p>{{intro}}</p>{{summary}}<p>{{outro}}</p>';
 
-    protected function setFormData(array $data)
+    /**
+     * Initialize the form and the model
+     *
+     * @param ActiveForm $form
+     */
+    public function startForm(ActiveForm $form)
     {
-        Yii::$app->session->set($this->sessionFormDataName, $data);
+        $this->_form = $form;
+        $this->_model = new FormsModel();
+    }
+
+    /**
+     * Active Form Getter
+     * 
+     * @return ActiveForm
+     */
+    public function getForm()
+    {
+        return $this->_form;
+    }
+
+    /**
+     * Model Getter
+     *
+     * @return FormsModel
+     */
+    public function getModel()
+    {
+        return $this->_model;
     }
 
     public function getFormData()
     {
         return ArrayHelper::typeCast(Yii::$app->session->get($this->sessionFormDataName, []));
-    }
-
-    public function setFormAttributeInfo($attribute, $label, $hint, $formatAs)
-    {
-        $this->model->attributeLabels[$attribute] = $label;
-        $this->model->attributeHints[$attribute] = $hint;
-        if ($formatAs && !empty($formatAs)) {
-            $this->model->formatters[$attribute] = $formatAs;
-        }
-    }
-
-    public function formDataAttribute($attributeName)
-    {
-        $data = $this->getFormData();
-
-        return isset($data[$attributeName]) ? $data[$attributeName] : null;
     }
 
     /**
@@ -166,15 +205,16 @@ class Forms extends Component
         return false;
     }
 
-    public function removeFormData()
+    protected function setFormData(array $data)
     {
-        Yii::$app->session->remove($this->sessionFormDataName);
+        Yii::$app->session->set($this->sessionFormDataName, $data);
     }
 
-    public function startForm(ActiveForm $form)
+    public function cleanup()
     {
-        $this->form = $form;
-        $this->model = new FormsModel();
+        Yii::$app->session->remove($this->sessionFormDataName);
+        $this->_model = null;
+        $this->_form = null;
     }
 
     /**
@@ -187,37 +227,114 @@ class Forms extends Component
      * + If there is already a value from session data, the value will be inject into the model, this is mainly used for preview.
      * + label and hint informations will be assigned
      * + if a specific format type is provided, the formatter will be taken to format the value when previewing or storing the value.
+     *
+     * @param string $attributeName
+     * @param string $rule
+     * @param boolean $isRequired
+     * @param string $label
+     * @param string $hint
+     * @param string $formatAs
      */
     public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null, $formatAs = null)
     {
-        $this->addAttribute($attributeName, $rule);
+        $this->createAttribute($attributeName, $rule);
 
         if ($isRequired) {
-            $this->addRule($attributeName, 'required');
+            $this->setAttributeRule($attributeName, 'required');
         }
 
-        $value = $this->formDataAttribute($attributeName);
+        $value = $this->getFormDataAttributeValue($attributeName);
 
         if (!empty($value)) {
             $this->setAttributeValue($attributeName, $value);
         }
 
-        $this->setFormAttributeInfo($attributeName, $label, $hint, $formatAs);
+        $this->setAttributeLabel($attributeName, $label);
+        $this->setAttributeHint($attributeName, $hint);
+        $this->setAttributeFormat($attributeName, $formatAs);
     }
 
-    public function addAttribute($attributeName, $rule = 'safe')
+    /**
+     * Create a new attribute with a required default rule
+     *
+     * @param string $attributeName
+     * @param string $rule
+     */
+    public function createAttribute($attributeName, $rule = 'safe')
     {
         $this->model->defineAttribute($attributeName);
-        $this->addRule($attributeName, $rule);
+        $this->setAttributeRule($attributeName, $rule);
     }
 
-    private function addRule($attributeName, $rule)
+    /**
+     * Attribute Rule
+     *
+     * @param string $attributeName
+     * @param string $rule
+     * @param array $options
+     * 
+     */
+    private function setAttributeRule($attributeName, $rule, $options = [])
     {
-        $this->model->addRule([$attributeName], $rule);
+        $this->model->addRule([$attributeName], $rule, $options);
     }
 
+    /**
+     * Set attribute value
+     *
+     * @param string $attribute
+     * @param mixed $value
+     */
     private function setAttributeValue($attribute, $value)
     {
         $this->model->{$attribute} = $value;
+    }
+    
+    /**
+     * Attribute Label
+     *
+     * @param string $attribute
+     * @param string $label
+     */
+    public function setAttributeLabel($attribute, $label)
+    {
+        $this->model->attributeLabels[$attribute] = $label;
+    }
+
+    /**
+     * Attribute Hint
+     *
+     * @param string $attribute
+     * @param string $hint
+     */
+    public function setAttributeHint($attribute, $hint)
+    {
+        $this->model->attributeHints[$attribute] = $hint;
+    }
+
+    /**
+     * Attribute Format
+     *
+     * @param string $attribute
+     * @param string $formatAs
+     */
+    public function setAttributeFormat($attribute, $formatAs)
+    {
+        if ($formatAs && !empty($formatAs)) {
+            $this->model->formatters[$attribute] = $formatAs;
+        }
+    }
+
+    /**
+     * Return the value for a given attribute form the form data§
+     *
+     * @param string $attributeName
+     * @return mixed
+     */
+    public function getFormDataAttributeValue($attributeName)
+    {
+        $data = $this->getFormData();
+
+        return isset($data[$attributeName]) ? $data[$attributeName] : null;
     }
 }

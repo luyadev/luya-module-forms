@@ -129,7 +129,7 @@ class FormBlock extends PhpBlock
                     throw new Exception("Error while saving the form data, please try again later.");
                 }
 
-                Yii::$app->forms->removeFormData();
+                Yii::$app->forms->cleanup();
                 // set flash, redirect and end app
                 Yii::$app->session->setFlash('formDataSuccess');
                 Yii::$app->response->redirect(Yii::$app->menu->current->link);
