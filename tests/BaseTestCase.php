@@ -2,12 +2,11 @@
 namespace luya\forms\tests;
 
 use luya\forms\Forms;
+use luya\helpers\FileHelper;
 use luya\testsuite\cases\WebApplicationTestCase;
 use luya\testsuite\components\DummySession;
-use luya\testsuite\traits\AdminDatabaseTableTrait;
 use luya\testsuite\traits\CmsDatabaseTableTrait;
 use yii\web\AssetManager;
-use yii\widgets\ActiveForm;
 
 class BaseTestCase extends WebApplicationTestCase
 {
@@ -53,5 +52,12 @@ class BaseTestCase extends WebApplicationTestCase
                 ]
             ]
         ];
+    }
+
+    public function beforeSetup()
+    {
+        parent::beforeSetup();
+
+        FileHelper::createDirectory(dirname(__FILE__ ) . '/assets', 0777);
     }
 }
