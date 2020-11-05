@@ -62,6 +62,9 @@ class TextBlock extends PhpBlock
         return '<div>{{vars.label}} <span class="badge badge-secondary float-right">'.Yii::t('forms', 'Text').'</span></div>';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function frontend()
     {
         Yii::$app->forms->autoConfigureAttribute(

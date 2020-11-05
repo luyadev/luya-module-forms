@@ -5,6 +5,12 @@ namespace luya\forms;
 use luya\cms\helpers\BlockHelper;
 use Yii;
 
+/**
+ * A trait for form field blocks.
+ * 
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 trait FieldBlockTrait
 {
     public $defaultRule = 'safe';
