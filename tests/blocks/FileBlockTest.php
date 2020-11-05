@@ -2,14 +2,14 @@
 
 namespace luya\forms\tests\blocks;
 
-use luya\forms\blocks\TextBlock;
+use luya\forms\blocks\FileBlock;
 use luya\forms\tests\BlockTestCase;
 use yii\widgets\ActiveField;
 use yii\widgets\ActiveForm;
 
-class TextBlockTest extends BlockTestCase
+class FileBlockTest extends BlockTestCase
 {
-    public $blockClass = TextBlock::class;
+    public $blockClass = FileBlock::class;
 
     public function testFrontend()
     {

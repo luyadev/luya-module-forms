@@ -2,20 +2,21 @@
 
 namespace luya\forms\tests\blocks;
 
-use luya\forms\blocks\TextBlock;
+use luya\forms\blocks\CheckboxesBlock;
 use luya\forms\tests\BlockTestCase;
 use yii\widgets\ActiveField;
 use yii\widgets\ActiveForm;
 
-class TextBlockTest extends BlockTestCase
+class CheckboxesBlockTest extends BlockTestCase
 {
-    public $blockClass = TextBlock::class;
+    public $blockClass = CheckboxesBlock::class;
 
     public function testFrontend()
     {
         $this->app->forms->startForm(ActiveForm::begin());
         $this->block->setVarValues([
             'attribute' => 'firstname',
+            'values' => [],
         ]);
         $this->assertInstanceOf(ActiveField::class, $this->block->frontend());
         $this->assertNotEmpty($this->block->admin());
