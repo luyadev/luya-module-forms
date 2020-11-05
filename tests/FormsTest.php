@@ -19,6 +19,7 @@ class FormsTest extends BaseTestCase
         $this->assertSame(['foo'], $form->model->attributes());
         $this->assertSame('value', $form->model->foo);
         
+        $this->assertFalse($form->loadModel());
         $this->assertEmpty($form->cleanup());
     }
 
@@ -38,6 +39,7 @@ class FormsTest extends BaseTestCase
                 'foo' => 'value of foo',
             ]
         ]);
+        $this->assertTrue($form->loadModel());
         $this->assertTrue($form->loadModel());
 
 

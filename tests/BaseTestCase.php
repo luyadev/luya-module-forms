@@ -8,7 +8,7 @@ use luya\testsuite\components\DummySession;
 use luya\testsuite\traits\CmsDatabaseTableTrait;
 use yii\web\AssetManager;
 
-class BaseTestCase extends WebApplicationTestCase
+abstract class BaseTestCase extends WebApplicationTestCase
 {
     use CmsDatabaseTableTrait;
     
