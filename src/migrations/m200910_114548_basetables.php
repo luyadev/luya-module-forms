@@ -37,6 +37,8 @@ class m200910_114548_basetables extends Migration
             'updated_at' => $this->integer(),
         ]);
 
+        $this->createIndex('form_id', '{{%forms_submission}}', ['form_id']);
+
         $this->createTable('{{%forms_submission_value}}', [
             'id' => $this->primaryKey(),
             'submission_id' => $this->integer(),
@@ -46,6 +48,8 @@ class m200910_114548_basetables extends Migration
             'value' => $this->text(),
             'format' => $this->string(),
         ]);
+
+        $this->createIndex('submission_id', '{{%forms_submission_value}}', ['submission_id']);
     }
 
     /**

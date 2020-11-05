@@ -2,10 +2,8 @@
 
 namespace luya\forms\tests\blocks;
 
-use luya\forms\blocks\CheckboxesBlock;
 use luya\forms\blocks\SummaryBlock;
 use luya\forms\tests\BlockTestCase;
-use yii\widgets\ActiveField;
 use yii\widgets\ActiveForm;
 
 class SummaryBlockTest extends BlockTestCase
