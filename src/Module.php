@@ -2,14 +2,26 @@
 
 namespace luya\forms;
 
+/**
+ * Module
+ * 
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class Module extends \luya\admin\base\Module
 {
+    /**
+     * {@inheritDoc}
+     */
     public $apis = [
         'api-forms-form' => 'luya\forms\apis\FormController',
         'api-forms-submission' => 'luya\forms\apis\SubmissionController',
         'api-forms-submissionvalue' => 'luya\forms\apis\SubmissionValueController',
     ];
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMenu()
     {
         return (new \luya\admin\components\AdminMenuBuilder($this))
@@ -21,6 +33,9 @@ class Module extends \luya\admin\base\Module
                     ->itemApi('Values', 'forms/submission-value/index', 'label', 'api-forms-submissionvalue', ['hiddenInMenu' => true]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function registerComponents()
     {
         return [
@@ -30,6 +45,9 @@ class Module extends \luya\admin\base\Module
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function onLoad()
     {
         self::registerTranslation('forms', static::staticBasePath() . '/messages', [

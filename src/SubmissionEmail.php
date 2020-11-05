@@ -79,6 +79,26 @@ class SubmissionEmail
     }
 
     /**
+     * Returns the intro text for the email
+     *
+     * @return string
+     */
+    public function getIntro()
+    {
+        return StringHelper::template($this->submission->form->email_intro, $this->variablizeValues());
+    }
+
+    /**
+     * Returns the outro text for the email
+     *
+     * @return string
+     */
+    public function getOutro()
+    {
+        return StringHelper::template($this->submission->form->email_outro, $this->variablizeValues());
+    }
+
+    /**
      * Get all variables with its value as array
      *
      * @return array
@@ -91,15 +111,5 @@ class SubmissionEmail
         }
 
         return $vars;
-    }
-
-    public function getIntro()
-    {
-        return StringHelper::template($this->submission->form->email_intro, $this->variablizeValues());
-    }
-
-    public function getOutro()
-    {
-        return StringHelper::template($this->submission->form->email_outro, $this->variablizeValues());
     }
 }

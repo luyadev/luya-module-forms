@@ -5,15 +5,37 @@ namespace luya\forms;
 use luya\base\DynamicModel;
 use Yii;
 
+/**
+ * Form Submission Model
+ * 
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class FormsModel extends DynamicModel
 {
+    /**
+     * @var string The uniue form id
+     */
     public $formId;
 
+    /**
+     * @var array An array where the key is the attribute and value the formatter option, like
+     * ```php
+     * 'firstname' => 'ntext',
+     * ```
+     */
     public $formatters = [];
 
+    /**
+     * Format a given attribute
+     *
+     * @param string $attribute
+     * @param string $value
+     * @return string
+     */
     public function formatAttributeValue($attribute, $value)
     {
-        $value = is_array($value) ? implode(", ", $value) : Yii::$app->formatter->autoFormat($value);
+        $value = is_array($value) ? implode(", ", $value) : $value;
 
         if (isset($this->formatters[$attribute]) && !empty($this->formatters[$attribute])) {
             return Yii::$app->formatter->format($value, $this->formatters[$attribute]);
@@ -60,7 +82,7 @@ class FormsModel extends DynamicModel
     public function getAttributesWithoutInvisible()
     {
         $result = [];
-        foreach ($this->getAttributes() as $attributeName) {
+        foreach ($this->attributes() as $attributeName) {
             if (!$this->isAttributeInvisible($attributeName)) {
                 $result[] = $attributeName;
             }
