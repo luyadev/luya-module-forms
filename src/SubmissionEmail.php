@@ -5,6 +5,12 @@ namespace luya\forms;
 use luya\forms\models\Submission;
 use luya\helpers\StringHelper;
 
+/**
+ * E-Mail Submission Object
+ * 
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class SubmissionEmail
 {
     /**
@@ -12,16 +18,33 @@ class SubmissionEmail
      */
     public $submission;
 
+    /**
+     * Constructor
+     *
+     * @param Submission $submission
+     */
     public function __construct(Submission $submission)
     {
         $this->submission = $submission;
     }
 
+    /**
+     * Returns the subject of the email.
+     * 
+     * If subject is not defined, the form title is returned
+     *
+     * @return string
+     */
     public function getSubject()
     {
         return $this->submission->form->subject ? $this->submission->form->subject : $this->submission->form->title;
     }
 
+    /**
+     * Returns all recipients
+     *
+     * @return array
+     */
     public function getRecipients()
     {
         $recipients = $this->submission->form->recipients;
@@ -36,9 +59,14 @@ class SubmissionEmail
             }
         }
 
-        return $recipients;
+        return array_unique($recipients);
     }
 
+    /**
+     * Returns the summary of the form value
+     *
+     * @return string
+     */
     public function getSummaryHtml()
     {
         $html = null;
@@ -50,6 +78,11 @@ class SubmissionEmail
         return $html;
     }
 
+    /**
+     * Get all variables with its value as array
+     *
+     * @return array
+     */
     protected function variablizeValues()
     {
         $vars = [];

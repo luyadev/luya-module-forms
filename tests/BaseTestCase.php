@@ -4,11 +4,15 @@ namespace luya\forms\tests;
 use luya\forms\Forms;
 use luya\testsuite\cases\WebApplicationTestCase;
 use luya\testsuite\components\DummySession;
+use luya\testsuite\traits\AdminDatabaseTableTrait;
+use luya\testsuite\traits\CmsDatabaseTableTrait;
 use yii\web\AssetManager;
 use yii\widgets\ActiveForm;
 
 class BaseTestCase extends WebApplicationTestCase
 {
+    use CmsDatabaseTableTrait;
+    
     public function getConfigArray()
     {
         return [
@@ -18,8 +22,11 @@ class BaseTestCase extends WebApplicationTestCase
             'modules' => [
                 'forms' => [
                     'class' => 'luya\forms\Module',
-                ]
                 ],
+                'admin' => [
+                    'class' => 'luya\admin\Module',
+                ]
+            ],
             'components' => [
                 'db' => [
                     'class' => 'yii\db\Connection',
