@@ -11,7 +11,8 @@ use luya\forms\FieldBlockTrait;
 /**
  * Text Block.
  *
- * File has been created with `block/create` command.
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class FileBlock extends PhpBlock
 {

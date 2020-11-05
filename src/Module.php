@@ -4,7 +4,7 @@ namespace luya\forms;
 
 /**
  * Module
- * 
+ *
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */

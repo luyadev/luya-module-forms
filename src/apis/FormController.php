@@ -5,7 +5,8 @@ namespace luya\forms\apis;
 /**
  * Form Controller.
  *
- * File has been created with `crud/create` command.
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class FormController extends \luya\admin\ngrest\base\Api
 {

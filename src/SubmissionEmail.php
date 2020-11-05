@@ -7,7 +7,7 @@ use luya\helpers\StringHelper;
 
 /**
  * E-Mail Submission Object
- * 
+ *
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */
@@ -30,7 +30,7 @@ class SubmissionEmail
 
     /**
      * Returns the subject of the email.
-     * 
+     *
      * If subject is not defined, the form title is returned
      *
      * @return string

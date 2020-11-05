@@ -7,6 +7,12 @@ use luya\forms\blockgroups\FormGroup;
 use luya\helpers\StringHelper;
 use Yii;
 
+/**
+ * Summary
+ *
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class SummaryBlock extends PhpBlock
 {
     public $template = '<p>{{label}}: {{value}}</p>';

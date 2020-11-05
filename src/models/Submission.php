@@ -11,8 +11,6 @@ use yii\behaviors\TimestampBehavior;
 /**
  * Submission.
  *
- * File has been created with `crud/create` command.
- *
  * @property integer $id
  * @property integer $form_id
  * @property string $useragent
@@ -24,6 +22,9 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property Form $form
  * @property SubmissionValue[] $values
+ *
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class Submission extends NgRestModel
 {
@@ -35,6 +36,9 @@ class Submission extends NgRestModel
         return '{{%forms_submission}}';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function behaviors()
     {
         return [

@@ -42,7 +42,7 @@ abstract class BlockTestCase extends CmsBlockTestCase
                 ],
                 'assetManager' => [
                     'class' => AssetManager::class,
-                    'basePath' => dirname(__FILE__ ) . '/assets',
+                    'basePath' => dirname(__FILE__) . '/assets',
                     'bundles' => [
                         'yii\web\JqueryAsset' => false,
                         'luya\bootstrap4\Bootstrap4Asset' => false,
@@ -57,6 +57,6 @@ abstract class BlockTestCase extends CmsBlockTestCase
     public function beforeSetup()
     {
         parent::beforeSetup();
-        FileHelper::createDirectory(dirname(__FILE__ ) . '/assets', 0777);
+        FileHelper::createDirectory(dirname(__FILE__) . '/assets', 0777);
     }
 }

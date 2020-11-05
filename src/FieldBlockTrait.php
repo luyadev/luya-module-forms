@@ -7,7 +7,7 @@ use Yii;
 
 /**
  * A trait for form field blocks.
- * 
+ *
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */

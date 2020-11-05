@@ -8,8 +8,6 @@ use luya\admin\ngrest\base\NgRestModel;
 /**
  * Submission Value.
  *
- * File has been created with `crud/create` command.
- *
  * @property integer $id
  * @property integer $submission_id
  * @property string $attribute
@@ -17,8 +15,11 @@ use luya\admin\ngrest\base\NgRestModel;
  * @property string $hint
  * @property text $value
  * @property text $format
- * 
+ *
  * @property string $formattedValue
+ *
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class SubmissionValue extends NgRestModel
 {
@@ -38,6 +39,9 @@ class SubmissionValue extends NgRestModel
         return 'api-forms-submissionvalue';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function init()
     {
         parent::init();

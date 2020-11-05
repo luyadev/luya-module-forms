@@ -12,8 +12,6 @@ use yii\behaviors\TimestampBehavior;
 /**
  * Form.
  *
- * File has been created with `crud/create` command.
- *
  * @property integer $id
  * @property text $title
  * @property text $subject
@@ -25,6 +23,9 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
+ *
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class Form extends NgRestModel
 {
@@ -49,6 +50,9 @@ class Form extends NgRestModel
         return 'api-forms-form';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function behaviors()
     {
         return [
@@ -77,6 +81,9 @@ class Form extends NgRestModel
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function ngRestAttributeGroups()
     {
         return [
@@ -128,6 +135,9 @@ class Form extends NgRestModel
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function attributeHints()
     {
         return [
@@ -162,6 +172,9 @@ class Form extends NgRestModel
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function ngRestActiveWindows()
     {
         return [
@@ -171,6 +184,9 @@ class Form extends NgRestModel
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function ngRestActiveButtons()
     {
         return [

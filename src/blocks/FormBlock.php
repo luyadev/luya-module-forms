@@ -12,7 +12,8 @@ use luya\forms\models\Form;
 /**
  * Form Block.
  *
- * File has been created with `block/create` command.
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class FormBlock extends PhpBlock
 {
@@ -123,7 +124,6 @@ class FormBlock extends PhpBlock
             $model->attributes = $data;
             // invisible attributes should not be validate in the second validation step.
             if ($model->validate($model->getAttributesWithoutInvisible())) {
-                
                 if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')))) {
                     throw new Exception("Error while saving the form data, please try again later.");
                 }

@@ -9,6 +9,12 @@ use luya\helpers\ExportHelper;
 use luya\helpers\Inflector;
 use Yii;
 
+/**
+ * Export data
+ *
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
+ */
 class ExportActiveWindow extends ActiveWindow
 {
     public $module = 'forms';

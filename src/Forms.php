@@ -14,10 +14,10 @@ use yii\widgets\ActiveForm;
 
 /**
  * Forms Component
- * 
+ *
  * @property ActiveForm $form
  * @property Model $model
- * 
+ *
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */
@@ -68,7 +68,7 @@ class Forms extends Component
      * ```
      *
      * If not defined, the Forms component will use the {{luya\components\Mail}} to compose and send a message with a standard template.
-     * 
+     *
      * The return value must indicate whether sending was successfull or not
      */
     public $emailMessage;
@@ -101,7 +101,7 @@ class Forms extends Component
 
     /**
      * Active Form Getter
-     * 
+     *
      * @return ActiveForm
      */
     public function getForm()
@@ -242,9 +242,9 @@ class Forms extends Component
 
     /**
      * Auto configures a gien attribute into the model.
-     * 
+     *
      * The following steps will be done when using auto configure attribute:
-     * 
+     *
      * + The $attributeName will be added to the form model with the given $role
      * + When required is enabled, the required rule will be set or not.
      * + If there is already a value from session data, the value will be inject into the model, this is mainly used for preview.
@@ -295,7 +295,7 @@ class Forms extends Component
      * @param string $attributeName
      * @param string $rule
      * @param array $options
-     * 
+     *
      */
     public function setAttributeRule($attributeName, $rule, $options = [])
     {

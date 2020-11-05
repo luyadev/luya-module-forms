@@ -5,7 +5,8 @@ namespace luya\forms\apis;
 /**
  * Submission Controller.
  *
- * File has been created with `crud/create` command.
+ * @author Basil Suter <git@nadar.io>
+ * @since 1.0.0
  */
 class SubmissionController extends \luya\admin\ngrest\base\Api
 {
