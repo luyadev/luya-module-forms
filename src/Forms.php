@@ -180,12 +180,12 @@ class Forms extends Component
     }
 
     /**
-     * Submit the form and store the data
+     * Submit and Save the form and store the data
      *
      * @param Form $form
      * @return boolean Whether sending was succesful or not
      */
-    public function submit(Form $form)
+    public function save(Form $form)
     {
         $model = new Submission();
         $model->form_id = $form->id;

@@ -124,7 +124,7 @@ class FormBlock extends PhpBlock
             // invisible attributes should not be validate in the second validation step.
             if ($model->validate($model->getAttributesWithoutInvisible())) {
                 
-                if (!Yii::$app->forms->submit(Form::findOne($this->getVarValue('formId')))) {
+                if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')))) {
                     throw new Exception("Error while saving the form data, please try again later.");
                 }
 
