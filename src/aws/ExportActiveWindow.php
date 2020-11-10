@@ -59,6 +59,6 @@ class ExportActiveWindow extends ActiveWindow
             $data[] = $item;
         }
 
-        return CallbackButtonFileDownloadWidget::sendOutput($this, Inflector::slug('export-' . Yii::$app->formatter->asDatetime(time())).'.xlsx', ExportHelper::xlsx($data));
+        return CallbackButtonFileDownloadWidget::sendOutput($this, Inflector::slug('export-' . Yii::$app->formatter->asDatetime(time())).'.xlsx', ExportHelper::xlsx($data, [], true, ['sort' => false]));
     }
 }
