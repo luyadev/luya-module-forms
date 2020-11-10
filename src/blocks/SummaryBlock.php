@@ -68,7 +68,7 @@ class SummaryBlock extends PhpBlock
                 continue;
             }
 
-            $html .= StringHelper::template($this->template, [
+            $html .= StringHelper::template($this->getVarValue('template', $this->template), [
                 'label' => $model->getAttributeLabel($k),
                 'value' => $model->formatAttributeValue($k, $v),
             ]);
