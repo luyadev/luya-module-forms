@@ -37,7 +37,7 @@ class ExportActiveWindow extends ActiveWindow
     public function index()
     {
         return $this->render('index', [
-            'submissions' => $this->model->submissions,
+            'submissions' => $this->model->getSubmissions()->where(['is_done' => false])->all(),
         ]);
     }
 
@@ -45,7 +45,7 @@ class ExportActiveWindow extends ActiveWindow
     {
         $data = [];
 
-        foreach ($this->model->getSubmission()->where(['is_done' => false])->all() as $submission) {
+        foreach ($this->model->getSubmissions()->where(['is_done' => false])->all() as $submission) {
             $item = [
                 Yii::t('forms', 'Date') => Yii::$app->formatter->asDatetime($submission->created_at),
                 Yii::t('forms', 'Language') => $submission->language,
