@@ -34,5 +34,5 @@ use luya\helpers\StringHelper;
 <?php Yii::$app->forms->form->end(); ?>
 
 <?php if (empty($this->varValue('formId'))): ?>
-<div style="background-color:red; color:white; padding:20px;"><?= Yii::t('app', 'The form is not configured properly. Select a Form in the Block Settings!'); ?></div>
+<div style="background-color:red; color:white; padding:20px;"><?= Yii::t('forms', 'This form block is not properly configured. Select a form from the listing in the block settings.'); ?></div>
 <?php endif; ?>

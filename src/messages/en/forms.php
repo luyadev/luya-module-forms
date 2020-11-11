@@ -78,6 +78,7 @@ return [
     'Text' => '',
     'The variables {{label}} and {{value}} are available.' => '',
     'There are no submissions to export.' => '',
+    'This form block is not properly configured. Select a form from the listing in the block settings.' => '',
     'Title' => '',
     'Type' => '',
     'URL/Link' => '',
