@@ -45,7 +45,7 @@ class ExportActiveWindow extends ActiveWindow
     {
         $data = [];
 
-        foreach ($this->model->submissions as $submission) {
+        foreach ($this->model->getSubmission()->where(['is_done' => false])->all() as $submission) {
             $item = [
                 Yii::t('forms', 'Date') => Yii::$app->formatter->asDatetime($submission->created_at),
                 Yii::t('forms', 'Language') => $submission->language,
