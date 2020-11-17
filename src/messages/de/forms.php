@@ -66,7 +66,7 @@ return [
     'Summary' => 'Zusammenfassung',
     'Text' => 'Text Eingabe',
     'The variables {{label}} and {{value}} are available.' => 'Die Variablen {{label}} und {{value}} sind verfügbar.',
-    'There are no submissions to export.' => 'Es gitb keine Daten zu exportieren.',
+    'There are no submissions to export.' => 'Es sind keine Daten für den Export vorhanden.',
     'Title' => 'Titel',
     'Type' => 'Typ',
     'Updated At' => 'Aktualisiert am',
