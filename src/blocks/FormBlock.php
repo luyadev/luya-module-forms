@@ -30,7 +30,7 @@ class FormBlock extends PhpBlock
 
     public $review = false;
 
-    public $previewButtonsTemplate = '<div>{{back}}<span> | </span>{{submit}}</div>';
+    public $previewButtonsTemplate = '<div class="forms-preview-buttons-container">{{back}}<span class="forms-divider"> | </span>{{submit}}</div>';
 
     /**
      * {@inheritDoc}
@@ -74,10 +74,15 @@ class FormBlock extends PhpBlock
             'vars' => [
                 [
                     'var' => 'formId',
-                    'label' => 'Form',
+                    'label' => Yii::t('forms', 'Form'),
                     'type' => self::TYPE_SELECT_CRUD,
                     'required' => true,
                     'options' => ['route' => 'forms/form/index', 'api' => 'admin/api-forms-form', 'fields' => ['title']]
+                ],
+                [
+                    'var' => 'confirmStep',
+                    'label' => Yii::t('forms', 'Confirmation Step'),
+                    'type' => self::TYPE_CHECKBOX,
                 ]
             ],
             'cfgs' => [
@@ -94,6 +99,9 @@ class FormBlock extends PhpBlock
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function extraVars()
     {
         return [
@@ -103,8 +111,24 @@ class FormBlock extends PhpBlock
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getFieldHelp()
+    {
+        return [
+            'formmId' => Yii::t('forms', 'Select the recipient and formular configuraton from the database or create a new one'),
+            'confirmStep' => Yii::t('forms', 'When enabled, the user can see the entered date before submiting.'),
+        ];
+    }
+
     public function isSubmit()
     {
+        // when confirmm step is disabled, but review is loaded, this is equasl to a submit:
+        if (!$this->getVarValue('confirmStep') && $this->isReview()) {
+            return true;
+        }
+
         $isSubmit = Yii::$app->request->get('submit', false);
 
         return $isSubmit && $isSubmit == $this->getVarValue('formId');

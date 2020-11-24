@@ -10,7 +10,7 @@ class FormBlockTest extends BaseTestCase
     public function testSetup()
     {
         $block = new FormBlock();
-        $block->setVarValues(['formId' => 1]);
+        $block->setVarValues(['formId' => 1, 'confirmStep' => 1]);
         $block->setup();
 
         $response = $block->frontend();
