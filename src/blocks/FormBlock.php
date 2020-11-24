@@ -117,8 +117,8 @@ class FormBlock extends PhpBlock
     public function getFieldHelp()
     {
         return [
-            'formmId' => Yii::t('forms', 'Select the recipient and formular configuraton from the database or create a new one'),
-            'confirmStep' => Yii::t('forms', 'When enabled, the user can see the entered date before submiting.'),
+            'formId' => Yii::t('forms', 'Select the formular configuraton (defining mail and other settings) from the database or create a new one.'),
+'confirmStep' => Yii::t('forms', 'When enabled, the user will be presented with a summary before submitting the form data.'),
         ];
     }
 
