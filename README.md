@@ -21,7 +21,7 @@ composer require luyadev/luya-module-forms
 
 Add the module to the config
 
-```
+```php
 'modules' => [
   'forms' => [
     'class' => 'luya\forms\Module',
@@ -39,6 +39,30 @@ Run the import command afterwards:
 
 ```sh
 ./luya import
+```
+
+## Adjust Mailer Component
+
+In order to customize the mailer component which should be taken for sending the mails, define the Forms component with the given callback.
+
+```php
+'components' => [
+    'forms' => [
+        'class' => 'luya\forms\Forms.php',
+        'emailMessage' => function (SubmissionEmail $email, Forms $form) {
+        
+            // your custom mailer integration is here, ensure to return a boolean
+            // value whether sending was successfull or not!    
+            return \Yii::$app->mailer->compose()
+                ->setFrom(...)
+                ->setTo($email->getRecipients())
+                ->setSubject($email->getSubject())
+                ->setTextBody(strip_tags($email->getSummaryHtml()))
+                ->setHtmlBody($email->getSummaryHtml())
+                ->send();
+        }
+    ]
+]
 ```
 
 ## Create Custom Form Field Blocks
