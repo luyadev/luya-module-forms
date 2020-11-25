@@ -93,7 +93,7 @@ class CheckboxesBlock extends PhpBlock
 
         // if required, when not checked the submited value should be empty otherwise the required validator will not
         // catch the value `0` as required.
-        if ($this->varIsRequired) {
+        if ($this->getVarValue($this->varIsRequired)) {
             $options['uncheck'] = null;
         }
 

@@ -118,7 +118,7 @@ class FormBlock extends PhpBlock
     {
         return [
             'formId' => Yii::t('forms', 'Select the formular configuraton (defining mail and other settings) from the database or create a new one.'),
-'confirmStep' => Yii::t('forms', 'When enabled, the user will be presented with a summary before submitting the form data.'),
+            'confirmStep' => Yii::t('forms', 'When enabled, the user will be presented with a summary before submitting the form data.'),
         ];
     }
 
