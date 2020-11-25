@@ -91,12 +91,24 @@ class CheckboxesBlock extends PhpBlock
 
         $options = [];
 
+
+        // list of checkboxes
+        if (count($values) > 1) {
+            return $activeField->checkboxList($values);
+        }
+
         // if required, when not checked the submited value should be empty otherwise the required validator will not
         // catch the value `0` as required.
         if ($this->getVarValue($this->varIsRequired)) {
             $options['uncheck'] = null;
         }
 
-        return count($values) > 1 ? $activeField->checkboxList($values) : $activeField->checkbox($options);
+        // its a single checkbox, set the value as label
+        $label = reset($values);
+        if (!empty($label)) {
+            $options['label'] = $label;
+        }
+
+        return $activeField->checkbox($options);
     }
 }
