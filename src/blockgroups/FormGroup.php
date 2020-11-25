@@ -12,13 +12,27 @@ use luya\cms\base\BlockGroup;
  */
 class FormGroup extends BlockGroup
 {
+    /**
+     * {@inheritDoc}
+     */
     public function identifier()
     {
         return 'forms-group';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function label()
     {
         return 'Forms';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPosition()
+    {
+        return 100;
     }
 }
