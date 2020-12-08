@@ -15,6 +15,6 @@ class FormBlockTest extends BaseTestCase
 
         $response = $block->frontend();
 
-        $this->assertContains('<form', $response);
+        $this->assertStringContainsString('<form', $response);
     }
 }
