@@ -15,7 +15,7 @@
 		"luyadev/luya-module-cms" : "^3.4"
 	},
 	"require-dev" : {
-	    "luyadev/luya-testsuite" : "^1.0"
+	    "luyadev/luya-testsuite" : "^2.0"
 	},
 	"autoload" : {
 		"psr-4" : {
