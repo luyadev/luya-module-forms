@@ -32,7 +32,7 @@ class SelectBlock extends PhpBlock
      */
     public function name()
     {
-        return Yii::t('forms', 'Dropdown Select');
+        return Yii::t('forms', 'Dropdown/Radio Buttons');
     }
     
     /**
@@ -52,8 +52,8 @@ class SelectBlock extends PhpBlock
                     'label' => Yii::t('forms', 'Type'),
                     'type' => self::TYPE_RADIO,
                     'options' => BlockHelper::radioArrayOption([
-                        1 => Yii::t('forms', 'Dropdown Select'),
-                        2 => Yii::t('forms', 'Radio List'),
+                        1 => Yii::t('forms', 'Dropdown'),
+                        2 => Yii::t('forms', 'Radio Buttons'),
                     ])
                 ],
                 [
@@ -74,7 +74,7 @@ class SelectBlock extends PhpBlock
     */
     public function admin()
     {
-        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">'.Yii::t('forms', 'Dropdown Select').'</span></div>';
+        return '<div>{{vars.label}} <span class="badge badge-secondary float-right">'.Yii::t('forms', 'Dropdown/Radio Buttons').'</span></div>';
     }
 
     public function frontend()

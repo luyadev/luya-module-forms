@@ -37,7 +37,7 @@ class ExportActiveWindow extends ActiveWindow
     public function index()
     {
         return $this->render('index', [
-            'submissions' => $this->model->getSubmissions()->where(['is_done' => false])->all(),
+            'submissionsCount' => $this->model->getSubmissions()->where(['is_done' => false])->count(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class ExportActiveWindow extends ActiveWindow
 
             /** @var SubmissionValue $value */
             foreach ($submission->values as $value) {
-                $item[$value->label] = $value->formattedValue;
+                $item[$value->attribute] = $value->formattedValue;
             }
 
             $data[] = $item;

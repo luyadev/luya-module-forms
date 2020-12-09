@@ -86,6 +86,15 @@ class Submission extends NgRestModel
     /**
      * @inheritdoc
      */
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        SubmissionValue::deleteAll(['submission_id' => $this->id]);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function ngRestAttributeTypes()
     {
         return [
@@ -112,7 +121,7 @@ class Submission extends NgRestModel
         return [
             ['list', ['form_id', 'created_at', 'is_done', ]],
             [['create', 'update'], ['form_id', 'useragent', 'language', 'url']],
-            ['delete', false],
+            ['delete', true],
         ];
     }
 

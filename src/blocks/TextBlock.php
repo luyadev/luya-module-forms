@@ -46,7 +46,10 @@ class TextBlock extends PhpBlock
     {
         return ArrayHelper::merge($this->parentConfig(), [
             'vars' => [
-                ['var' => 'isTextarea', 'label' => Yii::t('forms', 'Multiline Input'), 'type' => self::TYPE_CHECKBOX]
+                ['var' => 'isTextarea', 'label' => Yii::t('forms', 'Multiline Input'), 'type' => self::TYPE_CHECKBOX],
+            ],
+            'cfgs' => [
+                ['var' => 'textareaRows', 'label' => Yii::t('forms', 'Multiline Rows'), 'type' => self::TYPE_NUMBER],
             ]
         ]);
     }
@@ -79,6 +82,6 @@ class TextBlock extends PhpBlock
 
         $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
 
-        return $this->getVarValue('isTextarea') ? $activeField->textArea() : $activeField->textInput();
+        return $this->getVarValue('isTextarea') ? $activeField->textArea(['rows' => $this->getCfgValue('textareaRows', null)]) : $activeField->textInput();
     }
 }

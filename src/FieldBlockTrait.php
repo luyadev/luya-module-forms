@@ -34,7 +34,7 @@ trait FieldBlockTrait
     {
         return [
             'vars' => [
-                ['var' => $this->varAttribute, 'label' => Yii::t('forms', 'Attribute'), 'required' => true, 'type' => self::TYPE_SLUG],
+                ['var' => $this->varAttribute, 'label' => Yii::t('forms', 'Attribute'), 'required' => true, 'type' => self::TYPE_TEXT],
                 ['var' => $this->varLabel, 'label' => Yii::t('forms', 'Label'), 'required' => true, 'type' => self::TYPE_TEXT],
                 ['var' => $this->varHint, 'label' => Yii::t('forms', 'Hint'), 'type' => self::TYPE_TEXTAREA],
                 ['var' => $this->varIsRequired, 'label' => Yii::t('forms', 'Required'), 'type' => self::TYPE_CHECKBOX],

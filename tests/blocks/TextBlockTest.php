@@ -26,4 +26,19 @@ class TextBlockTest extends BlockTestCase
 
         $this->app->forms->form->end();
     }
+
+    public function testMultiRows()
+    {
+        $this->app->forms->startForm(ActiveForm::begin());
+        $this->block->setVarValues([
+            'attribute' => 'firstname',
+            'isTextarea' => 1,
+        ]);
+        $this->block->setCfgValues([
+            'textareaRows' => 5,
+        ]);
+        $this->assertStringContainsString('rows="5"></textarea>', $this->block->frontend()->__toString());
+
+        $this->app->forms->form->end();
+    }
 }
