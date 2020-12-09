@@ -45,7 +45,14 @@ class ExportActiveWindow extends ActiveWindow
     {
         $data = [];
 
-        foreach ($this->model->getSubmissions()->where(['is_done' => false])->all() as $submission) {
+        $keys = false;
+
+        foreach ($this->model->getSubmissions()
+            ->where(['is_done' => false])
+            ->with(['values'])
+            ->orderBy(['id' => SORT_DESC])
+            ->all() as $submission) {
+
             $item = [
                 Yii::t('forms', 'Date') => Yii::$app->formatter->asDatetime($submission->created_at),
                 Yii::t('forms', 'Language') => $submission->language,
@@ -56,7 +63,20 @@ class ExportActiveWindow extends ActiveWindow
                 $item[$value->attribute] = $value->formattedValue;
             }
 
-            $data[] = $item;
+            // the latest submission value is the "master" for the export, thereore assign the keys
+            if (!$keys) {
+                $keys = array_keys($item);
+            }
+
+            $cleanedUpTime = array_intersect_key($item, array_flip($keys));
+
+            // ensure that new attributes exists in old values
+            foreach ($keys as $requiredKeyName) {
+                if (!array_key_exists($requiredKeyName, $cleanedUpTime)) {
+                    $cleanedUpTime[$requiredKeyName] = '';
+                }
+            }
+            $data[] = $cleanedUpTime;
         }
 
         return CallbackButtonFileDownloadWidget::sendOutput($this, Inflector::slug('export-' . Yii::$app->formatter->asDatetime(time())).'.xlsx', ExportHelper::xlsx($data, [], true, ['sort' => false]));
