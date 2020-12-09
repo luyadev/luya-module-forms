@@ -124,7 +124,7 @@ class FormBlock extends PhpBlock
 
     public function isSubmit()
     {
-        // when confirmm step is disabled, but review is loaded, this is equasl to a submit:
+        // when confirmm step is disabled, but review is loaded, this is equals to a submit:
         if (!$this->getVarValue('confirmStep') && $this->isReview()) {
             return true;
         }
@@ -141,23 +141,28 @@ class FormBlock extends PhpBlock
 
     public function getModels()
     {
-        $data = Yii::$app->forms->getFormData();
-        if ($this->isSubmit() && !empty($data)) {
-            /** @var Model $model */
-            $model = Yii::$app->forms->model;
-            $model->attributes = $data;
-            // invisible attributes should not be validate in the second validation step.
-            if ($model->validate($model->getAttributesWithoutInvisible())) {
-                if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')))) {
-                    throw new Exception("Error while saving the form data, please try again later.");
-                }
+        if ($this->isSubmit()) {
+            // the data is only available if the isSubmit call was running, therefore for
+            // first check for is submit
+            // second get data from session
+            $data = Yii::$app->forms->getFormData();
+            if (!empty($data)) {
+                /** @var Model $model */
+                $model = Yii::$app->forms->model;
+                $model->attributes = $data;
+                // invisible attributes should not be validate in the second validation step.
+                if ($model->validate($model->getAttributesWithoutInvisible())) {
+                    if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')))) {
+                        throw new Exception("Error while saving the form data, please try again later.");
+                    }
 
-                Yii::$app->forms->cleanup();
-                // set flash, redirect and end app
-                Yii::$app->session->setFlash('formDataSuccess');
-                Yii::$app->response->redirect(Yii::$app->menu->current->link);
-                
-                return Yii::$app->end();
+                    Yii::$app->forms->cleanup();
+                    // set flash, redirect and end app
+                    Yii::$app->session->setFlash('formDataSuccess');
+                    Yii::$app->response->redirect(Yii::$app->menu->current->link);
+                    
+                    return Yii::$app->end();
+                }
             }
         }
     }
