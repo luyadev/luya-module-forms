@@ -48,7 +48,7 @@ In order to customize the mailer component which should be taken for sending the
 ```php
 'components' => [
     'forms' => [
-        'class' => 'luya\forms\Forms.php',
+        'class' => 'luya\forms\Forms',
         'emailMessage' => function (SubmissionEmail $email, Forms $form) {
         
             // your custom mailer integration is here, ensure to return a boolean
