@@ -16,5 +16,15 @@ class FormBlockTest extends BaseTestCase
         $response = $block->frontend();
 
         $this->assertStringContainsString('<form', $response);
+
+        $this->app->forms->cleanup();
+
+        $this->assertFalse($block->isLoadedValidModel());
+        $this->assertFalse($block->isSubmit());
+        $this->assertSame([
+            'invokeSubmitAndStore' => null,
+            'isPreview' => false,
+            'isSubmit' => false,
+        ], $block->extraVars());
     }
 }

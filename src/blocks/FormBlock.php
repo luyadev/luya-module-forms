@@ -106,7 +106,7 @@ class FormBlock extends PhpBlock
     {
         return [
             'invokeSubmitAndStore' => $this->submitAndStore(),
-            'review' => $this->getVarValue('confirmStep') && $this->isLoadedValidModel(),
+            'isPreview' => $this->getVarValue('confirmStep') && $this->isLoadedValidModel(),
             'isSubmit' => $this->isSubmit(),
         ];
     }
