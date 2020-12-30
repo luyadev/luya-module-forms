@@ -17,7 +17,7 @@ use luya\helpers\StringHelper;
 <?php if (Yii::$app->session->getFlash('formDataSuccess')): ?>
     <?= $this->placeholderValue('success'); ?>
 <?php else: ?>
-    <?php if ($this->extraValue('review')): ?>
+    <?php if ($this->extraValue('isPreview')): ?>
         <?= $this->placeholderValue('preview'); ?>
         <?= StringHelper::template($this->varValue('previewButtonsTemplate', $this->context->previewButtonsTemplate), [
             'back' => Html::a($this->cfgValue('previewBackButtonLabel', Yii::t('forms', 'Back')), '?reload=' . $this->varValue('formId'), Yii::$app->forms->backButtonOptions),

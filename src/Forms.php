@@ -127,6 +127,7 @@ class Forms extends Component
         Yii::$app->session->remove($this->sessionFormDataName);
         $this->_model = null;
         $this->_form = null;
+        $this->_isLoaded = false;
     }
 
     private $_isLoaded = false;
@@ -142,7 +143,7 @@ class Forms extends Component
             return true;
         }
         
-        if (!Yii::$app->request->isPost) {
+        if (!Yii::$app->request->isPost || !$this->model) {
             return false;
         }
 

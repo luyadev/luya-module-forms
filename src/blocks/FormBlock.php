@@ -105,8 +105,8 @@ class FormBlock extends PhpBlock
     public function extraVars()
     {
         return [
-            'getModels' => $this->getModels(),
-            'review' => $this->isReview(),
+            'invokeSubmitAndStore' => $this->submitAndStore(),
+            'isPreview' => $this->getVarValue('confirmStep') && $this->isLoadedValidModel(),
             'isSubmit' => $this->isSubmit(),
         ];
     }
@@ -122,10 +122,15 @@ class FormBlock extends PhpBlock
         ];
     }
 
+    /**
+     * Check submit state based on different scenarios
+     * 
+     * @return boolean Whether the form is in submited state or not
+     */
     public function isSubmit()
     {
         // when confirmm step is disabled, but review is loaded, this is equals to a submit:
-        if (!$this->getVarValue('confirmStep') && $this->isReview()) {
+        if (!$this->getVarValue('confirmStep') && $this->isLoadedValidModel()) {
             return true;
         }
 
@@ -134,12 +139,22 @@ class FormBlock extends PhpBlock
         return $isSubmit && $isSubmit == $this->getVarValue('formId');
     }
 
-    public function isReview()
+    /**
+     * Load model data and validate
+     * 
+     * @return boolean Whether the model data is loaded and validated
+     */
+    public function isLoadedValidModel()
     {
         return Yii::$app->forms->loadModel();
     }
 
-    public function getModels()
+    /**
+     * Invokes the model submiting process and redirects the browsers if needed
+     *
+     * @return void
+     */
+    public function submitAndStore()
     {
         if ($this->isSubmit()) {
             // the data is only available if the isSubmit call was running, therefore for

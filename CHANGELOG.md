@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.2.1 ()
+
++ [#14](https://github.com/luyadev/luya-module-forms/issues/14) Fixed a bug where model validation does not work as expected when review step is diabled.
+
 ## 1.2.0 (30. December 2020)
 
 + [#13](https://github.com/luyadev/luya-module-forms/pull/13) Add new helper methods `getValueByAttribute()`, `getBodyHtml()`, `getBodyText()`, `getSummaryText()`.
