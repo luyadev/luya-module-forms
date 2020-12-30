@@ -189,4 +189,25 @@ class Submission extends NgRestModel
             ],
         ];
     }
+
+    /**
+     * Returns a value from a given submitted value.
+     * 
+     * For example you have an attribute "email" in your form, you can recieve this value with
+     * this method `getValueByAttribute('email')`. If not found false is returned.
+     *
+     * @param string $attribute The attribute name to lookup its value.
+     * @return mixed
+     * @since 1.2.0
+     */
+    public function getValueByAttribute($attribute)
+    {
+        foreach ($this->values as $value) {
+            if ($value->attribute == $attribute) {
+                return $value->value;
+            }
+        }
+
+        return false;
+    }
 }

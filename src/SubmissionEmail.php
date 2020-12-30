@@ -52,14 +52,35 @@ class SubmissionEmail
         $copyAttribute = $this->submission->form->copy_to_attribute;
 
         if ($copyAttribute) {
-            foreach ($this->submission->values as $value) {
-                if ($value->attribute == $copyAttribute) {
-                    $recipients[] = $value->value;
-                }
+            $copyAttributeValue = $this->submission->getValueByAttribute($copyAttribute);
+            if ($copyAttribute) {
+                $recipients[] = $copyAttributeValue;
             }
         }
 
         return array_unique($recipients);
+    }
+
+    /**
+     * Returns the full html body with intro, summary and outro.
+     *
+     * @return string
+     * @since 1.2.0
+     */
+    public function getBodyHtml()
+    {
+        return $this->getIntro() . $this->getSummaryHtml() . $this->getOutro();
+    }
+
+    /**
+     * Get the body with intro, summary and outro as text, with stripped tags
+     *
+     * @return string
+     * @since 1.2.0
+     */
+    public function getBodyText()
+    {
+        return strip_tags($this->getBodyHtml());
     }
 
     /**
@@ -76,6 +97,17 @@ class SubmissionEmail
         }
 
         return $html;
+    }
+
+    /**
+     * Get the summary text with stripped tags
+     *
+     * @return string
+     * @since 1.2.0
+     */
+    public function getSummaryText()
+    {
+        return strip_tags($this->getSummaryHtml());
     }
 
     /**

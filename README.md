@@ -57,8 +57,8 @@ In order to customize the mailer component which should be taken for sending the
                 ->setFrom(...)
                 ->setTo($email->getRecipients())
                 ->setSubject($email->getSubject())
-                ->setTextBody(strip_tags($email->getSummaryHtml()))
-                ->setHtmlBody($email->getSummaryHtml())
+                ->setTextBody($email->getBodyText())
+                ->setHtmlBody($email->getBodyHtml())
                 ->send();
         }
     ]
