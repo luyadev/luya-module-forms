@@ -16,7 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property text $title
  * @property text $subject
  * @property text $copy_to_attribute
- * @property text $recipients
+ * @property array $recipients
  * @property text $email_intro
  * @property text $email_outro
  * @property integer $created_at

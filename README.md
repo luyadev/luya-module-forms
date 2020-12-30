@@ -57,12 +57,22 @@ In order to customize the mailer component which should be taken for sending the
                 ->setFrom(...)
                 ->setTo($email->getRecipients())
                 ->setSubject($email->getSubject())
-                ->setTextBody(strip_tags($email->getSummaryHtml()))
-                ->setHtmlBody($email->getSummaryHtml())
+                ->setTextBody($email->getBodyText())
+                ->setHtmlBody($email->getBodyHtml())
                 ->send();
         }
     ]
 ]
+```
+
+Maybe the client would like to recieve a custom email, therefore you can extract the attribute value with `$email->submission->getValueByAttribute('email_attribute_in_form')`.
+
+```php
+'emailMessage' => function (SubmissionEmail $email, Forms $form) {
+    Yii::$app->mailer->compose()
+        ->setTo($email->submission->getValueByAttribute('email')) // receives the value from the user entered data.        
+        ....
+}
 ```
 
 ## Create Custom Form Field Blocks
