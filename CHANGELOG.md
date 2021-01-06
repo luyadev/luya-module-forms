@@ -5,6 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.2.1 ()
 
++ [#16](https://github.com/luyadev/luya-module-forms/issues/16) Fix formatting of values in email.
 + [#14](https://github.com/luyadev/luya-module-forms/issues/14) Fixed a bug where model validation does not work as expected when review step is diabled.
 
 ## 1.2.0 (30. December 2020)
