@@ -40,6 +40,7 @@ return [
     'Created By' => '',
     'Date' => '',
     'Date & Time' => '',
+    'Datepicker' => '',
     'Do not save data' => '',
     'Dropdown' => '',
     'Dropdown/Radio Buttons' => '',
