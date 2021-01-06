@@ -83,9 +83,14 @@ class FormBlock extends PhpBlock
                     'var' => 'confirmStep',
                     'label' => Yii::t('forms', 'Confirmation Step'),
                     'type' => self::TYPE_CHECKBOX,
-                ]
+                ],
             ],
             'cfgs' => [
+                [
+                    'var' => 'doNotSaveData',
+                    'label' => Yii::t('forms', 'Do not save data'),
+                    'type' => self::TYPE_CHECKBOX,
+                ],
                 ['var' => 'submitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_submitButtonLabel'), 'placeholder' => Yii::t('forms', 'Submit')],
                 ['var' => 'previewSubmitButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewSubmitButtonLabel'), 'placeholder' => Yii::t('forms', 'Submit')],
                 ['var' => 'previewBackButtonLabel', 'type' => self::TYPE_TEXT, 'label' => Yii::t('forms', 'form_label_previewBackButtonLabel'), 'placeholder' => Yii::t('forms', 'Back')],
@@ -119,6 +124,7 @@ class FormBlock extends PhpBlock
         return [
             'formId' => Yii::t('forms', 'Select the formular configuraton (defining mail and other settings) from the database or create a new one.'),
             'confirmStep' => Yii::t('forms', 'When enabled, the user will be presented with a summary before submitting the form data.'),
+            'doNotSaveData' => Yii::t('forms', 'If enabled, the form data will not be stored in the database, but only sent by e-mail to the specified recipients.'),
         ];
     }
 
@@ -167,7 +173,7 @@ class FormBlock extends PhpBlock
                 $model->attributes = $data;
                 // invisible attributes should not be validate in the second validation step.
                 if ($model->validate($model->getAttributesWithoutInvisible())) {
-                    if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')))) {
+                    if (!Yii::$app->forms->save(Form::findOne($this->getVarValue('formId')), $this->getCfgValue('doNotSaveData', false))) {
                         throw new Exception("Error while saving the form data, please try again later.");
                     }
 

@@ -184,9 +184,11 @@ class Forms extends Component
      * Submit and Save the form and store the data
      *
      * @param Form $form
+     * @param boolean $doNotSave Whether the form should really be saved, this can be enabled when sensitiv informations should not be stored
+     * and just sent by email instead.
      * @return boolean Whether sending was succesful or not
      */
-    public function save(Form $form)
+    public function save(Form $form, $doNotSave = false)
     {
         $model = new Submission();
         $model->form_id = $form->id;
@@ -216,23 +218,31 @@ class Forms extends Component
 
         $submissionEmail = new SubmissionEmail($model);
 
-        if ($this->emailMessage) {
-            return call_user_func($this->emailMessage, $submissionEmail, $this);
-        } else {
-            $mail = Yii::$app->mail
-                ->compose(
-                    $submissionEmail->getSubject(),
-                    StringHelper::template($this->defaultEmailTemplate, [
-                        'intro' => $submissionEmail->getIntro(),
-                        'outro' => $submissionEmail->getOutro(),
-                        'summary' => $submissionEmail->getSummaryHtml()
-                    ])
-                )
-                ->addresses($submissionEmail->getRecipients())
-                ->send();
+        try {
+            if ($this->emailMessage) {
+                return call_user_func($this->emailMessage, $submissionEmail, $this);
+            } else {
+                $mail = Yii::$app->mail
+                    ->compose(
+                        $submissionEmail->getSubject(),
+                        StringHelper::template($this->defaultEmailTemplate, [
+                            'intro' => $submissionEmail->getIntro(),
+                            'outro' => $submissionEmail->getOutro(),
+                            'summary' => $submissionEmail->getSummaryHtml()
+                        ])
+                    )
+                    ->addresses($submissionEmail->getRecipients())
+                    ->send();
 
-            if (!$mail) {
-                throw new Exception(Yii::$app->mail->error);
+                if (!$mail) {
+                    throw new Exception(Yii::$app->mail->error);
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            if ($doNotSave) {
+                $model->delete();
             }
         }
 
