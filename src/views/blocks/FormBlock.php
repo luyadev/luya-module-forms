@@ -24,7 +24,7 @@ use luya\helpers\StringHelper;
             'submit' => Html::a($this->cfgValue('previewSubmitButtonLabel', Yii::t('forms', 'Submit')), '?submit='.$this->varValue('formId'), Yii::$app->forms->submitButtonsOptions),
         ]); ?>
     <?php else: ?>
-        <?php if ($this->extraValue('isSubmit') && Yii::$app->forms->model->hasErrors()): ?>
+        <?php if (Yii::$app->forms->model->hasErrors()): ?>
             <?= Yii::$app->forms->form->errorSummary(Yii::$app->forms->model); ?>
         <?php endif; ?>
         <?= $this->placeholderValue('content'); ?>

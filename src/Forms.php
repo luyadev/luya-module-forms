@@ -34,7 +34,7 @@ class Forms extends Component
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
     /**
-     * @var array A configuration array which will be passed to ActiveForm::begin($options).
+     * @var array A configuration array which will be passed to ActiveForm::begin($options). Example usage 'enableClientValidation' => false
      */
     public $activeFormClassOptions = [];
 
@@ -139,6 +139,7 @@ class Forms extends Component
      */
     public function loadModel()
     {
+        Yii::debug('load and validate model', __METHOD__);
         if ($this->_isLoaded) {
             return true;
         }
@@ -147,9 +148,9 @@ class Forms extends Component
             return false;
         }
 
-        $this->model->load(Yii::$app->request->post());
-        if ($this->model->validate()) {
+        if ($this->model->load(Yii::$app->request->post()) && $this->model->validate()) {
             Yii::$app->session->set($this->sessionFormDataName, $this->model->attributes);
+            Yii::debug('successfull loaded and validated model', __METHOD__);
             $this->_isLoaded = true;
             return true;
         }
@@ -271,6 +272,8 @@ class Forms extends Component
      */
     public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null, $formatAs = null)
     {
+        Yii::debug('configure form attribute: ' . $attributeName, __METHOD__);
+
         $this->createAttribute($attributeName, $rule);
 
         if ($isRequired) {
@@ -292,12 +295,20 @@ class Forms extends Component
      * Create a new attribute with a required default rule
      *
      * @param string $attributeName
-     * @param string $rule
+     * @param string|array $rule Providing a rule by array means the first element of the array must be the rule, while the second
+     * an array with the options. `[RequireValidator::class, ['skipOnEmpty' => true]]`
      */
     public function createAttribute($attributeName, $rule = 'safe')
     {
         $this->model->defineAttribute($attributeName);
-        $this->setAttributeRule($attributeName, $rule);
+
+        // [RequireValidator::class, ['foo' => 'bar']]
+        $options = [];
+        if (is_array($rule)) {
+            list($rule, $options) = $rule;
+        }
+
+        $this->setAttributeRule($attributeName, $rule, $options);
     }
 
     /**

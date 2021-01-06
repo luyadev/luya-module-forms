@@ -44,6 +44,7 @@ trait FieldBlockTrait
                     'number' => Yii::t('forms', 'Number'),
                     'email' => Yii::t('forms', 'Email'),
                     'boolean' => Yii::t('forms', 'Boolean'),
+                    'date' => Yii::t('forms', 'Date'),
                  ])],
                 ['var' => $this->varFormatAs, 'label' => Yii::t('forms', 'Formatting'), 'type' => self::TYPE_SELECT, 'options' => BlockHelper::selectArrayOption([
                     null => Yii::t('forms', 'Automatically'),

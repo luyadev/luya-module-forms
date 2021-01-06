@@ -37,6 +37,7 @@ class FormBlock extends PhpBlock
      */
     public function setup()
     {
+        Yii::debug('from block setup invocation', __METHOD__);
         $object = Yii::$app->forms->activeFormClass;
         Yii::$app->forms->startForm($object::begin(Yii::$app->forms->activeFormClassOptions));
     }
@@ -110,9 +111,9 @@ class FormBlock extends PhpBlock
     public function extraVars()
     {
         return [
+            'isSubmit' => $this->isSubmit(),
             'invokeSubmitAndStore' => $this->submitAndStore(),
             'isPreview' => $this->getVarValue('confirmStep') && $this->isLoadedValidModel(),
-            'isSubmit' => $this->isSubmit(),
         ];
     }
 
