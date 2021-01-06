@@ -34,7 +34,7 @@ class Forms extends Component
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
     /**
-     * @var array A configuration array which will be passed to ActiveForm::begin($options).
+     * @var array A configuration array which will be passed to ActiveForm::begin($options). Example usage `['enableClientValidation' => false]`
      */
     public $activeFormClassOptions = [];
 
@@ -72,6 +72,13 @@ class Forms extends Component
      * The return value must indicate whether sending was successfull or not
      */
     public $emailMessage;
+
+    /**
+     * @var boolean Indicates whether the current model has been loaded or not. This does not say anything about whether loading was successfull
+     * or not.
+     * @since 1.3.0
+     */
+    protected $isModelLoaded = false;
 
     /**
      * @var ActiveForm
@@ -128,6 +135,7 @@ class Forms extends Component
         $this->_model = null;
         $this->_form = null;
         $this->_isLoaded = false;
+        $this->isModelLoaded = false;
     }
 
     private $_isLoaded = false;
@@ -139,6 +147,7 @@ class Forms extends Component
      */
     public function loadModel()
     {
+        Yii::debug('load and validate model', __METHOD__);
         if ($this->_isLoaded) {
             return true;
         }
@@ -147,9 +156,11 @@ class Forms extends Component
             return false;
         }
 
-        $this->model->load(Yii::$app->request->post());
-        if ($this->model->validate()) {
+        $this->isModelLoaded = $this->model->load(Yii::$app->request->post());
+
+        if ($this->isModelLoaded && $this->model->validate()) {
             Yii::$app->session->set($this->sessionFormDataName, $this->model->attributes);
+            Yii::debug('successfull loaded and validated model', __METHOD__);
             $this->_isLoaded = true;
             return true;
         }
@@ -168,7 +179,25 @@ class Forms extends Component
     }
 
     /**
-     * Return the value for a given attribute form the form data§
+     * Get the attribute value for a given value from the post data
+     *
+     * @param string $attribute
+     * @return mixed
+     * @since 1.3.0
+     */
+    public function postAttributeValue($attribute)
+    {
+        if (!Yii::$app->request->isPost) {
+            return [];
+        }
+
+        $data = Yii::$app->request->post($this->model->formName(), []);
+
+        return array_key_exists($attribute, $data) ? $data[$attribute] : null;
+    }
+
+    /**
+     * Return the value for a given attribute form the form data
      *
      * @param string $attributeName
      * @return mixed
@@ -177,16 +206,28 @@ class Forms extends Component
     {
         $data = $this->getFormData();
 
-        return isset($data[$attributeName]) ? $data[$attributeName] : null;
+        $value = isset($data[$attributeName]) ? $data[$attributeName] : null;
+
+        // the value is empty and the form is not yet loaded
+        // lets try to extract the values from the post data for now
+        // because the model loading can only work when all attributes are stored
+        // which is after the form attributes are defined!
+        if (empty($value) && !$this->isModelLoaded) {
+            return $this->postAttributeValue($attributeName);
+        }
+
+        return $value;
     }
 
     /**
      * Submit and Save the form and store the data
      *
      * @param Form $form
+     * @param boolean $doNotSave Whether the form should really be saved, this can be enabled when sensitiv informations should not be stored
+     * and just sent by email instead.
      * @return boolean Whether sending was succesful or not
      */
-    public function save(Form $form)
+    public function save(Form $form, $doNotSave = false)
     {
         $model = new Submission();
         $model->form_id = $form->id;
@@ -216,30 +257,36 @@ class Forms extends Component
 
         $submissionEmail = new SubmissionEmail($model);
 
-        if ($this->emailMessage) {
-            return call_user_func($this->emailMessage, $submissionEmail, $this);
-        } else {
-            $mail = Yii::$app->mail
-                ->compose(
-                    $submissionEmail->getSubject(),
-                    StringHelper::template($this->defaultEmailTemplate, [
-                        'intro' => $submissionEmail->getIntro(),
-                        'outro' => $submissionEmail->getOutro(),
-                        'summary' => $submissionEmail->getSummaryHtml()
-                    ])
-                )
-                ->addresses($submissionEmail->getRecipients())
-                ->send();
+        try {
+            if ($this->emailMessage) {
+                return call_user_func($this->emailMessage, $submissionEmail, $this);
+            } else {
+                $mail = Yii::$app->mail
+                    ->compose(
+                        $submissionEmail->getSubject(),
+                        StringHelper::template($this->defaultEmailTemplate, [
+                            'intro' => $submissionEmail->getIntro(),
+                            'outro' => $submissionEmail->getOutro(),
+                            'summary' => $submissionEmail->getSummaryHtml()
+                        ])
+                    )
+                    ->addresses($submissionEmail->getRecipients())
+                    ->send();
 
-            if (!$mail) {
-                throw new Exception(Yii::$app->mail->error);
+                if (!$mail) {
+                    throw new Exception(Yii::$app->mail->error);
+                }
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            if ($doNotSave) {
+                $model->delete();
             }
         }
 
         return true;
     }
-
-    
 
     /**
      * Auto configures a gien attribute into the model.
@@ -261,6 +308,8 @@ class Forms extends Component
      */
     public function autoConfigureAttribute($attributeName, $rule, $isRequired, $label = null, $hint = null, $formatAs = null)
     {
+        Yii::debug('configure form attribute: ' . $attributeName, __METHOD__);
+
         $this->createAttribute($attributeName, $rule);
 
         if ($isRequired) {
@@ -282,12 +331,20 @@ class Forms extends Component
      * Create a new attribute with a required default rule
      *
      * @param string $attributeName
-     * @param string $rule
+     * @param string|array $rule Providing a rule by array means the first element of the array must be the rule, while the second
+     * an array with the options. `[RequireValidator::class, ['skipOnEmpty' => true]]`
      */
     public function createAttribute($attributeName, $rule = 'safe')
     {
         $this->model->defineAttribute($attributeName);
-        $this->setAttributeRule($attributeName, $rule);
+
+        // [RequireValidator::class, ['foo' => 'bar']]
+        $options = [];
+        if (is_array($rule)) {
+            list($rule, $options) = $rule;
+        }
+
+        $this->setAttributeRule($attributeName, $rule, $options);
     }
 
     /**

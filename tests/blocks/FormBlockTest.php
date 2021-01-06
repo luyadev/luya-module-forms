@@ -22,9 +22,9 @@ class FormBlockTest extends BaseTestCase
         $this->assertFalse($block->isLoadedValidModel());
         $this->assertFalse($block->isSubmit());
         $this->assertSame([
+            'isSubmit' => false,
             'invokeSubmitAndStore' => null,
             'isPreview' => false,
-            'isSubmit' => false,
         ], $block->extraVars());
     }
 }

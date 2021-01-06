@@ -93,7 +93,7 @@ class SubmissionEmail
         $html = null;
 
         foreach ($this->submission->values as $value) {
-            $html .= "<p>{$value->label}: {$value->value}</p>";
+            $html .= "<p>{$value->label}: {$value->formattedValue}</p>";
         }
 
         return $html;
