@@ -66,7 +66,7 @@ class SubmissionEmailTest extends BaseTestCase
         $s = new SubmissionEmail(Submission::findOne(1));
 
         $this->assertSame('Subject', $s->getSubject());
-        $this->assertSame(['john@luya.io', 'foobar@luya.io', 'value'], $s->getRecipients());
+        $this->assertSame(['john@luya.io', 'foobar@luya.io'], $s->getRecipients());
         $this->assertSame('<p>XYZ: value</p><p>XYZ: value</p>', $s->getSummaryHtml());
         $this->assertSame('', $s->getIntro());
         $this->assertSame('', $s->getOutro());
