@@ -34,7 +34,7 @@ class Forms extends Component
     public $activeFormClass = 'yii\widgets\ActiveForm';
 
     /**
-     * @var array A configuration array which will be passed to ActiveForm::begin($options). Example usage 'enableClientValidation' => false
+     * @var array A configuration array which will be passed to ActiveForm::begin($options). Example usage `['enableClientValidation' => false]`
      */
     public $activeFormClassOptions = [];
 
@@ -72,6 +72,13 @@ class Forms extends Component
      * The return value must indicate whether sending was successfull or not
      */
     public $emailMessage;
+
+    /**
+     * @var boolean Indicates whether the current model has been loaded or not. This does not say anything about whether loading was successfull
+     * or not.
+     * @since 1.3.0
+     */
+    protected $isModelLoaded = false;
 
     /**
      * @var ActiveForm
@@ -128,6 +135,7 @@ class Forms extends Component
         $this->_model = null;
         $this->_form = null;
         $this->_isLoaded = false;
+        $this->isModelLoaded = false;
     }
 
     private $_isLoaded = false;
@@ -148,7 +156,9 @@ class Forms extends Component
             return false;
         }
 
-        if ($this->model->load(Yii::$app->request->post()) && $this->model->validate()) {
+        $this->isModelLoaded = $this->model->load(Yii::$app->request->post());
+
+        if ($this->isModelLoaded && $this->model->validate()) {
             Yii::$app->session->set($this->sessionFormDataName, $this->model->attributes);
             Yii::debug('successfull loaded and validated model', __METHOD__);
             $this->_isLoaded = true;
@@ -169,7 +179,25 @@ class Forms extends Component
     }
 
     /**
-     * Return the value for a given attribute form the form data§
+     * Get the attribute value for a given value from the post data
+     *
+     * @param string $attribute
+     * @return mixed
+     * @since 1.3.0
+     */
+    public function postAttributeValue($attribute)
+    {
+        if (!Yii::$app->request->isPost) {
+            return [];
+        }
+
+        $data = Yii::$app->request->post($this->model->formName(), []);
+
+        return array_key_exists($attribute, $data) ? $data[$attribute] : null;
+    }
+
+    /**
+     * Return the value for a given attribute form the form data
      *
      * @param string $attributeName
      * @return mixed
@@ -178,7 +206,17 @@ class Forms extends Component
     {
         $data = $this->getFormData();
 
-        return isset($data[$attributeName]) ? $data[$attributeName] : null;
+        $value = isset($data[$attributeName]) ? $data[$attributeName] : null;
+
+        // the value is empty and the form is not yet loaded
+        // lets try to extract the values from the post data for now
+        // because the model loading can only work when all attributes are stored
+        // which is after the form attributes are defined!
+        if (empty($value) && !$this->isModelLoaded) {
+            return $this->postAttributeValue($attributeName);
+        }
+
+        return $value;
     }
 
     /**
@@ -249,8 +287,6 @@ class Forms extends Component
 
         return true;
     }
-
-    
 
     /**
      * Auto configures a gien attribute into the model.
