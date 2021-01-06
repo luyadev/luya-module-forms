@@ -4,6 +4,7 @@ namespace luya\forms;
 
 use luya\forms\models\Submission;
 use luya\helpers\StringHelper;
+use yii\validators\EmailValidator;
 
 /**
  * E-Mail Submission Object
@@ -53,7 +54,8 @@ class SubmissionEmail
 
         if ($copyAttribute) {
             $copyAttributeValue = $this->submission->getValueByAttribute($copyAttribute);
-            if ($copyAttribute) {
+            $validator = new EmailValidator();
+            if (!empty($copyAttributeValue) && $validator->validate($copyAttributeValue)) {
                 $recipients[] = $copyAttributeValue;
             }
         }
