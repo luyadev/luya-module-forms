@@ -41,6 +41,17 @@ class FileBlock extends PhpBlock
     {
         return 'attach_file';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function config()
+    {
+        $config = $this->parentConfig();
+        // remove validator
+        unset($config['vars'][4]);
+        return $config;
+    }
     
     /**
      * {@inheritDoc}

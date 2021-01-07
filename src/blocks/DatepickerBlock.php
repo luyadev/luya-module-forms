@@ -7,6 +7,7 @@ use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
 use luya\helpers\ArrayHelper;
 use Yii;
+use yii\validators\DateValidator;
 
 /**
  * DatePicker using HTML type "date"
@@ -50,7 +51,10 @@ class DatepickerBlock extends PhpBlock
      */
     public function config()
     {
-        return ArrayHelper::merge($this->parentConfig(), [
+        $config = $this->parentConfig();
+        // remove validator
+        unset($config['vars'][4]);
+        return ArrayHelper::merge($config, [
             'cfgs' => [
                 ['var' => 'disablePolyfill', 'label' => Yii::t('forms', 'Disable Polyfill'), 'type' => self::TYPE_CHECKBOX],
             ]
@@ -87,7 +91,10 @@ class DatepickerBlock extends PhpBlock
 
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
-            $this->getVarValue($this->varRule, $this->defaultRule),
+            [
+                DateValidator::class,
+                ['format' => 'yyyy-MM-dd']
+            ],
             $this->getVarValue($this->varIsRequired),
             $this->getVarValue($this->varLabel),
             $this->getVarValue($this->varHint),
