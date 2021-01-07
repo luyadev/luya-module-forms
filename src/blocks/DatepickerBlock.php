@@ -56,6 +56,16 @@ class DatepickerBlock extends PhpBlock
             ]
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFieldHelp()
+    {
+        return [
+            'disablePolyfill' => Yii::t('forms', 'When enabled, the polyfill which ensures the datepicker works on Safari and Internet Explorer is disabled.'),
+        ];
+    }
     
     /**
      * {@inheritDoc}
