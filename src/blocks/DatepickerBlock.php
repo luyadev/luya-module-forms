@@ -86,7 +86,8 @@ class DatepickerBlock extends PhpBlock
     public function frontend()
     {
         if (!$this->getCfgValue('disablePolyfill', false)) {
-            Yii::$app->view->registerJsFile('//cdn.jsdelivr.net/npm/nodep-date-input-polyfill@5.2.0/nodep-date-input-polyfill.dist.min.js', [], 'nodep-date-input-polyfil');
+            Yii::$app->view->registerJsFile('//cdn.jsdelivr.net/npm/better-dom@4.1.0/dist/better-dom.min.js');
+            Yii::$app->view->registerJsFile('//cdnjs.cloudflare.com/ajax/libs/better-dateinput-polyfill/3.3.1/better-dateinput-polyfill.min.js', [], 'nodep-date-input-polyfil');
         }
 
         Yii::$app->forms->autoConfigureAttribute(
