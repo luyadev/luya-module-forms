@@ -192,7 +192,7 @@ class Submission extends NgRestModel
 
     /**
      * Returns a value from a given submitted value.
-     * 
+     *
      * For example you have an attribute "email" in your form, you can recieve this value with
      * this method `getValueByAttribute('email')`. If not found false is returned.
      *

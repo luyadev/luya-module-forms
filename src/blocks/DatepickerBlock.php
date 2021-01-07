@@ -5,13 +5,14 @@ namespace luya\forms\blocks;
 use luya\cms\base\PhpBlock;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
+use luya\helpers\ArrayHelper;
 use Yii;
 
 /**
  * DatePicker using HTML type "date"
- * 
+ *
  * The date (value) is always formatted according to ISO8601
- * 
+ *
  * @since 1.3.0
  * @author Basil Suter <git@nadar.io>
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
@@ -43,6 +44,28 @@ class DatepickerBlock extends PhpBlock
     {
         return 'date_range';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function config()
+    {
+        return ArrayHelper::merge($this->parentConfig(), [
+            'cfgs' => [
+                ['var' => 'disablePolyfill', 'label' => Yii::t('forms', 'Disable Polyfill'), 'type' => self::TYPE_CHECKBOX],
+            ]
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFieldHelp()
+    {
+        return [
+            'disablePolyfill' => Yii::t('forms', 'When enabled, the polyfill which ensures the datepicker works on Safari and Internet Explorer is disabled.'),
+        ];
+    }
     
     /**
      * {@inheritDoc}
@@ -58,6 +81,10 @@ class DatepickerBlock extends PhpBlock
 
     public function frontend()
     {
+        if (!$this->getCfgValue('disablePolyfill', false)) {
+            Yii::$app->view->registerJsFile('//cdn.jsdelivr.net/npm/nodep-date-input-polyfill@5.2.0/nodep-date-input-polyfill.dist.min.js', [], 'nodep-date-input-polyfil');
+        }
+
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
             $this->getVarValue($this->varRule, $this->defaultRule),
