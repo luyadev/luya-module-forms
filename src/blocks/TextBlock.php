@@ -42,6 +42,9 @@ class TextBlock extends PhpBlock
         return 'message';
     }
 
+    /**
+     * @inheritDoc
+     */
     public function config()
     {
         return ArrayHelper::merge($this->parentConfig(), [

@@ -5,6 +5,7 @@ namespace luya\forms\blocks;
 use luya\cms\base\PhpBlock;
 use luya\forms\blockgroups\FormGroup;
 use luya\forms\FieldBlockTrait;
+use luya\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -43,6 +44,18 @@ class DatepickerBlock extends PhpBlock
     {
         return 'date_range';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function config()
+    {
+        return ArrayHelper::merge($this->parentConfig(), [
+            'cfgs' => [
+                ['var' => 'disablePolyfill', 'label' => Yii::t('forms', 'Disable Polyfill'), 'type' => self::TYPE_CHECKBOX],
+            ]
+        ]);
+    }
     
     /**
      * {@inheritDoc}
@@ -58,6 +71,10 @@ class DatepickerBlock extends PhpBlock
 
     public function frontend()
     {
+        if (!$this->getCfgValue('disablePolyfill', false)) {
+            Yii::$app->view->registerJsFile('//cdn.jsdelivr.net/npm/nodep-date-input-polyfill@5.2.0/nodep-date-input-polyfill.dist.min.js', [], 'nodep-date-input-polyfil');
+        }
+
         Yii::$app->forms->autoConfigureAttribute(
             $this->getVarValue($this->varAttribute),
             $this->getVarValue($this->varRule, $this->defaultRule),
