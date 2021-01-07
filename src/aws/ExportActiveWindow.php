@@ -52,7 +52,6 @@ class ExportActiveWindow extends ActiveWindow
             ->with(['values'])
             ->orderBy(['id' => SORT_DESC])
             ->all() as $submission) {
-
             $item = [
                 Yii::t('forms', 'Date') => Yii::$app->formatter->asDatetime($submission->created_at),
                 Yii::t('forms', 'Language') => $submission->language,

@@ -131,7 +131,7 @@ class FormBlock extends PhpBlock
 
     /**
      * Check submit state based on different scenarios
-     * 
+     *
      * @return boolean Whether the form is in submited state or not
      */
     public function isSubmit()
@@ -148,7 +148,7 @@ class FormBlock extends PhpBlock
 
     /**
      * Load model data and validate
-     * 
+     *
      * @return boolean Whether the model data is loaded and validated
      */
     public function isLoadedValidModel()

@@ -10,9 +10,9 @@ use Yii;
 
 /**
  * DatePicker using HTML type "date"
- * 
+ *
  * The date (value) is always formatted according to ISO8601
- * 
+ *
  * @since 1.3.0
  * @author Basil Suter <git@nadar.io>
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
