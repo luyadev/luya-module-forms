@@ -62,7 +62,26 @@ class SelectBlock extends PhpBlock
                     'type' => self::TYPE_LIST_ARRAY
                 ]
             ],
+            'cfgs' => [
+                [
+                    'var' => 'separator',
+                    'label' => Yii::t('forms', 'Separator'),
+                    'type' => self::TYPE_TEXT,
+                    'placeholder' => '\n',
+
+                ]
+            ]
         ], $this->parentConfig());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFieldHelp()
+    {
+        return [
+            'separator' => Yii::t('forms', 'The HTML code that separates items. By default, it is a newline, use &nbsp; to separate items with spaces.')
+        ];
     }
     
     /**
@@ -92,6 +111,8 @@ class SelectBlock extends PhpBlock
 
         $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
 
-        return $this->getVarValue('type') == 1 ? $activeField->dropDownList($values, ['prompt' => '-']) : $activeField->radioList($values);
+        return $this->getVarValue('type') == 1 ? $activeField->dropDownList($values, ['prompt' => '-']) : $activeField->radioList($values, [
+            'separator' => $this->getCfgValue('separator', '\n'),
+        ]);
     }
 }

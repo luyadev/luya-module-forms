@@ -2,7 +2,7 @@
 
 namespace luya\forms\tests\blocks;
 
-use luya\forms\blocks\CheckboxesBlock;
+use luya\cms\helpers\BlockHelper;
 use luya\forms\blocks\SelectBlock;
 use luya\forms\tests\BlockTestCase;
 use yii\widgets\ActiveField;
@@ -25,6 +25,22 @@ class SelectBlockTest extends BlockTestCase
         $this->assertNotEmpty($this->block->name());
         $this->assertNotEmpty($this->block->blockGroup());
         $this->assertNotEmpty($this->block->config());
+
+        $this->app->forms->form->end();
+    }
+
+    public function testRadioListSeparator()
+    {
+        $this->app->forms->startForm(ActiveForm::begin());
+        $this->block->setVarValues([
+            'attribute' => 'radiolist',
+            'values' => BlockHelper::selectArrayOption([1 => 'One', 2 => 'Two']),
+            'type' => 0,
+        ]);
+        $this->block->setCfgValues([
+            'separator' => '<--foo-->'
+        ]);
+        $this->assertStringContainsString('label><--foo--><label', $this->renderFrontend()->__toString());
 
         $this->app->forms->form->end();
     }

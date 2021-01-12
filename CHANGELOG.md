@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.4.0 (12. January 2020)
+
++ [#19](https://github.com/luyadev/luya-module-forms/pull/19) Added new option to define the `separator` value when using radio buttons as select.
+
 ## 1.3.1 (7. January 2020)
 
 + [#18](https://github.com/luyadev/luya-module-forms/pull/18) Added a Polyfill in order to ensure the Datepicker works on IE and Safari.

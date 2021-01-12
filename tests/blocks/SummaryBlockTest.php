@@ -17,7 +17,7 @@ class SummaryBlockTest extends BlockTestCase
             'attribute' => 'firstname',
             'values' => [],
         ]);
-        $this->assertEmpty($this->block->frontend());
+        $this->assertEmpty($this->renderFrontend());
         $this->assertNotEmpty($this->block->admin());
         $this->assertNotEmpty($this->block->icon());
         $this->assertNotEmpty($this->block->name());
