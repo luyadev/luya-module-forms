@@ -80,7 +80,7 @@ class SelectBlock extends PhpBlock
     public function getFieldHelp()
     {
         return [
-            'separator' => Yii::t('forms', 'The HTML code that separates items. By defaults its a newline, use &nbsp;&nbsp; to separate items with spaces.')
+            'separator' => Yii::t('forms', 'The HTML code that separates items. By default, it is a newline, use &nbsp; to separate items with spaces.')
         ];
     }
     
