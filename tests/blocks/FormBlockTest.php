@@ -13,7 +13,7 @@ class FormBlockTest extends BaseTestCase
         $block->setVarValues(['formId' => 1, 'confirmStep' => 1]);
         $block->setup();
 
-        $response = $block->frontend();
+        $response = $block->renderFrontend();
 
         $this->assertStringContainsString('<form', $response);
 

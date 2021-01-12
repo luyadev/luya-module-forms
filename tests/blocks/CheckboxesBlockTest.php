@@ -18,7 +18,7 @@ class CheckboxesBlockTest extends BlockTestCase
             'attribute' => 'firstname',
             'values' => [],
         ]);
-        $this->assertInstanceOf(ActiveField::class, $this->block->frontend());
+        $this->assertInstanceOf(ActiveField::class, $this->renderFrontend());
         $this->assertNotEmpty($this->block->admin());
         $this->assertNotEmpty($this->block->icon());
         $this->assertNotEmpty($this->block->name());

@@ -40,7 +40,7 @@ class SelectBlockTest extends BlockTestCase
         $this->block->setCfgValues([
             'separator' => '<--foo-->'
         ]);
-        $this->assertStringContainsString('label><--foo--><label', $this->block->frontend()->__toString());
+        $this->assertStringContainsString('label><--foo--><label', $this->renderFrontend()->__toString());
 
         $this->app->forms->form->end();
     }
