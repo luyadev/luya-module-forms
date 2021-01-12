@@ -74,6 +74,9 @@ class SelectBlock extends PhpBlock
         ], $this->parentConfig());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getFieldHelp()
     {
         return [
