@@ -5,7 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.4.1 (15. January 2020)
 
-+ [#]() Fixed bug with radio list separator.
++ Fixed bug with radio list separator.
  
 ## 1.4.0 (12. January 2020)
 
