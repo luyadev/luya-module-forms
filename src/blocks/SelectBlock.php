@@ -112,7 +112,7 @@ class SelectBlock extends PhpBlock
         $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
 
         return $this->getVarValue('type') == 1 ? $activeField->dropDownList($values, ['prompt' => '-']) : $activeField->radioList($values, [
-            'separator' => $this->getCfgValue('separator', '\n'),
+            'separator' => $this->getCfgValue('separator', "\n")
         ]);
     }
 }
