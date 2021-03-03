@@ -134,11 +134,11 @@ class Forms extends Component
         Yii::$app->session->remove($this->sessionFormDataName);
         $this->_model = null;
         $this->_form = null;
-        $this->_isLoaded = false;
+        $this->isModelValidated = false;
         $this->isModelLoaded = false;
     }
 
-    private $_isLoaded = false;
+    public $isModelValidated = false;
 
     /**
      * Loads the data from the post request into the model, validates it and stores the data in the session.
@@ -148,7 +148,7 @@ class Forms extends Component
     public function loadModel()
     {
         Yii::debug('load and validate model', __METHOD__);
-        if ($this->_isLoaded) {
+        if ($this->isModelValidated) {
             return true;
         }
         
@@ -161,7 +161,7 @@ class Forms extends Component
         if ($this->isModelLoaded && $this->model->validate()) {
             Yii::$app->session->set($this->sessionFormDataName, $this->model->attributes);
             Yii::debug('successfull loaded and validated model', __METHOD__);
-            $this->_isLoaded = true;
+            $this->isModelValidated = true;
             return true;
         }
 
