@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.4.3 (4. March 2020)
+
++ [#22](https://github.com/luyadev/luya-module-forms/pull/22) Make labels in email submission summary bold for better readability. 
+
 ## 1.4.2 (4. March 2020)
 
 + [#21](https://github.com/luyadev/luya-module-forms/pull/21) Fixed a bug where the export where wrong sorted if a new field has been added in between existing columns.
