@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.4.2 (4. March 2020)
+
++ [#20](https://github.com/luyadev/luya-module-forms/pull/20) Fixed a bug where multiple validations throws an error with storage file validators.
+
 ## 1.4.1 (15. January 2020)
 
 + Fixed bug with radio list separator.
