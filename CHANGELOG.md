@@ -5,6 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.4.2 (4. March 2020)
 
++ [#21](https://github.com/luyadev/luya-module-forms/pull/21) Fixed a bug where the export where wrong sorted if a new field has been added in between existing columns.
 + [#20](https://github.com/luyadev/luya-module-forms/pull/20) Fixed a bug where multiple validations throws an error with storage file validators.
 
 ## 1.4.1 (15. January 2020)
