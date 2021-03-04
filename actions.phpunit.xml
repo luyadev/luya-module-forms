@@ -9,7 +9,7 @@
          convertWarningsToExceptions="true"
 >
   <testsuites>
-      <testsuite name="PHP-MOD CURL">
+      <testsuite name="LUYA TESTS">
           <directory>tests</directory>
       </testsuite>
   </testsuites>
