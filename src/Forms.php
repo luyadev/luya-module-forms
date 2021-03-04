@@ -78,7 +78,13 @@ class Forms extends Component
      * or not.
      * @since 1.3.0
      */
-    protected $isModelLoaded = false;
+    public $isModelLoaded = false;
+
+    /**
+     * @var boolean Indicates whether the curent model is loaded AND sucessfull validated.
+     * @since 1.4.2
+     */
+    public $isModelValidated = false;
 
     /**
      * @var ActiveForm
@@ -137,8 +143,6 @@ class Forms extends Component
         $this->isModelValidated = false;
         $this->isModelLoaded = false;
     }
-
-    public $isModelValidated = false;
 
     /**
      * Loads the data from the post request into the model, validates it and stores the data in the session.
