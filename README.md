@@ -69,7 +69,7 @@ Maybe the client would like to recieve a custom email, therefore you can extract
 
 ```php
 'emailMessage' => function (SubmissionEmail $email, Forms $form) {
-    Yii::$app->mailer->compose()
+    return Yii::$app->mailer->compose()
         ->setTo($email->submission->getValueByAttribute('email')) // receives the value from the user entered data.        
         ....
 }
