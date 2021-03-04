@@ -52,6 +52,7 @@ class ExportActiveWindow extends ActiveWindow
             ->with(['values'])
             ->orderBy(['id' => SORT_DESC])
             ->all() as $submission) {
+
             $item = [
                 Yii::t('forms', 'Date') => Yii::$app->formatter->asDatetime($submission->created_at),
                 Yii::t('forms', 'Language') => $submission->language,
@@ -75,9 +76,29 @@ class ExportActiveWindow extends ActiveWindow
                     $cleanedUpTime[$requiredKeyName] = '';
                 }
             }
-            $data[] = $cleanedUpTime;
+            $data[] = $this->sortArrayByArray($cleanedUpTime, $keys);
         }
 
         return CallbackButtonFileDownloadWidget::sendOutput($this, Inflector::slug('export-' . Yii::$app->formatter->asDatetime(time())).'.xlsx', ExportHelper::xlsx($data, [], true, ['sort' => false]));
+    }
+
+    /**
+     * Sort the given array by the they values of another array
+     *
+     * @param array $array
+     * @param array $orderArray
+     * @return array
+     */
+    private function sortArrayByArray(array $array, array $orderArray)
+    {
+        $ordered = [];
+        foreach ($orderArray as $key) {
+            if (array_key_exists($key, $array)) {
+                $ordered[$key] = $array[$key];
+                unset($array[$key]);
+            }
+        }
+
+        return $ordered + $array;
     }
 }
