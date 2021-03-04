@@ -67,11 +67,11 @@ class SubmissionEmailTest extends BaseTestCase
 
         $this->assertSame('Subject', $s->getSubject());
         $this->assertSame(['john@luya.io', 'foobar@luya.io'], $s->getRecipients());
-        $this->assertSame('<p>XYZ: value</p><p>XYZ: value</p>', $s->getSummaryHtml());
+        $this->assertSame('<p><strong>XYZ</strong>: value</p><p><strong>XYZ</strong>: value</p>', $s->getSummaryHtml());
         $this->assertSame('', $s->getIntro());
         $this->assertSame('', $s->getOutro());
         $this->assertSame('XYZ: valueXYZ: value', $s->getBodyText());
-        $this->assertSame('<p>XYZ: value</p><p>XYZ: value</p>', $s->getBodyHtml());
+        $this->assertSame('<p><strong>XYZ</strong>: value</p><p><strong>XYZ</strong>: value</p>', $s->getBodyHtml());
         $this->assertSame('XYZ: valueXYZ: value', $s->getSummaryText());
         $this->assertSame('value', $s->submission->getValueByAttribute('xyz'));
         $this->assertFalse($s->submission->getValueByAttribute('doesnotexists'));
