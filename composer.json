@@ -11,8 +11,8 @@
 		}
 	],
 	"require": {
-		"luyadev/luya-module-admin" : "^3.0",
-		"luyadev/luya-module-cms" : "^3.4"
+		"luyadev/luya-module-admin" : ">=3.0",
+		"luyadev/luya-module-cms" : ">=3.4"
 	},
 	"require-dev" : {
 	    "luyadev/luya-testsuite" : "^2.0"
