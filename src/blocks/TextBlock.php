@@ -53,7 +53,7 @@ class TextBlock extends PhpBlock
             ],
             'cfgs' => [
                 ['var' => 'textareaRows', 'label' => Yii::t('forms', 'Multiline Rows'), 'type' => self::TYPE_NUMBER],
-                ['var' => 'hiddenInputValue', 'label' => Yii::t('forms', 'As Hidden Input value'), 'type' => self::TYPE_TEXT],
+                ['var' => 'hiddenInputValue', 'label' => Yii::t('forms', 'As Hidden Input Value'), 'type' => self::TYPE_TEXT],
             ]
         ]);
     }
