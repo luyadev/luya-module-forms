@@ -61,7 +61,7 @@ class TextBlock extends PhpBlock
     public function getFieldHelp()
     {
         return [
-            'hiddenInputValue' => Yii::t('forms', 'If this field contains a value, the field will be declared as `hidden` input and the given value will be the input value instead of users input. Note: 0 is not an allowed value'),
+            'hiddenInputValue' => Yii::t('forms', 'block_hiddenInputValue_help'),
         ];
     }
     

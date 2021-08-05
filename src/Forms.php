@@ -261,6 +261,10 @@ class Forms extends Component
 
         $submissionEmail = new SubmissionEmail($model);
 
+        // if the form should not trigger, no recipients are given.
+        if (empty($submissionEmail->getRecipients())) {
+            return true;
+        }
         try {
             if ($this->emailMessage) {
                 return call_user_func($this->emailMessage, $submissionEmail, $this);
