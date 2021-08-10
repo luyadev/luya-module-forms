@@ -261,7 +261,8 @@ class Forms extends Component
 
         $submissionEmail = new SubmissionEmail($model);
 
-        // if the form should not trigger, no recipients are given.
+        // if no recipients are defined, the form wont trigger an email
+        // and therefore succeed.
         if (empty($submissionEmail->getRecipients())) {
             return true;
         }

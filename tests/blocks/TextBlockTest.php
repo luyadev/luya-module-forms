@@ -41,4 +41,20 @@ class TextBlockTest extends BlockTestCase
 
         $this->app->forms->form->end();
     }
+
+    public function testHiddenInput()
+    {
+        $this->app->forms->startForm(ActiveForm::begin());
+        $this->block->setVarValues([
+            'attribute' => 'firstname',
+            'isTextarea' => 1,
+        ]);
+        $this->block->setCfgValues([
+            'hiddenInputValue' => 'hiddenvalue',
+        ]);
+        $this->assertStringContainsString('type="hidden"', $this->block->frontend()->__toString());
+        $this->assertStringContainsString('value="hiddenvalue"', $this->block->frontend()->__toString());
+
+        $this->app->forms->form->end();
+    }
 }
