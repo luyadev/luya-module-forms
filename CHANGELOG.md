@@ -5,7 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.5.0 (10. August 2021)
 
-+ [#24](https://github.com/luyadev/luya-module-forms/issues/24) If not recipients are provided, no emails will be triggered.
++ [#24](https://github.com/luyadev/luya-module-forms/issues/24) If no recipients are provided, no emails will be triggered. This allows you to build forms with just saving the data into the database.
 + [#23](https://github.com/luyadev/luya-module-forms/issues/23) Added option to define hidden input fields with a preset value.
 
 ## 1.4.4 (27. July 2021)
