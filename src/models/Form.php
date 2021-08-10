@@ -144,6 +144,7 @@ class Form extends NgRestModel
             'subject' => Yii::t('forms', 'form_model_subject_hint'),
             'copy_to_attribute' => Yii::t('forms', 'form_model_copy_to_attribute_hint'),
             'email_intro' => Yii::t('forms', 'form_model_email_intro_hint'),
+            'recipients' => Yii::t('forms', 'form_model_email_recipients_hint'),
         ];
     }
 

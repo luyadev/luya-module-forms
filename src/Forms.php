@@ -261,6 +261,11 @@ class Forms extends Component
 
         $submissionEmail = new SubmissionEmail($model);
 
+        // if no recipients are defined, the form wont trigger an email
+        // and therefore succeed.
+        if (empty($submissionEmail->getRecipients())) {
+            return true;
+        }
         try {
             if ($this->emailMessage) {
                 return call_user_func($this->emailMessage, $submissionEmail, $this);

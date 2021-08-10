@@ -53,8 +53,16 @@ class TextBlock extends PhpBlock
             ],
             'cfgs' => [
                 ['var' => 'textareaRows', 'label' => Yii::t('forms', 'Multiline Rows'), 'type' => self::TYPE_NUMBER],
+                ['var' => 'hiddenInputValue', 'label' => Yii::t('forms', 'As Hidden Input Value'), 'type' => self::TYPE_TEXT],
             ]
         ]);
+    }
+
+    public function getFieldHelp()
+    {
+        return [
+            'hiddenInputValue' => Yii::t('forms', 'block_hiddenInputValue_help'),
+        ];
     }
     
     /**
@@ -84,6 +92,12 @@ class TextBlock extends PhpBlock
         );
 
         $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
+
+        $hiddenInputValue = $this->getCfgValue('hiddenInputValue');
+
+        if (!empty($hiddenInputValue)) {
+            return $activeField->hiddenInput(['value' => $hiddenInputValue])->label(false);
+        }
 
         return $this->getVarValue('isTextarea') ? $activeField->textArea(['rows' => $this->getCfgValue('textareaRows', null)]) : $activeField->textInput();
     }
