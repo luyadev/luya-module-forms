@@ -27,6 +27,7 @@ Add the module to the config
 
 ```php
 'modules' => [
+    //...
     'forms' => [
         'class' => 'luya\forms\Module',
     ]
@@ -51,6 +52,7 @@ In order to customize the mailer component which should be taken for sending the
 
 ```php
 'components' => [
+    //...
     'forms' => [
         'class' => 'luya\forms\Forms',
         'emailMessage' => function (SubmissionEmail $email, Forms $form) {
