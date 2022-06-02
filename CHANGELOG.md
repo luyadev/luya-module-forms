@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.5.1 (2. June 2022)
+
++ Fixed issue with latest Yii Framework Dynamic Model
++ Added Tests for PHP 8.1
+
 ## 1.5.0 (10. August 2021)
 
 + [#24](https://github.com/luyadev/luya-module-forms/issues/24) If no recipients are provided, no emails will be triggered. This allows you to build forms with just saving the data into the database.
