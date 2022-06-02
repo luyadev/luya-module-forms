@@ -399,7 +399,7 @@ class Forms extends Component
      */
     public function setAttributeHint($attribute, $hint)
     {
-        $this->model->attributeHints[$attribute] = $hint;
+        $this->model->_attributeHints[$attribute] = $hint;
     }
 
     /**
