@@ -12,7 +12,8 @@
 	],
 	"require": {
 		"luyadev/luya-module-admin" : ">=3.0",
-		"luyadev/luya-module-cms" : ">=3.4"
+		"luyadev/luya-module-cms" : ">=3.4",
+		"yiisoft/yii2" : "^2.0.35"
 	},
 	"require-dev" : {
 	    "luyadev/luya-testsuite" : "^2.0"

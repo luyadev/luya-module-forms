@@ -388,7 +388,7 @@ class Forms extends Component
      */
     public function setAttributeLabel($attribute, $label)
     {
-        $this->model->attributeLabels[$attribute] = $label;
+        $this->model->setAttributeLabel($attribute, $label);
     }
 
     /**
