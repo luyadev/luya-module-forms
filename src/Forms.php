@@ -10,6 +10,7 @@ use luya\helpers\ArrayHelper;
 use luya\helpers\StringHelper;
 use Yii;
 use yii\base\Component;
+use yii\base\Event;
 use yii\widgets\ActiveForm;
 
 /**
@@ -23,6 +24,8 @@ use yii\widgets\ActiveForm;
  */
 class Forms extends Component
 {
+    const EVENT_AFTER_SAVE = 'afterSave';
+
     /**
      * @var string The session variable name
      */
@@ -260,6 +263,11 @@ class Forms extends Component
         }
 
         $submissionEmail = new SubmissionEmail($model);
+
+        $event = new AfterSaveEvent();
+        $event->submission = $submissionEmail;
+        $event->form = $form;
+        $this->trigger(self::EVENT_AFTER_SAVE, $event);
 
         // if no recipients are defined, the form wont trigger an email
         // and therefore succeed.
