@@ -5,7 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.6.0
 
-+ [#]() New event
++ [#28](https://github.com/luyadev/luya-module-forms/pull/28) New `afterSave` event on `Forms` component.
 
 ## 1.5.1 (2. June 2022)
 
