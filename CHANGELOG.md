@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
-## 1.7.0
+## 1.7.0 (1. September 2022)
 
 + [#29](https://github.com/luyadev/luya-module-forms/pull/29) Added option to retrieve certain value in submission email object.
 
