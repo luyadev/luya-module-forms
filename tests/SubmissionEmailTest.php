@@ -75,5 +75,9 @@ class SubmissionEmailTest extends BaseTestCase
         $this->assertSame('XYZ: valueXYZ: value', $s->getSummaryText());
         $this->assertSame('value', $s->submission->getValueByAttribute('xyz'));
         $this->assertFalse($s->submission->getValueByAttribute('doesnotexists'));
+
+        $this->assertSame(['xyz' => 'value'], $s->variablizeValues());
+        $this->assertSame(false, $s->getAttributeValue('doesnotexists', false));
+        $this->assertSame('value', $s->getAttributeValue('xyz'));
     }
 }

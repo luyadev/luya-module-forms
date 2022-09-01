@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.7.0
+
++ [#29](https://github.com/luyadev/luya-module-forms/pull/29) Added option to retrieve certain value in submission email object.
+
 ## 1.6.0 (24. August 2022)
 
 + [#28](https://github.com/luyadev/luya-module-forms/pull/28) New `afterSave` event on `Forms` component.

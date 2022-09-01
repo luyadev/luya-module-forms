@@ -132,18 +132,39 @@ class SubmissionEmail
         return StringHelper::template($this->submission->form->email_outro, $this->variablizeValues());
     }
 
+    private $_variablizedValues = false;
+
     /**
      * Get all variables with its value as array
      *
      * @return array
+     * @since 1.7.0
      */
-    protected function variablizeValues()
+    public function variablizeValues()
     {
-        $vars = [];
-        foreach ($this->submission->values as $value) {
-            $vars[$value->attribute] = $value->value;
+        if ($this->_variablizedValues === false) {
+            $vars = [];
+            foreach ($this->submission->values as $value) {
+                $vars[$value->attribute] = $value->value;
+            }
+            $this->_variablizedValues = $vars;
         }
 
-        return $vars;
+        return $this->_variablizedValues;
+    }
+
+    /**
+     * Get attribute value
+     *
+     * @param string $attributeName
+     * @param mixed $defaultValue
+     * @return mixed
+     * @since 1.7.0
+     */
+    public function getAttributeValue($attributeName, $defaultValue = null)
+    {
+        $vars = $this->variablizeValues();
+        
+        return array_key_exists($attributeName, $vars) ? $vars[$attributeName] : $defaultValue;
     }
 }
