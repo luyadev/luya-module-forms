@@ -5,7 +5,7 @@ In order to read more about upgrading and BC breaks have a look at the [UPGRADE 
 
 ## 1.7.0
 
-+ [#29]() Added option to retrieve certain value in submission email object.
++ [#29](https://github.com/luyadev/luya-module-forms/pull/29) Added option to retrieve certain value in submission email object.
 
 ## 1.6.0 (24. August 2022)
 
