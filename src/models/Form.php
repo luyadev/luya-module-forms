@@ -23,7 +23,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- *
+ * @property Submission[] $submissions
  * @author Basil Suter <git@nadar.io>
  * @since 1.0.0
  */
@@ -59,6 +59,19 @@ class Form extends NgRestModel
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init()
+    {
+        parent::init();
+        $this->on(self::EVENT_AFTER_DELETE, function() {
+            foreach ($this->submissions as $submission) {
+                $submission->delete();
+            }
+        });
     }
 
     /**
@@ -131,7 +144,7 @@ class Form extends NgRestModel
         return [
             ['list', ['title', 'recipients']],
             [['create', 'update'], ['title', 'recipients', 'subject', 'copy_to_attribute', 'email_intro', 'email_outro']],
-            ['delete', false],
+            ['delete', true],
         ];
     }
 
