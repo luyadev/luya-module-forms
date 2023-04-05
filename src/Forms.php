@@ -199,6 +199,10 @@ class Forms extends Component
         }
 
         $data = Yii::$app->request->post($this->model->formName(), []);
+        
+        if (!is_array($data)) {
+            return null;
+        }
 
         return array_key_exists($attribute, $data) ? $data[$attribute] : null;
     }
