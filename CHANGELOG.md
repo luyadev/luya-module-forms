@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.7.2 (5. April 2023)
+
++ [#31](https://github.com/luyadev/luya-module-forms/pull/31) Added PT Translations
++ Added tests for PHP 8.2
++ Fixed issue where value was not an array.
+
 ## 1.7.1 (5. October 2022)
 
 + [#30](https://github.com/luyadev/luya-module-forms/pull/30) Added option to delete forms including all values and submissions.
