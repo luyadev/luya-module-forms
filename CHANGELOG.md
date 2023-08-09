@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.8.0 (9. August 2023)
+
++ Apply the `nl2br()` function on the intro and outro text within the default email compose function. This ensures that all newlines are transformed into `<br />` tags, unless you choose to override the default behavior by implementing your own custom logic using the `'emailMessage' => function(SubmissionEmail $email, Forms $forms) {}` function.
+
 ## 1.7.4 (9. August 2023)
 
 + Add empty attribute name check to SelectBlock.

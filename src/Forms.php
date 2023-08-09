@@ -286,8 +286,8 @@ class Forms extends Component
                     ->compose(
                         $submissionEmail->getSubject(),
                         StringHelper::template($this->defaultEmailTemplate, [
-                            'intro' => $submissionEmail->getIntro(),
-                            'outro' => $submissionEmail->getOutro(),
+                            'intro' => nl2br($submissionEmail->getIntro()),
+                            'outro' => nl2br($submissionEmail->getOutro()),
                             'summary' => $submissionEmail->getSummaryHtml()
                         ])
                     )
