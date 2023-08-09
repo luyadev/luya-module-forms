@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.7.4 (9. August 2023)
+
++ Add empty attribute name check to SelectBlock.
+
 ## 1.7.3 (9. August 2023)
 
 + Enhance the handling of empty attribute name values to ensure that the input is hidden gracefully instead of triggering an error when no attribute name is provided. Additionally, empty arrays for select and checkbox inputs no longer result in exceptions. Instead, an empty array is now the default, ensuring that nothing is displayed and the process proceeds smoothly.
