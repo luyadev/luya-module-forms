@@ -112,7 +112,7 @@ class SelectBlock extends PhpBlock
             return;
         }
 
-        $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($varName));
+        $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $varName);
 
         $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values', []), 'value'));
 
