@@ -85,9 +85,14 @@ class CheckboxesBlock extends PhpBlock
             $this->getVarValue($this->varFormatAs)
         );
 
-        $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
+        $varName = $this->getVarValue($this->varAttribute);
+        if (!$varName) {
+            return;
+        }
 
-        $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
+        $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $varName);
+
+        $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values', []), 'value'));
 
         $options = [];
 

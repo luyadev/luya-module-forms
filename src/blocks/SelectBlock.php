@@ -109,7 +109,7 @@ class SelectBlock extends PhpBlock
 
         $activeField = Yii::$app->forms->form->field(Yii::$app->forms->model, $this->getVarValue($this->varAttribute));
 
-        $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values'), 'value'));
+        $values = ArrayHelper::combine(ArrayHelper::getColumn($this->getVarValue('values', []), 'value'));
 
         return $this->getVarValue('type') == 1 ? $activeField->dropDownList($values, ['prompt' => '-']) : $activeField->radioList($values, [
             'separator' => $this->getCfgValue('separator', "\n")
