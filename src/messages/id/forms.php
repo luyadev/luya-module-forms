@@ -28,7 +28,7 @@ return [
     'form_label_previewSubmitButtonLabel' => 'Label tombol berikut pratinjau',
     'form_label_submitButtonLabel' => 'Label tombol kirim formulir',
     'form_model_copy_to_attribute_hint' => 'Jika atribut ditentukan dan ada dalam formulir, nilai bidangnya akan ditambahkan ke daftar penerima.',
-    'form_model_email_intro_hint' => 'Teks bidang ini akan digunakan sebagai teks pengantar untuk email. Semua variabel yang ditentukan dapat dimasukkan dengan {{atribut}}.',
+    'form_model_email_intro_hint' => 'Teks bidang ini akan digunakan sebagai teks pengantar untuk email. Semua variabel yang ditentukan dapat dimasukkan dengan {{attribute}}.',
     'form_model_email_recipients_hint' => 'Jika tidak ada penerima yang disediakan, pengiriman formulir tidak akan memicu pengiriman email.',
     'form_model_subject_hint' => 'Subjek email. Jika tidak ditentukan, judul formulir akan digunakan.',
     'As Hidden Input Value' => 'Sebagai Nilai Input Tersembunyi',
