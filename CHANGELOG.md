@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 In order to read more about upgrading and BC breaks have a look at the [UPGRADE Document](UPGRADE.md).
 
+## 1.8.2
+
++ [#34](https://github.com/luyadev/luya-module-forms/pull/34) Fixed a parameter placeholder in indonesia language
+
 ## 1.8.1 (31. October 2023)
 
 + [#32](https://github.com/luyadev/luya-module-forms/pull/32) Added bahasa indonesia language
